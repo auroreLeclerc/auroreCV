@@ -19,7 +19,7 @@ main section h1::after {
 	padding: 0;
 	width: 100%;
 	border-width: 0; /* chrome mobile workaround */
-	border-left-width: 4px; /* otherwise empty separator */
+	border-bottom-width: 4px; /* otherwise empty separator */
 	border-style: solid;
 	border-color: purple;
 	border-radius: 4px;
