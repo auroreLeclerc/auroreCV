@@ -5,7 +5,7 @@
 	"lang": "fr",
 	"theme_color": "darkorchid",
 	"background_color": "darkorchid",
-	"start_url": "/index.html",
+	"start_url": "./",
 	"id": "🏳️‍⚧️",
 	"version": "1.0.0",
 	"changelogs": [
@@ -36,7 +36,7 @@
 	"shortcuts": [
         {
             "name": "Accueil",
-            "url": "/index.html",
+            "url": "./index.html",
             "icons": [
                 {
                     "src": "./src/img/homeMade/icons/192.png",
@@ -46,7 +46,7 @@
             ]
         }, {
             "name": "Paramètres",
-            "url": "/settings.html",
+            "url": "./settings.html",
             "icons": [
                 {
                     "src": "./src/img/homeMade/icons/192.png",

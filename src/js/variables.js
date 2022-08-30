@@ -1,7 +1,7 @@
 export const CACHE_NAME = "auroreCV";
 export const MANIFEST_NAME = "manifest.json";
 export const OFFLINE_URLS = [
-	"/",
+	"./",
 	"LICENSE",
 
 	"service-worker.js",
