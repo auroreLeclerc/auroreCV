@@ -5,6 +5,7 @@ body > header, body > footer {
     flex-flow: row wrap;
     justify-content: space-around;
 	align-items: center;
+	text-align: center;
 
     background: linear-gradient(to bottom right, hsl(310, 80%, 55%), hsl(240, 79%, 57%));
 }
