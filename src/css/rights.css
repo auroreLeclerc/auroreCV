@@ -1,0 +1,26 @@
+@import url("./style.css");
+@import url("./header.css");
+
+article#licence .flexCenter a img {
+	max-height: 1em;
+}
+
+article div.mosaic {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+article div.mosaic img {
+	max-height: 5em;
+	max-width: 10em;
+}
+
+main article h3 {
+	font-weight: normal;
+}
+
+main article h3 a {
+	border-bottom-width: 1px;
+}

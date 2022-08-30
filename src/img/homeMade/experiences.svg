@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 800 800"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="experiences.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title849">Briefcase</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     width="800px"
+     inkscape:snap-bbox="false"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:bbox-nodes="true"
+     inkscape:bbox-paths="true"
+     showguides="true"
+     inkscape:snap-global="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="0.31955275"
+     inkscape:cx="644.651"
+     inkscape:cy="729.14409"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-page="true"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Main"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g845"
+       inkscape:label="Briefcase"
+       transform="matrix(0.625,0,0,0.625,0,-4.6874999e-6)"
+       style="fill:#32cd32;fill-opacity:1">
+      <path
+         id="rect846"
+         style="fill:#32cd32;fill-opacity:1;stroke-width:92.4273"
+         d="M 53.496094,791.39648 C 51.213748,798.26909 50,805.38152 50,812.67382 v 272.29298 c 0,58.9618 78.27184,106.4297 175.49805,106.4297 H 1054.502 c 97.2262,0 175.498,-47.4679 175.498,-106.4297 V 812.67382 c 0,-7.29231 -1.2137,-14.40473 -3.4961,-21.27734 a 590,178.29314 0 0 1 -461.62695,158 c -1.28289,34.54941 -29.50848,62.00002 -64.4707,62.00002 h -120.8125 c -34.96222,0 -63.18781,-27.45061 -64.4707,-62.00002 a 590,178.29314 0 0 1 -461.626956,-158 z"
+         inkscape:label="bottom" />
+      <rect
+         style="display:inline;fill:#32cd32;fill-opacity:1;stroke-width:18.3238"
+         id="rect846-3-6-7"
+         width="150"
+         height="150"
+         x="565"
+         y="811.39648"
+         rx="49.312946"
+         ry="49.312946"
+         inkscape:label="buckle" />
+      <path
+         id="rect2356"
+         style="fill:#32cd32;fill-opacity:1;stroke-width:55.2856"
+         d="m 465,88.603515 c -13.85,0 -25,11.15 -25,25.000005 v 150 c 0,13.85 11.15,25 25,25 13.85,0 25,-11.15 25,-25 v -125 h 300 v 125 c 0,13.85 11.15,25 25,25 13.85,0 25,-11.15 25,-25 v -150 c 0,-13.850005 -11.15,-25.000005 -25,-25.000005 -0.84716,0 -1.68279,0.0454 -2.50781,0.12695 -1.00919,-0.0815 -2.03209,-0.12695 -3.06836,-0.12695 H 470.57617 c -1.03627,0 -2.05917,0.0454 -3.06836,0.12695 -0.82502,-0.0815 -1.66065,-0.12695 -2.50781,-0.12695 z"
+         inkscape:label="handle" />
+      <path
+         id="rect846-3"
+         style="fill:#32cd32;fill-opacity:1;stroke-width:89.216"
+         d="M 190.37109,261.39648 C 84.905381,261.39648 0,302.16706 0,352.81054 V 575 586.68945 c 0,6.79738 1.6393916,13.39476 4.5429688,19.76172 A 640,286.39618 0 0 0 515,855.25586 v -29.42968 c 0,-35.69387 28.80885,-64.4297 64.59375,-64.4297 h 120.8125 c 35.7849,0 64.59375,28.73583 64.59375,64.4297 v 29.42969 a 640,286.39618 0 0 0 510.457,-248.80469 c 2.9036,-6.36696 4.543,-12.96434 4.543,-19.76172 V 575 352.81054 c 0,-50.64348 -84.9054,-91.41406 -190.3711,-91.41406 z"
+         inkscape:label="top" />
+    </g>
+  </g>
+  <metadata
+     id="metadata847">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Briefcase</dc:title>
+        <dc:date>2022</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>GNU GPLv3</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 800 800.00003"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="skills.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title832">Coding Screen</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:zoom="0.90335981"
+     inkscape:cx="584.48471"
+     inkscape:cy="365.30295"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g2177"
+     inkscape:snap-global="true"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050" />
+  <defs
+     id="defs2">
+    <rect
+       x="113.13594"
+       y="351.94137"
+       width="231.69192"
+       height="99.151528"
+       id="rect3283" />
+  </defs>
+  <g
+     inkscape:label="Skills"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2177"
+       inkscape:label="Screen"
+       transform="translate(-2.6702881e-5,91.071704)">
+      <rect
+         style="fill:#ff9800;fill-opacity:1;stroke:none;stroke-width:1.01351;stroke-linejoin:round"
+         id="rect950"
+         width="200"
+         height="174.33002"
+         x="300.00003"
+         y="450.66971"
+         inkscape:label="column" />
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#ff9800;stroke-width:48.66;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect846"
+         width="751.34003"
+         height="451.34"
+         x="24.330013"
+         y="-0.67028064"
+         rx="49.830822"
+         ry="55.874023"
+         inkscape:label="display" />
+      <rect
+         style="fill:#ff9800;fill-opacity:1;stroke:none;stroke-width:0.640679;stroke-linejoin:round"
+         id="rect1054"
+         width="600"
+         height="50"
+         x="100.00003"
+         y="592.85687"
+         inkscape:label="foot"
+         rx="15.202602"
+         ry="11.824245" />
+    </g>
+    <text
+       xml:space="preserve"
+       id="text3281"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.3261px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect3283);display:inline;fill:#ff9800;fill-opacity:1;stroke:none"
+       transform="matrix(48.041679,0,0,48.041679,-5324.731,-16811.168)"
+       inkscape:label="code"><tspan
+         x="113.13672"
+         y="359.44118"
+         id="tspan206">&lt;/&gt;</tspan></text>
+  </g>
+  <metadata
+     id="metadata828">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Coding Screen</dc:title>
+        <dc:date>2022</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>GNU GPLv3</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

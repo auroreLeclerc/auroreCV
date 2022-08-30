@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 800 800"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="agenda.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title826">Agenda</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:zoom="0.49264169"
+     inkscape:cx="357.25762"
+     inkscape:cy="440.48241"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Agenda"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#7c4dff;stroke-width:95.7637"
+       id="rect850"
+       width="700"
+       height="650"
+       x="50"
+       y="125"
+       rx="34.00774"
+       ry="36.841717"
+       inkscape:label="background" />
+    <rect
+       style="fill:#7c4dff;stroke:#ffffff;stroke-width:21.623;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect954"
+       width="78.376984"
+       height="178.37698"
+       x="160.81149"
+       y="35.811504"
+       rx="39.188492"
+       ry="39.188492"
+       inkscape:label="attachLeft" />
+    <rect
+       style="fill:#7c4dff;stroke:#ffffff;stroke-width:21.623;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect954-6"
+       width="78.376984"
+       height="178.37698"
+       x="560.81152"
+       y="35.811504"
+       rx="39.188492"
+       ry="39.188492"
+       inkscape:label="attachRight" />
+    <rect
+       style="fill:#ffffff;stroke:none;stroke-width:7.22835;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1971"
+       width="700"
+       height="15"
+       x="50"
+       y="261.98749"
+       inkscape:label="separation" />
+    <g
+       id="g3477"
+       inkscape:label="Days">
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5-3-9-7"
+         width="100"
+         height="100"
+         x="400"
+         y="626.98749"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day10" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5-3-9"
+         width="100"
+         height="100"
+         x="250"
+         y="626.98749"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day9" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5-3"
+         width="100"
+         height="100"
+         x="100"
+         y="626.98749"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day8" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5-2-2-9"
+         width="100"
+         height="100"
+         x="550"
+         y="476.98755"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day7" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5-2-2"
+         width="100"
+         height="100"
+         x="400"
+         y="476.98755"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day6" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5-2"
+         width="100"
+         height="100"
+         x="250"
+         y="476.98755"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day5" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-5"
+         width="100"
+         height="100"
+         x="100"
+         y="476.98752"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day4" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-56-1-0"
+         width="100"
+         height="100"
+         x="550"
+         y="326.98749"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day3" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-56-1"
+         width="100"
+         height="100"
+         x="400"
+         y="326.98749"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day2" />
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:12.2154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2221-56"
+         width="100"
+         height="100"
+         x="250"
+         y="326.98749"
+         rx="25.241312"
+         ry="25.241312"
+         inkscape:label="day1" />
+    </g>
+  </g>
+  <metadata
+     id="metadata824">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Agenda</dc:title>
+        <dc:date>2022</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>GNU GPLv3</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

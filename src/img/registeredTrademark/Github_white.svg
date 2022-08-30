@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="Github_white.svg"
+   width="120.776"
+   height="117.79379"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="1.7701244"
+     inkscape:cx="75.700894"
+     inkscape:cy="33.330991"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <path
+     d="M 60.388,0 C 27.041,0 0,27.034997 0,60.387997 c 0,26.68 17.303,49.316003 41.297,57.301003 3.018,0.559 4.126,-1.31 4.126,-2.905 0,-1.439 -0.056,-6.197 -0.082,-11.243 -16.8,3.653 -20.345,-7.125003 -20.345,-7.125003 -2.747,-6.979 -6.705,-8.836 -6.705,-8.836 -5.479,-3.748 0.413,-3.671 0.413,-3.671 6.064,0.426 9.257,6.224 9.257,6.224 5.386,9.231 14.127,6.562 17.573,5.019 0.543,-3.902 2.107,-6.567 3.834,-8.075 -13.413,-1.526 -27.513,-6.705 -27.513,-29.844 0,-6.592 2.359,-11.979 6.222,-16.208 -0.627,-1.522 -2.694,-7.664 0.586,-15.982 0,0 5.071,-1.622 16.61,6.191 4.817,-1.338 9.983,-2.009 15.115,-2.033 5.132,0.024 10.302,0.695 15.128,2.033 11.526,-7.813 16.59,-6.191 16.59,-6.191 3.287,8.318 1.22,14.46 0.593,15.982 3.872,4.229 6.214,9.616 6.214,16.208 0,23.195 -14.127,28.301 -27.574,29.796 2.166,1.874 4.096,5.549 4.096,11.183 0,8.080003 -0.069,14.583003 -0.069,16.572003 0,1.608 1.086,3.491 4.147,2.898 23.982,-7.994 41.263,-30.622003 41.263,-57.294003 C 120.776,27.034997 93.739,0 60.388,0"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+     id="path202" />
+  <path
+     d="m 22.8724,86.703197 c -0.133,0.301 -0.605,0.391 -1.035,0.184 -0.439,-0.197 -0.684,-0.606 -0.542,-0.907 0.13,-0.308 0.602,-0.394 1.04,-0.188 0.438,0.197 0.688,0.61 0.537,0.911"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path206" />
+  <path
+     d="m 25.3187,89.431697 c -0.288,0.267 -0.852,0.143 -1.233,-0.279 -0.396,-0.421 -0.469,-0.985 -0.177,-1.255 0.297,-0.267 0.843,-0.142 1.238,0.279 0.396,0.426 0.473,0.985 0.172,1.255"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path210" />
+  <path
+     d="m 27.6996,92.909197 c -0.37,0.258 -0.976,0.017 -1.35,-0.52 -0.37,-0.538 -0.37,-1.182 0.009,-1.44 0.374,-0.258 0.971,-0.025 1.35,0.507 0.369,0.546 0.369,1.19 -0.009,1.453"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path214" />
+  <path
+     d="m 30.9613,96.269597 c -0.331,0.365 -1.036,0.267 -1.552,-0.231 -0.528,-0.487 -0.675,-1.178 -0.344,-1.543 0.336,-0.366 1.045,-0.263 1.565,0.231 0.524,0.486 0.683,1.182 0.331,1.543"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path218" />
+  <path
+     d="m 35.4613,98.220697 c -0.147,0.473 -0.825,0.687 -1.509,0.486 -0.683,-0.207 -1.13,-0.76 -0.992,-1.238 0.142,-0.477 0.824,-0.7 1.513,-0.485 0.682,0.206 1.13,0.756 0.988,1.237"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path222" />
+  <path
+     d="m 40.4037,98.582097 c 0.017,0.498 -0.563,0.911 -1.281,0.92 -0.722,0.017 -1.307,-0.387 -1.315,-0.877 0,-0.503 0.568,-0.911 1.289,-0.924 0.718,-0.014 1.307,0.387 1.307,0.881"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path226" />
+  <path
+     d="m 45.0023,97.799797 c 0.086,0.485 -0.413,0.984 -1.126,1.117 -0.701,0.129 -1.35,-0.172 -1.439,-0.653 -0.087,-0.498 0.42,-0.997 1.121,-1.126 0.714,-0.124 1.353,0.168 1.444,0.662"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path230" />
+  <metadata
+     id="metadata136">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:source>https://github.com/logos</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Github</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

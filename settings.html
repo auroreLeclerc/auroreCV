@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="theme-color" content="DarkOrchid"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Paramètres de Curriculum vitæ</title>
+		<link rel="icon" type="image/png" href="./src/img/homeMade/icons/192.png" />
+		<link rel="apple-touch-icon" type="image/png" href="./src/img/homeMade/icons/192.png">
+		<link rel="stylesheet" type="text/css" media="screen" href="./src/css/settings.css">
+		<link rel="manifest" href="./manifest.json">
+	</head>
+	<body>
+		<header>
+			<h1><a href="/">Accueil</a></h1>
+			<h1><a href="./settings.html">Paramètres</a></h1>
+		</header>
+		<main>
+			<h2 class="center flex">
+				<div>Version de l'application dans le cache 📲 (local) : <span id="local">En attente</span></div>
+				<div>Version de l'application sur le serveur 🌐 (distant) : <span id="online">En attente</span></div>
+			</h2>
+			<h2 class="center flex" id="update">Recherche de mise à jour en cours</h2>
+			<h3 class="flexCenter" id="changelogs">
+				<ul>
+					<li class="title">Journal des modifications :</li>
+				</ul>
+			</h3>
+			<h3 class="center flex">
+				<div>
+					<input type="checkbox" id="notificationEnable" name="notificationEnable">
+					<label for="notificationEnable">M'avertir par notification lors d'une mise à jour</label>
+				</div>
+				<div>
+					<input type="checkbox" id="autoUpdateEnable" name="autoUpdateEnable">
+					<label for="autoUpdateEnable">Automatiquement mettre à jour l'application</label>
+				</div>
+			</h3>
+
+			<div class="separator vertical"></div>
+
+			<h4 class="center flex">
+				<div>⚠️ Si vous effacez le cache, pendant que vous êtes hors ligne ✈️ alors l'application ne sera plus disponible</div>
+				<div>⚠️ Si vous effacez le cache, le Service Worker (ce qui permet l'accès hors ligne) sera inatteignable 📦 tant que vous ne retournez pas à l'accueil</div>
+			</h4>
+			<h1 class="flexCenter">
+				<span class="button" id="deleteCache" title="Et désinstaller le Service Worker">Effacer le cache</span>
+			</h1>
+
+			<div class="separator vertical"></div>
+
+			<h2 class="flexCenter">
+				<span>
+					<input type="checkbox" id="debugEnable" name="debugEnable">
+					<label for="debugEnable">Activer le mode debug</label>
+				</span>
+			</h2>
+			<section id="debug">
+				<table>
+					<caption>Cookies de configuration :</caption>
+					<thead>
+						<tr>
+							<th>Cookie name</th>
+							<th>Cookie value</th>
+						</tr>
+					</thead>
+					<tbody id="cookies">
+					</tbody>
+				</table>
+				<table>
+					<caption>Manifeste PWA :</caption>
+					<thead>
+						<tr>
+							<th>Json property</th>
+							<th>Json value</th>
+						</tr>
+					</thead>
+					<tbody id="manifest">
+					</tbody>
+				</table>
+				<p class="button" id="resetCookies" title="Ceci va aussi réinitialiser toute la configuration">Réinitialiser les cookies</p>
+			</section>
+		</main>
+		<footer>
+			<h4><a href="./rights.html">Mentions Légales</a></h4>
+			<h4>© 2022 Aurore Leclerc</h4>
+			<h4>Mis à disposition selon les termes de la
+				<a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPLv3</a>
+			</h4>
+		</footer>
+		<script type="module" src="./src/js/settings.js"></script>
+		<script src="./src/js/header.js"></script>
+	</body>
+</html>

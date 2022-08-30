@@ -1,0 +1,47 @@
+@import url("./style.css");
+@import url("./header.css");
+
+main {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+}
+
+.flex {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    word-break: break-word;
+}
+
+.flex > * {
+    max-width: 40%;
+}
+
+h3#changelogs {
+    margin-top: 0;
+    border: 1px solid purple;
+    border-radius: 1em;
+    display: none;
+}
+
+h3#changelogs ul li.title {
+    list-style-type: square;
+}
+
+h3#changelogs ul li:not(li.title) {
+    margin-left: 2em;
+}
+
+section#debug {
+    display: none;
+    /* display: flex; */
+    justify-content: space-around;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+section#debug table {
+    margin: 0.5em;
+}

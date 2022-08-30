@@ -1,0 +1,62 @@
+@font-face {
+	font-family: "LiberationSans";
+	src: url("./../font/liberation/LiberationSans-Regular.ttf") format("truetype");
+}
+@font-face {
+	font-family: "LiberationSans";
+	src: url("./../font/liberation/LiberationSans-Bold.ttf") format("truetype");
+	font-weight: bold;
+}
+@font-face {
+	font-family: "LiberationSans";
+	src: url("./../font/liberation/LiberationSans-Italic.ttf") format("truetype");
+	font-style: italic;
+}
+@font-face {
+	font-family: "LiberationSans";
+	src: url("./../font/liberation/LiberationSans-BoldItalic.ttf") format("truetype");
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "LiberationSerif";
+	src: url("./../font/liberation/LiberationSerif-Regular.ttf") format("truetype");
+}
+@font-face {
+	font-family: "LiberationSerif";
+	src: url("./../font/liberation/LiberationSerif-Bold.ttf") format("truetype");
+	font-weight: bold;
+}
+@font-face {
+	font-family: "LiberationSerif";
+	src: url("./../font/liberation/LiberationSerif-Italic.ttf") format("truetype");
+	font-style: italic;
+}
+@font-face {
+	font-family: "LiberationSerif";
+	src: url("./../font/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "LiberationMono";
+	src: url("./../font/liberation/LiberationMono-Regular.ttf") format("truetype");
+}
+@font-face {
+	font-family: "LiberationMono";
+	src: url("./../font/liberation/LiberationMono-Bold.ttf") format("truetype");
+	font-weight: bold;
+}
+@font-face {
+	font-family: "LiberationMono";
+	src: url("./../font/liberation/LiberationMono-Italic.ttf") format("truetype");
+	font-style: italic;
+}
+@font-face {
+	font-family: "LiberationMono";
+	src: url("./../font/liberation/LiberationMono-BoldItalic.ttf") format("truetype");
+	font-weight: bold;
+	font-style: italic;
+}
