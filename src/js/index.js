@@ -8,7 +8,7 @@ if ("serviceWorker" in navigator) {
 		navigator.serviceWorker.register(
 			"./service-worker.js", {
 				type: "module", // https://bugzilla.mozilla.org/show_bug.cgi?id=1247687
-				scope: "/"
+				scope: "./"
 			}
 		).then(registration => {
 			console.info('📮', "ServiceWorker called on", registration.scope);
