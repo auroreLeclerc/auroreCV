@@ -26,7 +26,7 @@ if ("serviceWorker" in navigator) {
 					);
 				}
 				else {
-					console.warn("Please use a recent navigator, that supports backgound jobs 🧓");
+					console.error("Please use a recent navigator, that supports backgound jobs 🧓");
 				}
 			}
 		});

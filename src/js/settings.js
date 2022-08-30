@@ -62,6 +62,16 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 	}
 });
 
+navigator.serviceWorker.ready.then(registration => {
+	if (!registration.sync) {
+		const iosWarning = document.getElementById("iosWarning");
+		while (iosWarning.lastChild) {
+			iosWarning.removeChild(iosWarning.lastChild);
+		}
+		iosWarning.textContent = "📦‍♻️ Service update disable ! Please use a recent navigator, that supports backgound jobs 🧓";
+	}
+});
+
 document.getElementById("deleteCache").addEventListener("click", () => {
 	if(!navigator.onLine) {
 		if (confirm("🚫 Vous êtes hors ligne et vous voulez effacez le cache 🚫 \n 🚫 Continuez et l'application ne sera plus disponible 🚫")) {
