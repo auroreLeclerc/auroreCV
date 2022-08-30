@@ -16,9 +16,10 @@ main section h1 img {
 main section h1::after {
 	content: "";
 	height: 0;
-	padding: 0; /* phone hack */
+	padding: 0;
 	width: 100%;
-	border-width: 2px;
+	border-width: 0; /* chrome mobile workaround */
+	border-left-width: 4px; /* otherwise empty separator */
 	border-style: solid;
 	border-color: purple;
 	border-radius: 4px;
