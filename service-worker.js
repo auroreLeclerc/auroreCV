@@ -74,7 +74,7 @@ self.addEventListener("fetch", function(event) {
 										<main class="center">
 											<h1 style="word-break: break-word;">You are offline ✈️ and ${request.url} has not been found in the cache 📭...</h1>
 											<h2>Make sure you are not off domain 🛂</h2>
-											<h2><a href="/">Return to the home page 🏠</a></h2>
+											<h2><a href="./">Return to the home page 🏠</a></h2>
 										</main>
 									</body>
 								</html>
