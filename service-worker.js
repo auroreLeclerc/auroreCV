@@ -27,7 +27,7 @@ self.addEventListener("fetch", function(event) {
 
 				if(url.endsWith("!online")) {
 					url = url.substring(0, url.length - 7);
-					console.info('🌐', request.url);
+					console.info('🌐', url);
 					response = "!online";
 				}
 
@@ -46,19 +46,19 @@ self.addEventListener("fetch", function(event) {
 						return fetch(new Request(url)).then(fetched => {
 							try {
 								if(fetched?.ok) {
-									console.info('📫', request.url);
+									console.info('📫', url);
 
 									// Failsafe in case the service worker didn't cache the url in the install event
 									if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
-										cache.add(request.url).then(() =>
-											console.warn('⛑️', request.url)
+										cache.add(url).then(() =>
+											console.warn('⛑️', url)
 										)
 									);
 								}
 								else {
 									// TODO: implement throw new HttpError and refactor for better then/catch
-									if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", request.url);
-									else throw new HttpError(fetched?.status, fetched?.statusText, request.url);
+									if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
+									else throw new HttpError(fetched?.status, fetched?.statusText, url);
 								}
 							}
 							catch(error) {
@@ -69,9 +69,9 @@ self.addEventListener("fetch", function(event) {
 							}
 							return fetched;
 						}).catch(error => {
-							console.info('✈️‍📭', error.message, request.url);
+							console.info('✈️‍📭', error.message, url);
 
-							if (request.url.endsWith(".html")) {
+							if (url.endsWith(".html")) {
 								return new Response(
 									new Blob([`
 										<!DOCTYPE html>
@@ -85,7 +85,7 @@ self.addEventListener("fetch", function(event) {
 											</head>
 											<body>
 												<main class="center">
-													<h1 style="word-break: break-word;">You are offline ✈️ and ${request.url} has not been found in the cache 📭...</h1>
+													<h1 style="word-break: break-word;">You are offline ✈️ and ${url} has not been found in the cache 📭...</h1>
 													<h2>Make sure you are not off domain 🛂</h2>
 													<h2><a href="./">Return to the home page 🏠</a></h2>
 												</main>
