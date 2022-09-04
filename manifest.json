@@ -7,12 +7,10 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"changelogs": [
-		"Version de lancement",
-		"Gestion des mises à jours",
-		"Page Accueil, Paramètres, Droits",
-		"Service Worker version 1"
+		"Corrections de bugs",
+		"Service de branches"
 	],
 	"display": "standalone",
 	"orientation": "any",

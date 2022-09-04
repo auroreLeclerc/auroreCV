@@ -27,6 +27,7 @@ if ("serviceWorker" in navigator) {
 				}
 				else {
 					console.error("Please use a recent navigator, that supports backgound jobs 🧓");
+					registration.active.postMessage("update");
 				}
 			}
 		});

@@ -1,4 +1,4 @@
-import { HttpError} from "./HttpError.js";
+import { HttpError} from "./error/HttpError.js";
 import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, setCookie, getCookie, compareVersion, SET_DEFAULT_COOKIES } from "./variables.js";
 
 let local = document.getElementById("local"),
@@ -38,7 +38,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			checkFetchUpdate();
 		}).catch(error => {
 			local.textContent = "❌ Erreur Fatale";
-			console.error(error);
+			console.log('⚙️', error);
 		});
 
 		fetch(`${MANIFEST_NAME}!online`).then(response => {
@@ -57,7 +57,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 				online.textContent = "✈️ Hors ligne";
 			}
 			else online.textContent = "❌ Erreur Fatale";
-			console.error(error);
+			console.log('⚙️', error);
 		});
 	}
 });
@@ -68,7 +68,7 @@ navigator.serviceWorker.ready.then(registration => {
 		while (iosWarning.lastChild) {
 			iosWarning.removeChild(iosWarning.lastChild);
 		}
-		iosWarning.textContent = "📦‍♻️ Service update disable ! Please use a recent navigator, that supports backgound jobs 🧓";
+		iosWarning.textContent = `📦‍♻️ Service update disable ! <a href="https://developer.mozilla.org/en-US/docs/Web/API/PeriodicSyncEvent#browser_compatibility">You need a navigator that supports backgound jobs.</a>`;
 	}
 });
 
@@ -85,14 +85,14 @@ let notificationEnable = document.getElementById("notificationEnable");
 notificationEnable.checked = getCookie("notification", true);
 notificationEnable.addEventListener("click", () => {
 	let newValue = !getCookie("notification", true);
-	setCookie("notification", newValue, 365 * 4);
-	sendNotification(`Les notifications ont bien été ${newValue ? " activées" : "désactivées"}`);
+	setCookie("notification", newValue);
+	sendNotification(`Les notifications ont bien été ${newValue ? "activées" : "désactivées"}`);
 });
 
 let autoUpdateEnable = document.getElementById("autoUpdateEnable");
 autoUpdateEnable.checked = getCookie("autoUpdate", true);
 autoUpdateEnable.addEventListener("click", () => {
-	setCookie("autoUpdate", !getCookie("autoUpdate", true), 365 * 4);
+	setCookie("autoUpdate", !getCookie("autoUpdate", true));
 	DELETE_CACHE();
 });
 
@@ -101,10 +101,10 @@ let debugEnable = document.getElementById("debugEnable");
 let debugEnableCookie = getCookie("debug", true);
 debugEnable.addEventListener("click", () => {
 	const newValue = initialised ? !getCookie("debug", true) : getCookie("debug", true);
-	if (initialised) setCookie("debug", newValue, 365 * 4);
+	if (initialised) setCookie("debug", newValue);
 
 	let cookies = document.getElementById("cookies");
-	cookies.textContent = ""; //Removing childrens
+	cookies.textContent = ""; // Removing childrens
 	for (const name of document.cookie.replace(/=\S+/g, '').split(' ')) {
 		cookies.insertAdjacentHTML("beforeend", `
 			<tr>
@@ -116,7 +116,6 @@ debugEnable.addEventListener("click", () => {
 
 	document.getElementById("debug").style.display = newValue ? "flex" : "none";
 });
-if (debugEnableCookie) debugEnable.click();
 
 let manifest = document.getElementById("manifest");
 fetch(MANIFEST_NAME).then(response => 
@@ -136,4 +135,11 @@ fetch(MANIFEST_NAME).then(response =>
 
 document.getElementById("resetCookies").addEventListener("click", SET_DEFAULT_COOKIES);
 
+let branch = document.getElementById("branch");
+branch.addEventListener("change", () => {
+	setCookie("branch", branch.value);
+	DELETE_CACHE();
+});
+
+if (debugEnableCookie) debugEnable.click();
 initialised = true;

@@ -19,10 +19,11 @@ export const OFFLINE_URLS = [
 	"src/css/style.css",
 
 	"src/js/header.js",
-	"src/js/HttpError.js",
 	"src/js/index.js",
 	"src/js/settings.js",
 	"src/js/variables.js",
+	"src/js/error/HttpError.js",
+	"src/js/error/UnregisteredError.js",
 
 	"src/font/liberation/AUTHORS",
 	"src/font/liberation/LICENSE",
@@ -106,7 +107,7 @@ export const DELETE_CACHE = () => {
  * @param {string} value Value of the cookie
  * @param {int} expiration In days, when the cookie will be deleted
  */
-export function setCookie(name = "", value = "", expiration = 0) {
+export function setCookie(name, value, expiration = 365 * 5) {
 	let expirationDate = new Date();
 	expirationDate.setTime(
 		expirationDate.getTime() + (expiration * 24 * 60 * 60 * 1000)
@@ -162,7 +163,7 @@ export function getCookie(name, boolean = false) {
  * @description Get a cookie from cookieStore
  * @param {string} name Name of the cookie
  * @param {boolean} boolean To return the value in boolean
- * @param {boolean} assumed Value to be returned in case cookieStore fails
+ * @param {*} assumed Value to be returned in case cookieStore fails
  * @returns {Promise<string|boolean>} Promise that returns value of the cookie
  * @throws {Error} Cookie not found
  */
@@ -208,7 +209,8 @@ export const SET_DEFAULT_COOKIES = () => {
 				while(!compareVersion(cache, updated)) {
 					switch (updated) {
 						case "1.0.0":
-							updated = "1.0.1";
+							setCookie("branch", "main");
+							updated = "1.1.0";
 						break;
 					
 						default:
@@ -216,15 +218,16 @@ export const SET_DEFAULT_COOKIES = () => {
 						// break;
 					}
 				}
-				setCookie("version", cache, 365 * 4);
+				setCookie("version", cache);
 			}
 			else {
-				setCookie("firstUse", false, 365 * 4);
-				setCookie("autoUpdate", true, 365 * 4);
-				setCookie("notification", false, 365 * 4);
-				setCookie("debug", false, 365 * 4);
-				setCookie("version", cache, 365 * 4);
-				setCookie("lastReset", new Date().toISOString(), 365 * 4);
+				setCookie("firstUse", false);
+				setCookie("autoUpdate", true);
+				setCookie("notification", false);
+				setCookie("debug", false);
+				setCookie("version", cache);
+				setCookie("lastReset", new Date().toISOString());
+				setCookie("branch", "main");
 			}
 		})
 	)
