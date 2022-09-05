@@ -25,19 +25,19 @@ self.addEventListener("fetch", function(event) {
 		caches.match(event.request).then(response => {
 				let url = event.request.url;
 
-				if(url.endsWith("!online")) {
+				if (url.endsWith("!online")) {
 					url = url.substring(0, url.length - 7);
 					console.info('🌐', url);
 					response = "!online";
 				}
 
-				if(response?.ok) {
+				if (response?.ok) {
 					console.info('📬', response.url);
 					return response;
 				}
 				else {
 					return getCookieFromStore("branch", false, "main").then(branch => {
-						if(branch !== "main") {
+						if (branch !== "main") {
 							url = url.replace(
 								"auroreleclerc.github.io/auroreCV",
 								`raw.githubusercontent.com/auroreLeclerc/auroreCV/${branch}`
@@ -45,7 +45,7 @@ self.addEventListener("fetch", function(event) {
 						}
 						return fetch(new Request(url)).then(fetched => {
 							try {
-								if(fetched?.ok) {
+								if (fetched?.ok) {
 									console.info('📫', url);
 
 									// Failsafe in case the service worker didn't cache the url in the install event
@@ -118,7 +118,7 @@ function _checkUpdate() {
 		).then(online => {
 			if (compareVersion(online.version, local.version)) {
 				getCookieFromStore("notification", true, true).then(cookie => {
-					if(cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
+					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
 				});
 				navigator.setAppBadge(1);
 				caches.delete(CACHE_NAME);
@@ -127,7 +127,7 @@ function _checkUpdate() {
 			}
 			else {
 				getCookieFromStore("debug", true, false).then(cookie => {
-					if(cookie) sendNotification(`📦‍♻️ Local: ${online.version} is the same as Online: ${local.version}`);
+					if (cookie) sendNotification(`📦‍♻️ Local: ${online.version} is the same as Online: ${local.version}`);
 				});
 				console.info('📦‍♻️', online.version, '=', local.version);
 			}
