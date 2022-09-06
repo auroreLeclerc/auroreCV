@@ -1,7 +1,6 @@
-// import { HttpError} from "./HttpError.js";
 import { HttpError } from "./src/js/error/HttpError.js";
 import { UnregisteredError } from "./src/js/error/UnregisteredError.js";
-import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore } from "./src/js/variables.js";
+import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
 // TODO: Create service worker class Error
 
 self.addEventListener("install", function(event) {
@@ -21,9 +20,26 @@ self.addEventListener("install", function(event) {
 
 // TODO: refactor and add HttpError
 self.addEventListener("fetch", function(event) {
-	event.respondWith(
-		caches.match(event.request).then(response => {
-				let url = event.request.url;
+	event.respondWith((() => {
+		return getCookieFromStore("developmentBranch", true, false).then(branch => {
+			let redirect = false,
+			url = event.request.url,
+			request = event.request;
+
+			if (branch && !url.endsWith('/')) {
+				// url = url.replace(
+				// 	"auroreleclerc.github.io/auroreCV",
+				// 	"raw.githubusercontent.com/auroreLeclerc/auroreCV/development/"
+				// );
+				url = url.replace(
+					"localhost:8000/",
+					"raw.githubusercontent.com/auroreLeclerc/auroreCV/development/"
+				);
+				redirect = true;
+				request = new Request(url);
+			}
+
+			return caches.match(request).then(response => {
 
 				if (url.endsWith("!online")) {
 					url = url.substring(0, url.length - 7);
@@ -32,79 +48,90 @@ self.addEventListener("fetch", function(event) {
 				}
 
 				if (response?.ok) {
-					console.info('📬', response.url);
-					return response;
+					console.info('📬', url);
+					if (redirect) {
+						let redirection = new Response(response.body, {
+							headers: new Headers()
+						})
+						redirection.headers.append("Content-Type", getMimeType(url)); // Workaround for some files being text/plain
+						return redirection;
+					}
+					else return response;
 				}
-				else {
-					return getCookieFromStore("branch", false, "main").then(branch => {
-						if (branch !== "main") {
-							url = url.replace(
-								"auroreleclerc.github.io/auroreCV",
-								`raw.githubusercontent.com/auroreLeclerc/auroreCV/${branch}`
-							);
-						}
-						return fetch(new Request(url)).then(fetched => {
-							try {
-								if (fetched?.ok) {
-									console.info('📫', url);
+				else {						
+					return fetch(new Request(url)).then(fetched => {
+						try {
+							if (fetched?.ok) {
+								console.info('📫', url);
 
-									// Failsafe in case the service worker didn't cache the url in the install event
-									if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
-										cache.add(url).then(() =>
-											console.warn('⛑️', url)
-										)
-									);
-								}
-								else {
-									// TODO: implement throw new HttpError and refactor for better then/catch
-									if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
-									else throw new HttpError(fetched?.status, fetched?.statusText, url);
-								}
-							}
-							catch(error) {
-								console.error('📯‍📭', error);
-
-								// If HTTP Error, the browser handle it like usual
-								return fetched;
-							}
-							return fetched;
-						}).catch(error => {
-							console.info('✈️‍📭', error.message, url);
-
-							if (url.endsWith(".html")) {
-								return new Response(
-									new Blob([`
-										<!DOCTYPE html>
-										<html lang="en">
-											<head>
-												<meta charset="UTF-8"/>
-												<meta name="theme-color" content="DeepPink"/>
-												<meta name="viewport" content="width=device-width, initial-scale=1">
-												<title>Not Found</title>
-												<link rel="stylesheet" type="text/css" href="/src/css/style.css" />
-											</head>
-											<body>
-												<main class="center">
-													<h1 style="word-break: break-word;">You are offline ✈️ and ${url} has not been found in the cache 📭...</h1>
-													<h2>Make sure you are not off domain 🛂</h2>
-													<h2><a href="./">Return to the home page 🏠</a></h2>
-												</main>
-											</body>
-										</html>
-									`], {type : "text/html"})
-								); // Custom offline page
+								// Failsafe in case the service worker didn't cache the url in the install event
+								if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
+									cache.add(url).then(() =>
+										console.warn('⛑️', url)
+									)
+								);
 							}
 							else {
-								return new Response(null, {
-									status: 404,
-									statusText: "Offline"
-								}); // Custom offline response
+								// TODO: implement throw new HttpError and refactor for better then/catch
+								if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
+								else throw new HttpError(fetched?.status, fetched?.statusText, url);
 							}
-						});
+						}
+						catch(error) {
+							console.error('📯‍📭', error);
+
+							// If HTTP Error, the browser handle it like usual
+							return fetched;
+						}
+						
+						if (redirect) {
+							return fetched.text().then(text => {
+								return new Response(
+									new Blob(
+										[text],
+										{type: getMimeType(url)}
+									)
+								);
+							})	
+						}
+						else return fetched;
+					}).catch(error => {
+						console.info('✈️‍📭', error.message, url);
+
+						if (url.endsWith(".html")) {
+							return new Response(
+								new Blob([`
+									<!DOCTYPE html>
+									<html lang="en">
+										<head>
+											<meta charset="UTF-8"/>
+											<meta name="theme-color" content="DeepPink"/>
+											<meta name="viewport" content="width=device-width, initial-scale=1">
+											<title>Not Found</title>
+											<link rel="stylesheet" type="text/css" href="/src/css/style.css" />
+										</head>
+										<body>
+											<main class="center">
+												<h1 style="word-break: break-word;">You are offline ✈️ and ${url} has not been found in the cache 📭...</h1>
+												<h2>Make sure you are not off domain 🛂</h2>
+												<h2><a href="./">Return to the home page 🏠</a></h2>
+											</main>
+										</body>
+									</html>
+								`], {type : "text/html"})
+							); // Custom offline page
+						}
+						else {
+							return new Response(null, {
+								status: 404,
+								statusText: "Offline"
+							}); // Custom offline response
+						}
 					});
 				}
-		})
-	);
+			})
+		});
+	})());
 });
 
 function _checkUpdate() {

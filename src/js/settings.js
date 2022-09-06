@@ -38,7 +38,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			checkFetchUpdate();
 		}).catch(error => {
 			local.textContent = "❌ Erreur Fatale";
-			console.log('⚙️', error);
+			console.error('⚙️', error);
 		});
 
 		fetch(`${MANIFEST_NAME}!online`).then(response => {
@@ -57,9 +57,41 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 				online.textContent = "✈️ Hors ligne";
 			}
 			else online.textContent = "❌ Erreur Fatale";
-			console.log('⚙️', error);
+			console.error('⚙️', error);
 		});
 	}
+});
+
+/**
+ * 
+ * @param {string} id 
+ * @param {string} cookie 
+ * @param {Function} action 
+ */
+function checkboxButton(id, cookie, action) {
+	let checkbox = document.getElementById(id);
+	checkbox.checked = getCookie(cookie, true);
+	checkbox.addEventListener("click", () => {
+		let newCookie = !getCookie(cookie, true);
+		setCookie(cookie, newCookie);
+		switch (id) {
+			case "notificationEnable":
+				sendNotification(`Les notifications ont bien été ${newCookie ? "activées" : "désactivées"}`);
+				break;
+		
+			default:
+				action();
+			break;
+		};
+	});
+}
+
+checkboxButton("notificationEnable", "notification");
+checkboxButton("autoUpdateEnable", "autoUpdate", DELETE_CACHE);
+checkboxButton("developmentBranchEnable", "developmentBranch", () => {
+	caches.delete(CACHE_NAME).then(
+		window.location.reload()
+	)
 });
 
 navigator.serviceWorker.ready.then(registration => {
@@ -81,24 +113,10 @@ document.getElementById("deleteCache").addEventListener("click", () => {
 	else DELETE_CACHE();
 });
 
-let notificationEnable = document.getElementById("notificationEnable");
-notificationEnable.checked = getCookie("notification", true);
-notificationEnable.addEventListener("click", () => {
-	let newValue = !getCookie("notification", true);
-	setCookie("notification", newValue);
-	sendNotification(`Les notifications ont bien été ${newValue ? "activées" : "désactivées"}`);
-});
-
-let autoUpdateEnable = document.getElementById("autoUpdateEnable");
-autoUpdateEnable.checked = getCookie("autoUpdate", true);
-autoUpdateEnable.addEventListener("click", () => {
-	setCookie("autoUpdate", !getCookie("autoUpdate", true));
-	DELETE_CACHE();
-});
-
 
 let debugEnable = document.getElementById("debugEnable");
 let debugEnableCookie = getCookie("debug", true);
+
 debugEnable.addEventListener("click", () => {
 	const newValue = initialised ? !getCookie("debug", true) : getCookie("debug", true);
 	if (initialised) setCookie("debug", newValue);
@@ -134,12 +152,6 @@ fetch(MANIFEST_NAME).then(response =>
 );
 
 document.getElementById("resetCookies").addEventListener("click", SET_DEFAULT_COOKIES);
-
-let branch = document.getElementById("branch");
-branch.addEventListener("change", () => {
-	setCookie("branch", branch.value);
-	DELETE_CACHE();
-});
 
 if (debugEnableCookie) debugEnable.click();
 initialised = true;

@@ -1,3 +1,5 @@
+import { UnregisteredError } from "./error/UnregisteredError.js";
+
 export const CACHE_NAME = "auroreCV";
 export const MANIFEST_NAME = "manifest.json";
 export const OFFLINE_URLS = [
@@ -92,6 +94,7 @@ export const OFFLINE_URLS = [
  */
 export const DELETE_CACHE = () => {
 	navigator.serviceWorker.getRegistrations().then(function(registrations) {
+		setCookie("developmentBranch", false);
 		for(let registration of registrations) {
 			registration.unregister();
 		}
@@ -138,10 +141,10 @@ function _toBoolean(value, serviceWorker = false) {
 }
 
 /**
- * @description Get a cookie
+ * @description Get a cookie (not for Service Worker)
  * @param {string} name Name of the cookie
  * @param {boolean} boolean To return the value in boolean
- * @returns {string|boolean} Value of the cookie (if cookieStore then Promise)
+ * @returns {string|boolean} Value of the cookie
  * @throws {Error} Cookie not found.
  */
 export function getCookie(name, boolean = false) {
@@ -160,7 +163,7 @@ export function getCookie(name, boolean = false) {
 
 /**
  * @async
- * @description Get a cookie from cookieStore
+ * @description Get a cookie from cookieStore (for Service Worker)
  * @param {string} name Name of the cookie
  * @param {boolean} boolean To return the value in boolean
  * @param {*} assumed Value to be returned in case cookieStore fails
@@ -209,12 +212,12 @@ export const SET_DEFAULT_COOKIES = () => {
 				while(!compareVersion(cache, updated)) {
 					switch (updated) {
 						case "1.0.0":
-							setCookie("branch", "main");
+							setCookie("developmentBranch", false);
 							updated = "1.1.0";
 						break;
 					
 						default:
-							throw new Error("Update path not implemented !");
+							throw new UnregisteredError("Update path", true);
 						// break;
 					}
 				}
@@ -227,7 +230,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				setCookie("debug", false);
 				setCookie("version", cache);
 				setCookie("lastReset", new Date().toISOString());
-				setCookie("branch", "main");
+				setCookie("developmentBranch", false);
 			}
 		})
 	)
@@ -283,5 +286,71 @@ export function compareVersion(online, local) {
 	} catch (error) {
 		console.error(error, `online is ${online} and local is ${local}`);
 		return false;
+	}
+}
+
+/**
+ * @description Returns MIME Type from simple url ending with extension file
+ * @param {string} url 
+ * @returns {string} MIME Type
+ */
+export function getMimeType(url) {
+	const extension = url.split('.').pop();
+
+	switch (extension) {
+		case "css":
+			return "text/css";
+		// break;
+
+		case "html":
+		case "htm":
+			return "text/html";
+		// break;
+
+		case "ico":
+			return "image/vnd.microsoft.icon";
+		// break;
+
+		case "jpeg":
+		case "jpg":
+			return "image/jpeg";
+		// break;
+
+		case "js":
+			return "text/javascript";
+		// break;
+
+		case "json":
+			return "application/json";
+		// break;
+
+		case "otf":
+			return "font/otf";
+		// break;
+
+		case "png":
+			return "image/png";
+		// break;
+		
+		case "svg":
+			return "image/svg+xml";
+		// break;
+
+		case "ttf":
+			return "font/ttf";
+		// break;
+
+		case "txt":
+			return "text/plain";
+		// break;
+
+		case "md":
+			return "text/markdown";
+		// break;
+
+		default:
+			console.error(new UnregisteredError(extension, true));
+			return "text/plain";
+		// break;
 	}
 }

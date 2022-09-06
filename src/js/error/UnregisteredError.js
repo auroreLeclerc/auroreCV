@@ -11,7 +11,7 @@ export class UnregisteredError extends Error {
 		this.name = "Unregistered Error";
 		this.message = '';
         
-		if(internalError) this.message +=`Internal error ! `;
+		if(internalError) this.message +=`Internal implementation error ! `;
 		this.message += `${state} is not registered.`;		
 		if(msg) this.message +=` ${msg}.`;
 
