@@ -94,7 +94,7 @@ export const OFFLINE_URLS = [
  */
 export const DELETE_CACHE = () => {
 	navigator.serviceWorker.getRegistrations().then(function(registrations) {
-		setCookie("developmentBranch", false);
+		setCookie("developmentBranch", 0);
 		for(let registration of registrations) {
 			registration.unregister();
 		}
@@ -212,7 +212,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				while(!compareVersion(cache, updated)) {
 					switch (updated) {
 						case "1.0.0":
-							setCookie("developmentBranch", false);
+							setCookie("developmentBranch", 0);
 							updated = "1.1.0";
 						break;
 					
@@ -230,7 +230,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				setCookie("debug", false);
 				setCookie("version", cache);
 				setCookie("lastReset", new Date().toISOString());
-				setCookie("developmentBranch", false);
+				setCookie("developmentBranch", 0);
 			}
 		})
 	)
@@ -295,6 +295,9 @@ export function compareVersion(online, local) {
  * @returns {string} MIME Type
  */
 export function getMimeType(url) {
+	if (url.endsWith('/')) return "text/html";
+	// Index workaround
+
 	const extension = url.split('.').pop();
 
 	switch (extension) {
@@ -349,8 +352,8 @@ export function getMimeType(url) {
 		// break;
 
 		default:
-			console.error(new UnregisteredError(extension, true));
-			return "text/plain";
+			throw new UnregisteredError(extension, true);
+			// return "text/plain";
 		// break;
 	}
 }

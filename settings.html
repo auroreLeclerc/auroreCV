@@ -17,13 +17,13 @@
 		</header>
 		<main>
 			<h2 class="center flex">
-				<div>Version de l'application dans le cache 📲 (local) : <span id="local">En attente</span></div>
-				<div>Version de l'application sur le serveur 🌐 (distant) : <span id="online">En attente</span></div>
+				<div>Version de l'application dans le cache 📲 (local) : <span id="local">Chargement</span></div>
+				<div>Version de l'application sur le serveur 🌐 (distant) : <span id="online">Chargement</span></div>
 			</h2>
 			<h2 class="center flex" id="update">Recherche de mise à jour en cours</h2>
 			<h3 class="flexCenter" id="changelogs">
 				<ul>
-					<li class="title">Journal des modifications :</li>
+					<li class="title">La nouvelle version apporte :</li>
 				</ul>
 			</h3>
 			<h3 class="center flex">
@@ -36,6 +36,10 @@
 					<label for="autoUpdateEnable">Automatiquement mettre à jour l'application</label>
 				</div>
 			</h3>
+
+			<div class="separator vertical"></div>
+
+			<h4 class="center">La version actuelle a apportée : <span id="currentChangeslogs">Chargement</span></h4>
 
 			<div class="separator vertical"></div>
 
@@ -57,8 +61,12 @@
 			</h2>
 			<section id="debug">
 				<p>
-					<input type="checkbox" id="developmentBranchEnable" name="developmentBranchEnable">
-					<label for="developmentBranchEnable">Synchronisation avec la branche git : development</label>
+					<label for="developmentBranch">Synchronisation avec la branche git</label>
+					<select name="developmentBranch" id="developmentBranch">
+						<option value="0">Par défaut</option>
+						<option value="1">Main</option>
+						<option value="2">Development</option>
+					</select>
 				</p>
 				<table>
 					<caption>Cookies de configuration :</caption>

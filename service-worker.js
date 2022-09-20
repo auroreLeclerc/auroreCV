@@ -1,6 +1,11 @@
 import { HttpError } from "./src/js/error/HttpError.js";
 import { UnregisteredError } from "./src/js/error/UnregisteredError.js";
 import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
+
+const devServer = true; // localhost development
+const gitBranches = [false, "main", "development"];
+// "gitBranches[0] === false" for default handling
+
 // TODO: Create service worker class Error
 
 self.addEventListener("install", function(event) {
@@ -18,29 +23,22 @@ self.addEventListener("install", function(event) {
 	);
 });
 
-// TODO: refactor and add HttpError
+// TODO: Refactor to reduce Cognitive Complexity
 self.addEventListener("fetch", function(event) {
 	event.respondWith((() => {
-		return getCookieFromStore("developmentBranch", true, false).then(branch => {
-			let redirect = false,
-			url = event.request.url,
+		return getCookieFromStore("developmentBranch", false, 0).then(branch => {
+			let url = event.request.url,
 			request = event.request;
 
-			if (branch && !url.endsWith('/')) {
-				// url = url.replace(
-				// 	"auroreleclerc.github.io/auroreCV",
-				// 	"raw.githubusercontent.com/auroreLeclerc/auroreCV/development/"
-				// );
+			if (gitBranches[branch] && !url.endsWith('/')) {
 				url = url.replace(
-					"localhost:8000/",
-					"raw.githubusercontent.com/auroreLeclerc/auroreCV/development/"
+					devServer ? "localhost:8000/" : "auroreleclerc.github.io/auroreCV",
+					`raw.githubusercontent.com/auroreLeclerc/auroreCV/${gitBranches[branch]}/`
 				);
-				redirect = true;
+
 				request = new Request(url);
 			}
-
 			return caches.match(request).then(response => {
-
 				if (url.endsWith("!online")) {
 					url = url.substring(0, url.length - 7);
 					console.info('🌐', url);
@@ -49,7 +47,7 @@ self.addEventListener("fetch", function(event) {
 
 				if (response?.ok) {
 					console.info('📬', url);
-					if (redirect) {
+					if (gitBranches[branch]) {
 						let redirection = new Response(response.body, {
 							headers: new Headers()
 						})
@@ -72,7 +70,7 @@ self.addEventListener("fetch", function(event) {
 								);
 							}
 							else {
-								// TODO: implement throw new HttpError and refactor for better then/catch
+								// TODO: check quality of throw new HttpError and check if refactor for better then/catch
 								if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
 								else throw new HttpError(fetched?.status, fetched?.statusText, url);
 							}
@@ -84,7 +82,7 @@ self.addEventListener("fetch", function(event) {
 							return fetched;
 						}
 						
-						if (redirect) {
+						if (gitBranches[branch]) {
 							return fetched.text().then(text => {
 								return new Response(
 									new Blob(
