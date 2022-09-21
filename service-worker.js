@@ -1,5 +1,11 @@
-// import { HttpError} from "./HttpError.js";
-import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore } from "./src/js/variables.js";
+import { HttpError } from "./src/js/error/HttpError.js";
+import { UnregisteredError } from "./src/js/error/UnregisteredError.js";
+import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
+
+const devServer = true; // localhost development
+const gitBranches = [false, "main", "development"];
+// "gitBranches[0] === false" for default handling
+
 // TODO: Create service worker class Error
 
 self.addEventListener("install", function(event) {
@@ -17,114 +23,160 @@ self.addEventListener("install", function(event) {
 	);
 });
 
-// TODO: refactor and add HttpError
+// TODO: Refactor to reduce Cognitive Complexity
 self.addEventListener("fetch", function(event) {
-	event.respondWith(
-		caches.match(event.request).then(response => {
-			let request;
-			if (event.request.url.endsWith("!online")) {
-				request = new Request(event.request.url.substring(0, event.request.url.length - 7));
-				console.info('🌐', request.url);
-				response = "!online";
+	event.respondWith((() => {
+		return getCookieFromStore("developmentBranch", false, 0).then(branch => {
+			let url = event.request.url,
+			request = event.request;
+
+			if (gitBranches[branch] && !url.endsWith('/')) {
+				url = url.replace(
+					devServer ? "localhost:8000/" : "auroreleclerc.github.io/auroreCV",
+					`raw.githubusercontent.com/auroreLeclerc/auroreCV/${gitBranches[branch]}/`
+				);
+
+				request = new Request(url);
 			}
-			else {
-				request = event.request;
-			}
-
-			if(response?.ok) {
-				console.info('📬', response.url);
-				return response;
-			}
-			else {
-				return fetch(request).then(fetched => {
-					if(fetched?.ok) {
-						console.info('📫', request.url);
-
-						// Failsafe in case the service worker didn't cache the url in the install event
-						if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
-							cache.add(request.url).then(() =>
-								console.warn('⛑️', request.url)
-							)
-						);
-					}
-					else {
-						// TODO: implement throw new HttpError and refactor for better then/catch
-						if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", request.url);
-						else console.error('📯‍📭', "HTTP Error", fetched?.status, fetched?.statusText, request.url);
-					}
-
-					// If HTTP Error, the browser handle it like usual
-					return fetched; 
-				}).catch(error => {
-					console.info('✈️‍📭', error.message, request.url);
-
-					if (request.url.endsWith(".html")) {
-						return new Response(
-							new Blob([`
-								<!DOCTYPE html>
-								<html lang="en">
-									<head>
-										<meta charset="UTF-8"/>
-										<meta name="theme-color" content="DeepPink"/>
-										<meta name="viewport" content="width=device-width, initial-scale=1">
-										<title>Not Found</title>
-										<link rel="stylesheet" type="text/css" href="/src/css/style.css" />
-									</head>
-									<body>
-										<main class="center">
-											<h1 style="word-break: break-word;">You are offline ✈️ and ${request.url} has not been found in the cache 📭...</h1>
-											<h2>Make sure you are not off domain 🛂</h2>
-											<h2><a href="./">Return to the home page 🏠</a></h2>
-										</main>
-									</body>
-								</html>
-							`], {type : "text/html"})
-						); // Custom offline page
-					}
-					else {
-						return new Response(null, {
-							status: 404,
-							statusText: "Offline"
-						}); // Custom offline response
-					}
-				});
-			}
-		})
-	);
-});
-
-self.addEventListener("periodicsync", function(event) {
-    if (event.tag === "updater") {
-		caches.open(CACHE_NAME).then(cache =>
-			cache.match(MANIFEST_NAME)
-		).then(stream =>
-			stream.json()
-		).then(local =>
-			fetch(MANIFEST_NAME).then(response =>
-				response.json()
-			).then(online => {
-				if(compareVersion(online.version, local.version)) {
-					getCookieFromStore("notification", true, true).then(cookie => {
-						if(cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
-					});
-					navigator.setAppBadge(1);
-					caches.delete(CACHE_NAME);
-					self.dispatchEvent(new Event("installing"));
-					console.info('📦‍♻️', "Update will be installed on next reload");
+			return caches.match(request).then(response => {
+				if (url.endsWith("!online")) {
+					url = url.substring(0, url.length - 7);
+					console.info('🌐', url);
+					response = "!online";
 				}
-				else {
-					getCookieFromStore("debug", true, false).then(cookie => {
-						if(cookie) sendNotification(`📦‍♻️ Local: ${online.version} is the same as Online: ${local.version}`);
+
+				if (response?.ok) {
+					console.info('📬', url);
+					if (gitBranches[branch]) {
+						let redirection = new Response(response.body, {
+							headers: new Headers()
+						})
+						redirection.headers.append("Content-Type", getMimeType(url)); // Workaround for some files being text/plain
+						return redirection;
+					}
+					else return response;
+				}
+				else {						
+					return fetch(new Request(url)).then(fetched => {
+						try {
+							if (fetched?.ok) {
+								console.info('📫', url);
+
+								// Failsafe in case the service worker didn't cache the url in the install event
+								if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
+									cache.add(url).then(() =>
+										console.warn('⛑️', url)
+									)
+								);
+							}
+							else {
+								// TODO: check quality of throw new HttpError and check if refactor for better then/catch
+								if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
+								else throw new HttpError(fetched?.status, fetched?.statusText, url);
+							}
+						}
+						catch(error) {
+							console.error('📯‍📭', error);
+
+							// If HTTP Error, the browser handle it like usual
+							return fetched;
+						}
+						
+						if (gitBranches[branch]) {
+							return fetched.text().then(text => {
+								return new Response(
+									new Blob(
+										[text],
+										{type: getMimeType(url)}
+									)
+								);
+							})	
+						}
+						else return fetched;
+					}).catch(error => {
+						console.info('✈️‍📭', error.message, url);
+
+						if (url.endsWith(".html")) {
+							return new Response(
+								new Blob([`
+									<!DOCTYPE html>
+									<html lang="en">
+										<head>
+											<meta charset="UTF-8"/>
+											<meta name="theme-color" content="DeepPink"/>
+											<meta name="viewport" content="width=device-width, initial-scale=1">
+											<title>Not Found</title>
+											<link rel="stylesheet" type="text/css" href="/src/css/style.css" />
+										</head>
+										<body>
+											<main class="center">
+												<h1 style="word-break: break-word;">You are offline ✈️ and ${url} has not been found in the cache 📭...</h1>
+												<h2>Make sure you are not off domain 🛂</h2>
+												<h2><a href="./">Return to the home page 🏠</a></h2>
+											</main>
+										</body>
+									</html>
+								`], {type : "text/html"})
+							); // Custom offline page
+						}
+						else {
+							return new Response(null, {
+								status: 404,
+								statusText: "Offline"
+							}); // Custom offline response
+						}
 					});
-					console.info('📦‍♻️', online.version, '=', local.version);
 				}
 			})
-		)
+		});
+	})());
+});
+
+function _checkUpdate() {
+	caches.open(CACHE_NAME).then(cache =>
+		cache.match(MANIFEST_NAME)
+	).then(stream =>
+		stream.json()
+	).then(local =>
+		fetch(MANIFEST_NAME).then(response =>
+			response.json()
+		).then(online => {
+			if (compareVersion(online.version, local.version)) {
+				getCookieFromStore("notification", true, true).then(cookie => {
+					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
+				});
+				navigator.setAppBadge(1);
+				caches.delete(CACHE_NAME);
+				self.dispatchEvent(new Event("installing"));
+				console.info('📦‍♻️', "Update will be installed on next reload");
+			}
+			else {
+				getCookieFromStore("debug", true, false).then(cookie => {
+					if (cookie) sendNotification(`📦‍♻️ Local: ${online.version} is the same as Online: ${local.version}`);
+				});
+				console.info('📦‍♻️', online.version, '=', local.version);
+			}
+		})
+	)
+}
+
+self.addEventListener("periodicsync", function(event) {
+    if (event.tag === "update") {
+		_checkUpdate();
     }
 });
 
 self.addEventListener("message", function(event) {
 	console.info('📦‍✉️', event.data);
+	switch (message) {
+		case "update":
+			_checkUpdate();
+		break;
+	
+		default:
+			throw new UnregisteredError(event.action, true);
+		// break;
+	}
 });
 
 self.addEventListener("notificationclick", function(event) {
@@ -137,15 +189,15 @@ self.addEventListener("notificationclick", function(event) {
 				type: "window"
 			}).then((clientList) => {
 				for (const client of clientList) {
-					client.navigate('/');
+					client.navigate('./');
 					return client.focus();
 				}
-				return clients.openWindow('/');
+				return clients.openWindow('./');
 			}));
 		break;
 	
 		default:
-			throw new Error("Notification action not registered !");
+			throw new UnregisteredError(event.action, true);
 		// break;
 	}
 });

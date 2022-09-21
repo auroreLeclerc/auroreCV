@@ -8,6 +8,10 @@
 	/* font-family: "LiberationMono"; */
 }
 
+html, body {
+	min-height:100%;
+}
+
 table, td, th {
 	border: 1px solid purple;
 }

@@ -1,3 +1,5 @@
+import { UnregisteredError } from "./error/UnregisteredError.js";
+
 export const CACHE_NAME = "auroreCV";
 export const MANIFEST_NAME = "manifest.json";
 export const OFFLINE_URLS = [
@@ -19,10 +21,11 @@ export const OFFLINE_URLS = [
 	"src/css/style.css",
 
 	"src/js/header.js",
-	"src/js/HttpError.js",
 	"src/js/index.js",
 	"src/js/settings.js",
 	"src/js/variables.js",
+	"src/js/error/HttpError.js",
+	"src/js/error/UnregisteredError.js",
 
 	"src/font/liberation/AUTHORS",
 	"src/font/liberation/LICENSE",
@@ -91,6 +94,7 @@ export const OFFLINE_URLS = [
  */
 export const DELETE_CACHE = () => {
 	navigator.serviceWorker.getRegistrations().then(function(registrations) {
+		setCookie("developmentBranch", 0);
 		for(let registration of registrations) {
 			registration.unregister();
 		}
@@ -106,7 +110,7 @@ export const DELETE_CACHE = () => {
  * @param {string} value Value of the cookie
  * @param {int} expiration In days, when the cookie will be deleted
  */
-export function setCookie(name = "", value = "", expiration = 0) {
+export function setCookie(name, value, expiration = 365 * 5) {
 	let expirationDate = new Date();
 	expirationDate.setTime(
 		expirationDate.getTime() + (expiration * 24 * 60 * 60 * 1000)
@@ -137,10 +141,10 @@ function _toBoolean(value, serviceWorker = false) {
 }
 
 /**
- * @description Get a cookie
+ * @description Get a cookie (not for Service Worker)
  * @param {string} name Name of the cookie
  * @param {boolean} boolean To return the value in boolean
- * @returns {string|boolean} Value of the cookie (if cookieStore then Promise)
+ * @returns {string|boolean} Value of the cookie
  * @throws {Error} Cookie not found.
  */
 export function getCookie(name, boolean = false) {
@@ -159,10 +163,10 @@ export function getCookie(name, boolean = false) {
 
 /**
  * @async
- * @description Get a cookie from cookieStore
+ * @description Get a cookie from cookieStore (for Service Worker)
  * @param {string} name Name of the cookie
  * @param {boolean} boolean To return the value in boolean
- * @param {boolean} assumed Value to be returned in case cookieStore fails
+ * @param {*} assumed Value to be returned in case cookieStore fails
  * @returns {Promise<string|boolean>} Promise that returns value of the cookie
  * @throws {Error} Cookie not found
  */
@@ -208,23 +212,25 @@ export const SET_DEFAULT_COOKIES = () => {
 				while(!compareVersion(cache, updated)) {
 					switch (updated) {
 						case "1.0.0":
-							updated = "1.0.1";
+							setCookie("developmentBranch", 0);
+							updated = "1.1.0";
 						break;
 					
 						default:
-							throw new Error("Update path not implemented !");
+							throw new UnregisteredError("Update path", true);
 						// break;
 					}
 				}
-				setCookie("version", cache, 365 * 4);
+				setCookie("version", cache);
 			}
 			else {
-				setCookie("firstUse", false, 365 * 4);
-				setCookie("autoUpdate", true, 365 * 4);
-				setCookie("notification", false, 365 * 4);
-				setCookie("debug", false, 365 * 4);
-				setCookie("version", cache, 365 * 4);
-				setCookie("lastReset", new Date().toISOString(), 365 * 4);
+				setCookie("firstUse", false);
+				setCookie("autoUpdate", true);
+				setCookie("notification", false);
+				setCookie("debug", false);
+				setCookie("version", cache);
+				setCookie("lastReset", new Date().toISOString());
+				setCookie("developmentBranch", 0);
 			}
 		})
 	)
@@ -280,5 +286,74 @@ export function compareVersion(online, local) {
 	} catch (error) {
 		console.error(error, `online is ${online} and local is ${local}`);
 		return false;
+	}
+}
+
+/**
+ * @description Returns MIME Type from simple url ending with extension file
+ * @param {string} url 
+ * @returns {string} MIME Type
+ */
+export function getMimeType(url) {
+	if (url.endsWith('/')) return "text/html";
+	// Index workaround
+
+	const extension = url.split('.').pop();
+
+	switch (extension) {
+		case "css":
+			return "text/css";
+		// break;
+
+		case "html":
+		case "htm":
+			return "text/html";
+		// break;
+
+		case "ico":
+			return "image/vnd.microsoft.icon";
+		// break;
+
+		case "jpeg":
+		case "jpg":
+			return "image/jpeg";
+		// break;
+
+		case "js":
+			return "text/javascript";
+		// break;
+
+		case "json":
+			return "application/json";
+		// break;
+
+		case "otf":
+			return "font/otf";
+		// break;
+
+		case "png":
+			return "image/png";
+		// break;
+		
+		case "svg":
+			return "image/svg+xml";
+		// break;
+
+		case "ttf":
+			return "font/ttf";
+		// break;
+
+		case "txt":
+			return "text/plain";
+		// break;
+
+		case "md":
+			return "text/markdown";
+		// break;
+
+		default:
+			throw new UnregisteredError(extension, true);
+			// return "text/plain";
+		// break;
 	}
 }
