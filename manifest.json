@@ -7,11 +7,9 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"changelogs": [
-		"Corrections de bugs",
-		"Service de branches",
-		"Changements dans les formations"
+		"Correction mineure lors de mise à jour"
 	],
 	"display": "standalone",
 	"orientation": "any",

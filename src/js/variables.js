@@ -182,11 +182,14 @@ export async function getCookieFromStore(name, boolean = false, assumed = true) 
 	}
 	
 	return cookieStore.get(name).then(cookie => {
-		value = cookie.value;
+		value = cookie?.value;
 		if (!value) {
 			throw new Error(`📦‍🍪 ${name} is ${value}`);
 		}
 		return boolean ? _toBoolean(value, true) : value;
+	}).catch(error => {
+		console.error(error);
+		return assumed;
 	});
 }
 
