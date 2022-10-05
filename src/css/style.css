@@ -48,6 +48,10 @@ div.separator.vertical {
 	text-align: center;
 }
 
+.italic {
+	font-style: italic;
+}
+
 .flexCenter {	
 	display: flex;
 	flex-flow: row nowrap;

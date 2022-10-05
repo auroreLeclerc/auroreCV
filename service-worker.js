@@ -142,7 +142,7 @@ function _checkUpdate() {
 			response.json()
 		).then(online => {
 			if (compareVersion(online.version, local.version)) {
-				getCookieFromStore("notification", true, true).then(cookie => {
+				getCookieFromStore("notification", true, false).then(cookie => {
 					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
 				});
 				navigator.setAppBadge(1);

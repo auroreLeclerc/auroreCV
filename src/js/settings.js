@@ -13,7 +13,7 @@ function checkFetchUpdate() {
 			const msg = "♻️ Effacer le cache pour charger la mise à jour !"
 			update.textContent = msg;
 			document.getElementById("changelogs").style.display = "flex";
-			sendNotification(msg);
+			if (getCookie("notification", true)) sendNotification(msg);
 		}
 		else {
 			update.textContent = "Aucune mise à jour diponible";
