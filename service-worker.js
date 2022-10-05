@@ -2,7 +2,7 @@ import { HttpError } from "./src/js/error/HttpError.js";
 import { UnregisteredError } from "./src/js/error/UnregisteredError.js";
 import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
 
-const devServer = true; // localhost development
+const devServer = false; // localhost development
 const gitBranches = [false, "main", "development"];
 // "gitBranches[0] === false" for default handling
 
