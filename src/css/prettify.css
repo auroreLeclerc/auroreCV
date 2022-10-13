@@ -1,0 +1,21 @@
+div.accordionised {
+    display: inline;
+}
+
+div.accordionised div.container {
+    vertical-align: text-top;
+    overflow: hidden;
+	white-space: nowrap;
+
+	transition-property: width;
+	transition-duration: 1s;
+	transition-timing-function: ease-in-out;
+}
+
+div.accordionised div.container, div.accordionised div.container span.initial, div.accordionised div.container span.lowercase {
+    display: inline-block;
+}
+
+div.accordionised div.container:not(:last-child) span.lowercase:after { 
+	content: "\00A0";
+}
