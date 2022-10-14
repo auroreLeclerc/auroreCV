@@ -7,9 +7,11 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"changelogs": [
-		"Corrections de bugs"
+		"Corrections de bugs",
+		"Ajout des acronymes en accordéon",
+		"Ajout de compétences"
 	],
 	"display": "standalone",
 	"orientation": "any",
