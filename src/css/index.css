@@ -192,6 +192,9 @@ main section#skills article div ul li::before {
 main section#skills article div ul li.flag::before {
 	background-image: url("../img/homeMade/greenflag.svg");
 }
+main section#skills article div ul li.progress::before {
+	background-image: url("../img/homeMade/progress.svg");
+}
 
 /* section#hobbies */
 
