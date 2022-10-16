@@ -1,8 +1,5 @@
 import { getCookie } from "./variables.js";
 
-const agent = navigator.userAgent.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i)[1];
-if (agent === "Firefox") alert("Mozilla Firefox doesn't support module in service worker for now...\nhttps://bugzilla.mozilla.org/show_bug.cgi?id=1247687\nService Worker is therefore unusable.");
-
 if ("serviceWorker" in navigator) {
 	window.addEventListener("load", () => {
 		navigator.serviceWorker.register(
@@ -30,6 +27,8 @@ if ("serviceWorker" in navigator) {
 					registration.active.postMessage("update");
 				}
 			}
+		}).catch(error => {
+			throw new Error("Navigator serviceWorker registration as a module failed", { cause: error });
 		});
 	});
 }

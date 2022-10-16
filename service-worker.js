@@ -2,9 +2,7 @@ import { HttpError } from "./src/js/error/HttpError.js";
 import { UnregisteredError } from "./src/js/error/UnregisteredError.js";
 import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
 
-const devServer = false; // localhost development
-const gitBranches = [false, "main", "development"];
-// "gitBranches[0] === false" for default handling
+const gitBranches = [false, "main", "development"]; // [0] is for default handling
 
 // TODO: Create service worker class Error
 
@@ -32,7 +30,8 @@ self.addEventListener("fetch", function(event) {
 
 			if (gitBranches[branch] && !url.endsWith('/')) {
 				url = url.replace(
-					devServer ? "localhost:8000/" : "auroreleclerc.github.io/auroreCV",
+					// "localhost:8000/", // localhost development
+					"auroreleclerc.github.io/auroreCV", // production
 					`raw.githubusercontent.com/auroreLeclerc/auroreCV/${gitBranches[branch]}/`
 				);
 
@@ -70,7 +69,7 @@ self.addEventListener("fetch", function(event) {
 								);
 							}
 							else {
-								// TODO: check quality of throw new HttpError and check if refactor for better then/catch
+								// TODO: check quality code of throw new HttpError and check if refactor is needed for better then/catch
 								if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
 								else throw new HttpError(fetched?.status, fetched?.statusText, url);
 							}
@@ -128,6 +127,9 @@ self.addEventListener("fetch", function(event) {
 					});
 				}
 			})
+		}).catch(error => { // fatal error failsafe
+			console.error("Fatal Error ;", error);
+			return fetch(event.request);
 		});
 	})());
 });

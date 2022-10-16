@@ -19,11 +19,13 @@ export const OFFLINE_URLS = [
 	"src/css/rights.css",
 	"src/css/settings.css",
 	"src/css/style.css",
+	"src/css/prettify.css",
 
 	"src/js/header.js",
 	"src/js/index.js",
 	"src/js/settings.js",
 	"src/js/variables.js",
+	"src/js/prettify.js",
 	"src/js/error/HttpError.js",
 	"src/js/error/UnregisteredError.js",
 
@@ -48,6 +50,7 @@ export const OFFLINE_URLS = [
 	"src/img/homeMade/diploma.svg",
 	"src/img/homeMade/experiences.svg",
 	"src/img/homeMade/greenflag.svg",
+	"src/img/homeMade/progress.svg",
 	"src/img/homeMade/hobbies.svg",
 	"src/img/homeMade/house.svg",
 	"src/img/homeMade/initials.svg",

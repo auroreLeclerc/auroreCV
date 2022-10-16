@@ -27,7 +27,13 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 		online.textContent = unreachable;
 		local.textContent = unreachable;
 		currentChangeslogs.textContent = unreachable;
-		update.textContent = "Retourner à l'accueil pour réinstaller le Service Worker";
+		const agent = navigator.userAgent.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i)[1];
+		if (agent === "Firefox") {
+			update.innerHTML = "<span><a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1247687\">Mozilla Firefox doesn't support module in service worker for now.</a><br> Service Worker is therefore unusable.</span>";
+		}
+		else {
+			update.textContent = "Retourner à l'accueil pour réinstaller le Service Worker";
+		}
 	}
 	else {
 		caches.open(CACHE_NAME).then(cache =>
@@ -145,7 +151,7 @@ navigator.serviceWorker.ready.then(registration => {
 		while (iosWarning.lastChild) {
 			iosWarning.removeChild(iosWarning.lastChild);
 		}
-		iosWarning.textContent = `📦‍♻️ Service update disable ! <a href="https://developer.mozilla.org/en-US/docs/Web/API/PeriodicSyncEvent#browser_compatibility">You need a navigator that supports backgound jobs.</a>`;
+		iosWarning.innerHTML = "📦‍♻️ Service update disable ! <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/PeriodicSyncEvent#browser_compatibility\">You need a navigator that supports backgound jobs.</a>";
 	}
 });
 

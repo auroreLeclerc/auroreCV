@@ -2,7 +2,7 @@ const accordions = document.getElementsByClassName("accordion");
 
 while (accordions.length > 0) { // original array is dynamically slice with Element.replaceWith() 
 	const accordion = accordions[0];
-	accordion.textContent = accordion.textContent.replace(/\s/g, ''); // remove spaces security
+	accordion.textContent = accordion.textContent.replace(/\s/g, ''); // remove spaces (security)
 
 	const accordionised = document.createElement("div");
 	accordionised.setAttribute("class", "accordionised");
@@ -21,7 +21,7 @@ while (accordions.length > 0) { // original array is dynamically slice with Elem
 		const firstInitial = !nextInitial ? fullText.indexOf(accordion.textContent[i]) : nextInitial;
 		nextInitial = fullText.indexOf(accordion.textContent[i + 1], firstInitial);
 		if (nextInitial === -1) nextInitial = fullText.length + 1;
-		const textBetweenThoseTwoInitials = fullText.substring(firstInitial + 1, nextInitial);
+		const textBetweenThoseTwoInitials = fullText.substring(firstInitial + 1, nextInitial - 1); // spaces are css handled
 
 		const lowercase = document.createElement("span");
 		lowercase.setAttribute("class", "lowercase");
@@ -53,7 +53,7 @@ while (accordions.length > 0) { // original array is dynamically slice with Elem
 	});
 
 	accordion.replaceWith(accordionised);
-	setTimeout(() => {
+	setTimeout(() => { //TODO: make a loading screen to hide that, and maybe doing a real loading screen that wait while page is loading
 		accordionised.dispatchEvent(new MouseEvent("mouseover"));
 		accordionised.dispatchEvent(new MouseEvent("mouseleave"));
 	}, 500);
