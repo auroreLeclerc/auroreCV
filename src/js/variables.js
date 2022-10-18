@@ -223,7 +223,9 @@ export const SET_DEFAULT_COOKIES = () => {
 						break;
 					
 						default:
-							throw new UnregisteredError("Update path", true);
+							updated = cache; // Failsafe to cookie reset
+							setCookie("UnregisteredError", "Update path");
+							console.error(new UnregisteredError("Update path", true));
 						// break;
 					}
 				}
@@ -237,6 +239,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				setCookie("version", cache);
 				setCookie("lastReset", new Date().toISOString());
 				setCookie("developmentBranch", 0);
+				setCookie("UnregisteredError", null);
 			}
 		})
 	)
@@ -261,9 +264,9 @@ export function sendNotification(body, actions = []) {
 	};
 
 	if ("serviceWorker" in navigator) {
-		navigator.serviceWorker.ready.then((registration) => {
+		navigator.serviceWorker.ready.then(registration => {
 			if (Notification.permission !== "granted") {
-				Notification.requestPermission().then( response => {
+				Notification.requestPermission().then(response => {
 					if (response === "granted") {
 						return registration.showNotification(title, options);
 					}
@@ -358,8 +361,9 @@ export function getMimeType(url) {
 		// break;
 
 		default:
-			throw new UnregisteredError(extension, true);
-			// return "text/plain";
+			setCookie("UnregisteredError", "Update path");
+			console.error(new UnregisteredError(extension, true));
+			return "text/plain";
 		// break;
 	}
 }

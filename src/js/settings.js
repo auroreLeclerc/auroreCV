@@ -30,10 +30,12 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 		const agent = navigator.userAgent.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i)[1];
 		if (agent === "Firefox") {
 			update.innerHTML = "<span><a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1247687\">Mozilla Firefox doesn't support module in service worker for now.</a><br> Service Worker is therefore unusable.</span>";
+			document.getElementById("autoUpdateEnable").disabled = true;
 		}
 		else {
 			update.textContent = "Retourner à l'accueil pour réinstaller le Service Worker";
 		}
+		document.getElementById("notificationEnable").disabled = true;
 	}
 	else {
 		caches.open(CACHE_NAME).then(cache =>
