@@ -1,6 +1,5 @@
-const CACHE_NAME = "auroreCV";
-const MANIFEST_NAME = "manifest.json";
-const OFFLINE_URLS = [
+const CACHE_NAME = "auroreCV",
+OFFLINE_URLS = [
 	"./",
 	"LICENSE",
 

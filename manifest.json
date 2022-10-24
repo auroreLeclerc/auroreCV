@@ -7,13 +7,10 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"changelogs": [
 		"Corrections de bugs",
-		"Support de Firefox moins bancale",
-		"Ajout d'un failsafe dans le Service Worker",
-		"Ajout des acronymes en accordéon",
-		"Ajout de compétences"
+		"Support de Firefox et Safari via un Service Worker Lite"
 	],
 	"display": "standalone",
 	"orientation": "any",

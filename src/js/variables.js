@@ -213,7 +213,6 @@ export const SET_DEFAULT_COOKIES = () => {
 			}
 			
 			if(compareVersion(cache, cookie)) {
-				// TODO: Create a working cookie path upgrade for next releases
 				let updated = cookie;
 				while(!compareVersion(cache, updated)) {
 					switch (updated) {
@@ -222,14 +221,21 @@ export const SET_DEFAULT_COOKIES = () => {
 							updated = "1.1.0";
 						break;
 
-						case "1.2.0":
+						case "1.1.0":
+						case "1.1.1":
 							setCookie("UnregisteredError", null);
-							updated = "1.2.1";
+							updated = "1.2.0";
+						break;
+
+						case "1.2.0":
+						case "1.3.0":
+							console.info("No cookie update in this release");
+							updated = "next";
 						break;
 
 						default:
 							updated = cache; // Failsafe
-							setCookie("UnregisteredError", "Update path");
+							setCookie("UnregisteredError", `Update path for ${updated}`);
 							console.error(new UnregisteredError("Update path", true));
 						// break;
 					}

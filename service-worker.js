@@ -146,11 +146,12 @@ function _checkUpdate() {
 			if (compareVersion(online.version, local.version)) {
 				getCookieFromStore("notification", true, false).then(cookie => {
 					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
+
+					navigator.setAppBadge(1);
+					caches.delete(CACHE_NAME);
+					self.dispatchEvent(new Event("installing"));
+					console.info('📦‍♻️', "Update will be installed on next reload");
 				});
-				navigator.setAppBadge(1);
-				caches.delete(CACHE_NAME);
-				self.dispatchEvent(new Event("installing"));
-				console.info('📦‍♻️', "Update will be installed on next reload");
 			}
 			else {
 				getCookieFromStore("debug", true, false).then(cookie => {

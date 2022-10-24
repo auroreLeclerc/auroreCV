@@ -21,23 +21,23 @@ function checkFetchUpdate() {
 	}
 }
 
-// TODO: check if service worker lite then disable mostly everything
+function liteMode() {
+	document.getElementById("autoUpdateEnable").disabled = true;
+	document.getElementById("notificationEnable").disabled = true;
+	document.getElementById("developmentBranch").disabled = true;
+}
 
 navigator.serviceWorker.getRegistrations().then(registrations => {
+	console.log(registrations[0]?.active?.scriptURL);
 	if(registrations.length === 0) {
 		const unreachable = "📦 Service Worker inatteignable";
+
 		online.textContent = unreachable;
 		local.textContent = unreachable;
 		currentChangeslogs.textContent = unreachable;
-		const agent = navigator.userAgent.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i)[1];
-		if (agent === "Firefox") {
-			update.innerHTML = "<span><a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1247687\">Mozilla Firefox doesn't support module in service worker for now.</a><br> Service Worker is therefore unusable.</span>";
-			document.getElementById("autoUpdateEnable").disabled = true;
-		}
-		else {
-			update.textContent = "Retourner à l'accueil pour réinstaller le Service Worker";
-		}
-		document.getElementById("notificationEnable").disabled = true;
+		update.textContent = "Retourner à l'accueil pour réinstaller le Service Worker";
+
+		liteMode();
 	}
 	else {
 		caches.open(CACHE_NAME).then(cache =>
@@ -73,6 +73,14 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			else online.textContent = "❌ Erreur Fatale";
 			console.error('⚙️', error);
 		});
+
+		if (registrations[0].active.scriptURL.endsWith("service-worker-lite.js")) {
+			setCookie("autoUpdate", false);
+			liteMode();
+		}
+		else if (!registrations[0]?.sync) {
+			document.getElementById("autoUpdateEnable").disabled = true;
+		}
 	}
 });
 
@@ -148,16 +156,6 @@ checkboxButton("debugEnable", "debug", function() {
 	document.getElementById("developmentBranch").selected = true;
 });
 if (getCookie("debug", true)) debugEnable.click();
-
-navigator.serviceWorker.ready.then(registration => {
-	if (!registration.sync) {
-		const iosWarning = document.getElementById("iosWarning");
-		while (iosWarning.lastChild) {
-			iosWarning.removeChild(iosWarning.lastChild);
-		}
-		iosWarning.innerHTML = "📦‍♻️ Service update disable ! <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/PeriodicSyncEvent#browser_compatibility\">You need a navigator that supports backgound jobs.</a>";
-	}
-});
 
 document.getElementById("deleteCache").addEventListener("click", () => {
 	if(!navigator.onLine) {
