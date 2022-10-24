@@ -21,6 +21,8 @@ function checkFetchUpdate() {
 	}
 }
 
+// TODO: check if service worker lite then disable mostly everything
+
 navigator.serviceWorker.getRegistrations().then(registrations => {
 	if(registrations.length === 0) {
 		const unreachable = "📦 Service Worker inatteignable";

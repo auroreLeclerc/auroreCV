@@ -221,9 +221,14 @@ export const SET_DEFAULT_COOKIES = () => {
 							setCookie("developmentBranch", 0);
 							updated = "1.1.0";
 						break;
-					
+
+						case "1.2.0":
+							setCookie("UnregisteredError", null);
+							updated = "1.2.1";
+						break;
+
 						default:
-							updated = cache; // Failsafe to cookie reset
+							updated = cache; // Failsafe
 							setCookie("UnregisteredError", "Update path");
 							console.error(new UnregisteredError("Update path", true));
 						// break;

@@ -28,7 +28,16 @@ if ("serviceWorker" in navigator) {
 				}
 			}
 		}).catch(error => {
-			throw new Error("Navigator serviceWorker registration as a module failed", { cause: error });
+			console.error(new Error("Navigator serviceWorker registration as a module failed", { cause: error }));
+			navigator.serviceWorker.register(
+				"./service-worker-lite.js", {
+					scope: "./"
+				}
+			).then(registration => {
+				console.info('📮', "ServiceWorker Lite called on", registration.scope);
+			}).catch(error => {
+				throw new Error("Navigator serviceWorker Lite registration failed", { cause: error });
+			});
 		});
 	});
 }
