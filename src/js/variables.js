@@ -61,8 +61,11 @@ export const OFFLINE_URLS = [
 
 	"src/img/homeMade/icons/1024.png",
 	"src/img/homeMade/icons/192.png",
+	"src/img/homeMade/icons/192_maskable.png",
 	"src/img/homeMade/icons/384.png",
+	"src/img/homeMade/icons/384_maskable.png",
 	"src/img/homeMade/icons/512.png",
+	"src/img/homeMade/icons/512_maskable.png",
 	"src/img/homeMade/icons/initials.png",
 	
 	"src/img/registeredTrademark/AFIA_CFA_blanc.svg",

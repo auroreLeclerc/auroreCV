@@ -73,7 +73,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			console.error('⚙️', error);
 		});
 
-		const serviceWorker = document.getElementById("service-worker");
+		const serviceWorker = document.getElementById("serviceWorker");
 		if (registrations.length > 1) {
 			for (const registration of registrations) {
 				serviceWorker.textContent += registration.active.scriptURL;

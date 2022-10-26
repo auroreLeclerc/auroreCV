@@ -17,7 +17,7 @@
 /* It targets only the app used with a system icon in all mode */
 @media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
 	section#debug span#displayMode::after {
-		content: "all";
+		content: "standalone / fullscreen / minimal-ui";
 	}
 }
 
