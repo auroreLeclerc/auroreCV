@@ -59,3 +59,9 @@ body > header #airplane {
 	transition-duration: 0.5s;
 	transition-timing-function: ease-out;
 }
+
+@media print {
+	body > header, body > footer {
+		display: none;
+	}
+}

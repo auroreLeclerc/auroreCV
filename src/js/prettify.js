@@ -45,10 +45,25 @@ while (accordions.length > 0) { // original array is dynamically slice with Elem
 			container.container.style.width = `${initial + lowercase}px`;
 		}
 	});
+	accordionised.addEventListener("click", () => {
+		accordionised.classList.add("clicked");
+	});
+	document.body.addEventListener("click", event => {
+		let notOutclick = 0;
+		for (const className of ["accordionised", "container", "initial", "lowercase"]) {
+			notOutclick += event.target.classList.contains(className);
+		}
+		if (notOutclick <= 0) {
+			accordionised.classList.remove("clicked");
+			accordionised.dispatchEvent(new MouseEvent("mouseleave"));
+		}
+	});
 	accordionised.addEventListener("mouseleave", () => {
 		for (const container of containers) {
-			const initial = container.initial.clientWidth;
-			container.container.style.width = `${initial}px`;
+			if (!accordionised.classList.contains("clicked")) {
+				const initial = container.initial.clientWidth;
+				container.container.style.width = `${initial}px`;
+			}
 		}
 	});
 

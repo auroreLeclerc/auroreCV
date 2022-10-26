@@ -28,7 +28,6 @@ function liteMode() {
 }
 
 navigator.serviceWorker.getRegistrations().then(registrations => {
-	console.log(registrations[0]?.active?.scriptURL);
 	if(registrations.length === 0) {
 		const unreachable = "📦 Service Worker inatteignable";
 
@@ -74,13 +73,26 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			console.error('⚙️', error);
 		});
 
-		if (registrations[0].active.scriptURL.endsWith("service-worker-lite.js")) {
-			setCookie("autoUpdate", false);
+		const serviceWorker = document.getElementById("service-worker");
+		if (registrations.length > 1) {
+			for (const registration of registrations) {
+				serviceWorker.textContent += registration.active.scriptURL;
+			}
 			liteMode();
+			alert(`Plusieurs Service Worker sont enregistrés. Effacer le cache ${registrations.length} fois pour les purger.`)
+		}
+		else if (registrations[0].active.scriptURL.endsWith("service-worker-lite.js")) {
+			serviceWorker.textContent = registrations[0].active.scriptURL;
+			liteMode();
+			setCookie("autoUpdate", false);
 		}
 		else if (!registrations[0]?.sync) {
+			serviceWorker.textContent = `${registrations[0].active.scriptURL} without sync`;
 			document.getElementById("autoUpdateEnable").disabled = true;
+			document.getElementById("notificationEnable").disabled = true;
+			setCookie("autoUpdate", false);
 		}
+		else serviceWorker.textContent = registrations[0].active.scriptURL;
 	}
 });
 

@@ -16,6 +16,24 @@ div.accordionised div.container, div.accordionised div.container span.initial, d
     display: inline-block;
 }
 
-div.accordionised div.container:not(:last-child) span.lowercase:after { 
+div.accordionised div.container:not(:last-child) span.lowercase:after {
 	content: "\00A0";
+}
+
+@media print {
+	main {
+		/* display: table; */
+	}
+
+	div.accordionised div.container span.lowercase {
+		display: none;
+	}
+
+	main section#skills article div ul li, main header#informations article ul li {
+		display: list-item;
+		list-style: square;
+	}
+	main section#skills article div ul li::before, main header#informations article ul li::before {
+		display: none;
+	}
 }
