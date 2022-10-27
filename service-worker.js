@@ -1,5 +1,4 @@
-import { HttpError } from "./src/js/error/HttpError.js";
-import { UnregisteredError } from "./src/js/error/UnregisteredError.js";
+import { HttpError, UnregisteredError } from "./src/js/error.js";
 import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
 
 const gitBranches = [false, "main", "development"]; // [0] is for default handling

@@ -1,4 +1,4 @@
-import { HttpError} from "./error/HttpError.js";
+import { HttpError} from "./error.js";
 import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, setCookie, getCookie, compareVersion, SET_DEFAULT_COOKIES } from "./variables.js";
 
 let local = document.getElementById("local"),

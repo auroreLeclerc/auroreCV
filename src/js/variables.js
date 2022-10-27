@@ -1,4 +1,4 @@
-import { UnregisteredError } from "./error/UnregisteredError.js";
+import { NotFoundError, UnregisteredError } from "./error.js";
 
 export const CACHE_NAME = "auroreCV";
 export const MANIFEST_NAME = "manifest.json";
@@ -26,8 +26,7 @@ export const OFFLINE_URLS = [
 	"src/js/settings.js",
 	"src/js/variables.js",
 	"src/js/prettify.js",
-	"src/js/error/HttpError.js",
-	"src/js/error/UnregisteredError.js",
+	"src/js/error.js",
 
 	"src/font/liberation/AUTHORS",
 	"src/font/liberation/LICENSE",
@@ -59,6 +58,16 @@ export const OFFLINE_URLS = [
 	"src/img/homeMade/phone.svg",
 	"src/img/homeMade/skills.svg",
 
+	"src/img/homeMade/icons/agenda.png",
+	"src/img/homeMade/icons/checkmark.png",
+	"src/img/homeMade/icons/greenflag.png",
+	"src/img/homeMade/icons/progress.png",
+	"src/img/homeMade/icons/house.png",
+	"src/img/homeMade/icons/mail.png",
+	"src/img/homeMade/icons/mbti.png",
+	"src/img/homeMade/icons/phone.png",
+	"src/img/homeMade/icons/initials.png",
+
 	"src/img/homeMade/icons/1024.png",
 	"src/img/homeMade/icons/192.png",
 	"src/img/homeMade/icons/192_maskable.png",
@@ -66,7 +75,6 @@ export const OFFLINE_URLS = [
 	"src/img/homeMade/icons/384_maskable.png",
 	"src/img/homeMade/icons/512.png",
 	"src/img/homeMade/icons/512_maskable.png",
-	"src/img/homeMade/icons/initials.png",
 	
 	"src/img/registeredTrademark/AFIA_CFA_blanc.svg",
 	"src/img/registeredTrademark/AFIA_CFA_couleur.svg",
@@ -91,7 +99,10 @@ export const OFFLINE_URLS = [
 	"src/img/registeredTrademark/USPN_2021_logo.svg",
 	"src/img/registeredTrademark/USPN_2021.svg",
 	"src/img/registeredTrademark/USPN_2022_logo.svg",
-	"src/img/registeredTrademark/USPN_2022.svg"
+	"src/img/registeredTrademark/USPN_2022.svg",
+
+	"src/img/registeredTrademark/icons/Github_black.png",
+	"src/img/registeredTrademark/icons/Linkedin.png"
 ];
 
 /**
@@ -151,7 +162,7 @@ function _toBoolean(value, serviceWorker = false) {
  * @param {string} name Name of the cookie
  * @param {boolean} boolean To return the value in boolean
  * @returns {string|boolean} Value of the cookie
- * @throws {Error} Cookie not found.
+ * @throws {NotFoundError} Cookie not found.
  */
 export function getCookie(name, boolean = false) {
 	let value;
@@ -163,7 +174,7 @@ export function getCookie(name, boolean = false) {
 	if (value) return boolean ? _toBoolean(value, false) : value;
 	else {
 		SET_DEFAULT_COOKIES();
-		throw new Error(`Cookie ${name} not found. Cookies were reset.`);
+		throw new NotFoundError(`Cookie ${name}`, "Cookies were reset.");
 	}
 }
 
@@ -174,7 +185,7 @@ export function getCookie(name, boolean = false) {
  * @param {boolean} boolean To return the value in boolean
  * @param {*} assumed Value to be returned in case cookieStore fails
  * @returns {Promise<string|boolean>} Promise that returns value of the cookie
- * @throws {Error} Cookie not found
+ * @throws {NotFoundError} Cookie not found
  */
 export async function getCookieFromStore(name, boolean = false, assumed = true) {
 	let value;
@@ -190,7 +201,7 @@ export async function getCookieFromStore(name, boolean = false, assumed = true) 
 	return cookieStore.get(name).then(cookie => {
 		value = cookie?.value;
 		if (!value) {
-			throw new Error(`📦‍🍪 ${name} is ${value}`);
+			throw new NotFoundError(`Cookie ${name}`, '📦‍🍪');
 		}
 		return boolean ? _toBoolean(value, true) : value;
 	}).catch(error => {
@@ -232,6 +243,7 @@ export const SET_DEFAULT_COOKIES = () => {
 
 						case "1.2.0":
 						case "1.3.0":
+						case "1.3.1":
 							console.info("No cookie update in this release");
 							updated = "next";
 						break;

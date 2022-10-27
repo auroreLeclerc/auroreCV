@@ -15,9 +15,9 @@
 	}
 }
 /* It targets only the app used with a system icon in all mode */
-@media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
+@media (display-mode: fullscreen), (display-mode: minimal-ui) {
 	section#debug span#displayMode::after {
-		content: "standalone / fullscreen / minimal-ui";
+		content: "fullscreen / minimal-ui";
 	}
 }
 
@@ -30,6 +30,10 @@ a {
 
 p a {
 	border-bottom-width: 1px;
+}
+
+a img {
+	padding-bottom: 2px;
 }
 
 a:active, a:link, a:visited {
@@ -69,7 +73,7 @@ a:hover {
 	}
 }
 
-@media (prefers-color-scheme: light), print {
+@media (prefers-color-scheme: light) {
 	:root {
 		background-color: hsl(204, 6%, 90%);
 		color: hsl(204, 6%, 20%);
@@ -82,7 +86,7 @@ a:hover {
 	}
 	
 	.button {
-		color: hsl(204, 6%, 20%);;
+		color: hsl(204, 6%, 20%);
 	}
 
 	.black-theme {
