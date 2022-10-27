@@ -72,9 +72,8 @@ export const OFFLINE_URLS = [
 	"src/img/homeMade/icons/192.png",
 	"src/img/homeMade/icons/192_maskable.png",
 	"src/img/homeMade/icons/384.png",
-	"src/img/homeMade/icons/384_maskable.png",
 	"src/img/homeMade/icons/512.png",
-	"src/img/homeMade/icons/512_maskable.png",
+	"src/img/homeMade/icons/IOS.png",
 	
 	"src/img/registeredTrademark/AFIA_CFA_blanc.svg",
 	"src/img/registeredTrademark/AFIA_CFA_couleur.svg",
@@ -244,6 +243,7 @@ export const SET_DEFAULT_COOKIES = () => {
 						case "1.2.0":
 						case "1.3.0":
 						case "1.3.1":
+						case "1.3.2":
 							console.info("No cookie update in this release");
 							updated = "next";
 						break;

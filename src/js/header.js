@@ -28,7 +28,7 @@ if ("share" in navigator) {
     });
 }
 
-if ("print" in window && (window.location.pathname === "/index.html" || window.location.pathname === "/")) {
+if ("print" in window && (window.location.pathname.endsWith("/index.html") || window.location.pathname.endsWith("/"))) {
     header.insertAdjacentHTML("beforeend", `<h1 id="print"><a>Imprimer</a></h1>`);
     document.getElementById("print").addEventListener("click", () => {
         window.print();
