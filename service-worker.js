@@ -1,5 +1,6 @@
 import { HttpError, UnregisteredError } from "./src/js/error.js";
-import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, compareVersion, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
+import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
+import { Version } from "./src/js/Version.js";
 
 const gitBranches = [false, "main", "development"]; // [0] is for default handling
 
@@ -142,7 +143,8 @@ function _checkUpdate() {
 		fetch(MANIFEST_NAME).then(response =>
 			response.json()
 		).then(online => {
-			if (compareVersion(online.version, local.version)) {
+			const onlineVsLocal = new Version(online.version, local.version)
+			if (onlineVsLocal.isUpper()) {
 				getCookieFromStore("notification", true, false).then(cookie => {
 					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
 
@@ -154,9 +156,9 @@ function _checkUpdate() {
 			}
 			else {
 				getCookieFromStore("debug", true, false).then(cookie => {
-					if (cookie) sendNotification(`📦‍♻️ Local: ${online.version} is the same as Online: ${local.version}`);
+					if (cookie) sendNotification(`📦‍♻️ Local: ${onlineVsLocal.compare} is the same as Online: ${onlineVsLocal.self}`);
 				});
-				console.info('📦‍♻️', online.version, '=', local.version);
+				console.info('📦‍♻️', onlineVsLocal.self, '=', onlineVsLocal.compare);
 			}
 		})
 	)

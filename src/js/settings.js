@@ -1,5 +1,6 @@
 import { HttpError} from "./error.js";
-import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, setCookie, getCookie, compareVersion, SET_DEFAULT_COOKIES } from "./variables.js";
+import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, setCookie, getCookie, SET_DEFAULT_COOKIES } from "./variables.js";
+import { Version } from "./Version.js";
 
 let local = document.getElementById("local"),
 online = document.getElementById("online"),
@@ -8,8 +9,9 @@ currentChangeslogs = document.getElementById("currentChangeslogs"),
 initialised = false;
 
 function checkFetchUpdate() {
-	if(!isNaN(local.textContent[0]) && !isNaN(online.textContent[0])) {
-		if (compareVersion(online.textContent, local.textContent)) {
+	try {
+		const onlineVsLocal = new Version(online.textContent, local.textContent);
+		if (onlineVsLocal.isUpper()) {
 			const msg = "♻️ Effacer le cache pour charger la mise à jour !"
 			update.textContent = msg;
 			document.getElementById("changelogs").style.display = "flex";
@@ -18,6 +20,9 @@ function checkFetchUpdate() {
 		else {
 			update.textContent = "Aucune mise à jour diponible";
 		}
+		
+	} catch (typeError) {
+		// console.info("checkFetchUpdate promise pending");
 	}
 }
 

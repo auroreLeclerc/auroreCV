@@ -1,4 +1,5 @@
 import { NotFoundError, UnregisteredError } from "./error.js";
+import { Version } from "./Version.js";
 
 export const CACHE_NAME = "auroreCV";
 export const MANIFEST_NAME = "manifest.json";
@@ -27,6 +28,7 @@ export const OFFLINE_URLS = [
 	"src/js/variables.js",
 	"src/js/prettify.js",
 	"src/js/error.js",
+	"src/js/Version.js",
 
 	"src/font/liberation/AUTHORS",
 	"src/font/liberation/LICENSE",
@@ -68,12 +70,15 @@ export const OFFLINE_URLS = [
 	"src/img/homeMade/icons/phone.png",
 	"src/img/homeMade/icons/initials.png",
 
-	"src/img/homeMade/icons/1024.png",
+	"src/img/homeMade/icons/IOS.png",
 	"src/img/homeMade/icons/192.png",
 	"src/img/homeMade/icons/192_maskable.png",
 	"src/img/homeMade/icons/384.png",
+	"src/img/homeMade/icons/384_maskable.png",
 	"src/img/homeMade/icons/512.png",
-	"src/img/homeMade/icons/IOS.png",
+	"src/img/homeMade/icons/512_maskable.png",
+	"src/img/homeMade/icons/1024.png",
+	"src/img/homeMade/icons/1024_maskable.png",
 	
 	"src/img/registeredTrademark/AFIA_CFA_blanc.svg",
 	"src/img/registeredTrademark/AFIA_CFA_couleur.svg",
@@ -173,7 +178,7 @@ export function getCookie(name, boolean = false) {
 	if (value) return boolean ? _toBoolean(value, false) : value;
 	else {
 		SET_DEFAULT_COOKIES();
-		throw new NotFoundError(`Cookie ${name}`, "Cookies were reset.");
+		throw new NotFoundError(`Cookie ${name}`, "Cookies were reset");
 	}
 }
 
@@ -216,53 +221,34 @@ export async function getCookieFromStore(name, boolean = false, assumed = true) 
 export const SET_DEFAULT_COOKIES = () => {
 	fetch(MANIFEST_NAME).then(response =>
 		response.json().then(json => {
-			const cache = json.version;
-			let cookie;
 			try {
-				cookie = getCookie("version", false);
-			} catch (error) {
-				// then firstUse
-				cookie = cache;
-			}
-			
-			if(compareVersion(cache, cookie)) {
-				let updated = cookie;
-				while(!compareVersion(cache, updated)) {
-					switch (updated) {
-						case "1.0.0":
-							setCookie("developmentBranch", 0);
-							updated = "1.1.0";
-						break;
-
-						case "1.1.0":
-						case "1.1.1":
-							setCookie("UnregisteredError", null);
-							updated = "1.2.0";
-						break;
-
-						case "1.2.0":
-						case "1.3.0":
-						case "1.3.1":
-						case "1.3.2":
-							console.info("No cookie update in this release");
-							updated = "next";
-						break;
-
-						default:
-							updated = cache; // Failsafe
-							setCookie("UnregisteredError", `Update path for ${updated}`);
-							console.error(new UnregisteredError("Update path", true));
-						// break;
+				const cookieVsCache = new Version(getCookie("version", false), json.version);
+				if(cookieVsCache.isLower()) {
+					cookieVsCache.compare = "1.1.0";
+					if (cookieVsCache.isLower) { // Local Vs PastNewVersion
+						setCookie("developmentBranch", 0);
 					}
+					
+					cookieVsCache.compare = "1.2.0";
+					if (cookieVsCache.isLower) { // Local Vs PastNewVersion
+						setCookie("UnregisteredError", null);
+					}
+
+					setCookie("version", cookieVsCache.compare);
+					console.info('🍪‍♻️', "Cookies were updated");
 				}
-				setCookie("version", cache);
-			}
-			else {
+				else if (cookieVsCache.isEqual()) throw new Error("Cookies are corrupted");
+				else if (cookieVsCache.isUpper()) throw new RangeError("Local is more recent than online");
+				else throw new UnregisteredError("cookieVsCache", true);
+				
+			} catch (error) {
+				console.error(`SET_DEFAULT_COOKIES: ${error}`);
+				
 				setCookie("firstUse", false);
 				setCookie("autoUpdate", true);
 				setCookie("notification", false);
 				setCookie("debug", false);
-				setCookie("version", cache);
+				setCookie("version", json.version);
 				setCookie("lastReset", new Date().toISOString());
 				setCookie("developmentBranch", 0);
 				setCookie("UnregisteredError", null);
@@ -303,24 +289,6 @@ export function sendNotification(body, actions = []) {
 	}
 	else { // Call from Service Worker (assumed to be headless)
 		return self.registration.showNotification(title, options);
-	}
-}
-
-/**
- * @description Compare online version against local version
- * @param {string} online The online string version
- * @param {string} local The local string version
- * @returns {boolean} if online > local; then true; else false
- */
-export function compareVersion(online, local) {
-	try {
-		const onlineInt = parseInt(online.replace(/\./g, ''));
-		const localInt = parseInt(local.replace(/\./g, ''));
-
-		return onlineInt > localInt;
-	} catch (error) {
-		console.error(error, `online is ${online} and local is ${local}`);
-		return false;
 	}
 }
 
