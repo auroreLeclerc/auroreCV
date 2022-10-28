@@ -15,7 +15,9 @@ function checkFetchUpdate() {
 			const msg = "♻️ Effacer le cache pour charger la mise à jour !"
 			update.textContent = msg;
 			document.getElementById("changelogs").style.display = "flex";
-			if (getCookie("notification", true)) sendNotification(msg);
+			if (getCookie("notification", true)) {
+				sendNotification(msg, [{action: "update", title: "Effacer le cache"}]);
+			}
 		}
 		else {
 			update.textContent = "Aucune mise à jour diponible";

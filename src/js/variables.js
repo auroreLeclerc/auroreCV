@@ -260,7 +260,7 @@ export const SET_DEFAULT_COOKIES = () => {
 /**
  * @description Notification manager
  * @param {string} body The message the notification will display
- * @param {array} actions Only with ServiceWorker, Buttons in the notification
+ * @param {Array.<{action: string, title: string, icon: string}>} actions Only with ServiceWorker, Buttons in the notification
  * @returns {Notification}
  */
 export function sendNotification(body, actions = []) {

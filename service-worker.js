@@ -199,6 +199,10 @@ self.addEventListener("notificationclick", function(event) {
 				return clients.openWindow('./');
 			}));
 		break;
+
+		case "update":
+			_checkUpdate();
+		break;
 	
 		default:
 			throw new UnregisteredError(event.action, true);

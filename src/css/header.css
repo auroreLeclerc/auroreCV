@@ -60,6 +60,10 @@ body > header #airplane {
 	transition-timing-function: ease-out;
 }
 
+body > header a {
+	cursor: pointer;
+}
+
 @media print {
 	body > header, body > footer {
 		display: none;

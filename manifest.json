@@ -72,5 +72,11 @@
                 }
             ]
         }
-    ]
+    ],
+	"related_applications": [
+		{
+		  "platform": "webapp",
+		  "url": "https://auroreleclerc.github.io/auroreCV/"
+		}
+	]
 }
