@@ -7,9 +7,10 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.3.3",
+	"version": "1.3.4",
 	"changelogs": [
-		"Correction de bugs"
+		"Correction de bugs",
+		"IOS prompt"
 	],
 	"display": "standalone",
 	"orientation": "any",

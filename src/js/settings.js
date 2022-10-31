@@ -1,4 +1,4 @@
-import { HttpError} from "./error.js";
+import { HttpError} from "./Errors.js";
 import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, setCookie, getCookie, SET_DEFAULT_COOKIES } from "./variables.js";
 import { Version } from "./Version.js";
 

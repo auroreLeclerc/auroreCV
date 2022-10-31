@@ -1,4 +1,4 @@
-import { NotFoundError, UnregisteredError } from "./error.js";
+import { NotFoundError, UnregisteredError } from "./Errors.js";
 import { Version } from "./Version.js";
 
 export const CACHE_NAME = "auroreCV";
@@ -27,7 +27,7 @@ export const OFFLINE_URLS = [
 	"src/js/settings.js",
 	"src/js/variables.js",
 	"src/js/prettify.js",
-	"src/js/error.js",
+	"src/js/Errors.js",
 	"src/js/Version.js",
 
 	"src/font/liberation/AUTHORS",

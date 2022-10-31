@@ -48,3 +48,16 @@ else {
 document.getElementById("calculateAge").textContent = (new Date().getFullYear() - 2001) + " ans";
 
 getCookie("firstUse");
+
+if (/iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase()) && !window.navigator?.standalone) {
+	const ioss = document.getElementsByClassName("ios");
+
+	for (const ios of ioss) {
+		ios.style.display = "block";
+		if (ios.classList.contains("prompt")) {
+			ios.addEventListener("click", () => {
+				ios.style.display = "none";
+			});
+		}
+	}
+}

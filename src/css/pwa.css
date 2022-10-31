@@ -10,6 +10,10 @@
 		overscroll-behavior-y: contain;
 	}
 
+	.ios {
+		display: none !important;
+	}
+
 	section#debug span#displayMode::after {
 		content: "standalone";
 	}
@@ -19,6 +23,30 @@
 	section#debug span#displayMode::after {
 		content: "fullscreen / minimal-ui";
 	}
+}
+
+.ios {
+	display: none;
+}
+
+.ios.prompt {
+	position: sticky;
+	bottom: 15px;
+	width: calc(100% - 1em - 30px);
+	padding: 1em;
+	border-radius: 1em;
+	border: darkorchid 2px solid;
+}
+
+.ios.prompt .grid {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 3em auto;
+}
+
+.ios.prompt .grid img {
+	max-height: 3em;
+	max-width: 2em;
 }
 
 a {
@@ -45,7 +73,7 @@ a:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root, .prompt {
 		background-color: hsl(204, 6%, 20%);
 		color: hsl(204, 6%, 90%);
 	}
@@ -74,7 +102,7 @@ a:hover {
 }
 
 @media (prefers-color-scheme: light) {
-	:root {
+	:root, .prompt {
 		background-color: hsl(204, 6%, 90%);
 		color: hsl(204, 6%, 20%);
 	}

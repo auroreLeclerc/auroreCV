@@ -1,4 +1,4 @@
-import { HttpError, UnregisteredError } from "./src/js/error.js";
+import { HttpError, UnregisteredError } from "./src/js/Errors.js";
 import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
 import { Version } from "./src/js/Version.js";
 
@@ -31,7 +31,7 @@ self.addEventListener("fetch", function(event) {
 			if (gitBranches[branch] && !url.endsWith('/')) {
 				url = url.replace(
 					// "localhost:8000/", // localhost development
-					"auroreleclerc.github.io/auroreCV", // production
+					"auroreleclerc.github.io/auroreCV/", // production
 					`raw.githubusercontent.com/auroreLeclerc/auroreCV/${gitBranches[branch]}/`
 				);
 

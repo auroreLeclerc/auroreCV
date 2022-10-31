@@ -3,13 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="theme-color" content="DarkOrchid">
+		<meta name="apple-mobile-web-app-status-bar-style" content="DarkOrchid">
+		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Mon curriculum vitæ, de moi même Aurore Leclerc, en version web avec une implémentation Progressive Web Application">
 		<title>Curriculum vitæ</title>
 		<link rel="icon" type="image/png" href="./src/img/homeMade/icons/192.png" />
-		<link rel="apple-touch-icon" type="image/png" href="./src/img/homeMade/icons/IOS.png">
 		<link rel="stylesheet" type="text/css" href="./src/css/index.css" />
-		<link rel="manifest" href="./manifest.json">
+		<link rel="manifest" href="./manifest.json">		
+		<link rel="apple-touch-icon" type="image/png" sizes="192x192" href="./src/img/homeMade/icons/IOS.png">
+		<link rel="apple-touch-startup-image" type="image/png" sizes="750x1334" href="./src/img/homeMade/icons/IOS_splash_750.png" />
+		<link rel="apple-touch-startup-image" type="image/png" sizes="1080x1920" href="./src/img/homeMade/icons/IOS_splash_1080.png" />
 	</head>
 	<body>
 		<header>
@@ -206,6 +210,18 @@
 			<div class="prettyTriangles bottom">
 				<span class="bottom"></span>
 				<span class="top"></span>
+			</div>
+			<div class="ios prompt">
+				<h2>Ajouter à l'écran d'accueil</h2>
+				<p>Ce site Web peut être installé en PWA. Ajoutez-le à votre écran d'accueil pour l'utiliser en plein écran et hors ligne.</p>
+				<p class="grid">
+					<img src="./src/img/registeredTrademark/IOS_share.svg" alt="Share">
+					<span>1) Cliquer sur le bouton 'Partager' sur la bare de menu en contrebas.</span>
+				</p>
+				<p class="grid">
+					<img src="./src/img/registeredTrademark/IOS_add.svg" alt="Add to home screen">
+					<span>2) Cliquer sur ajouter à l'écran d'accueil.</span>
+				</p>
 			</div>
 		</main>
 		<footer>
