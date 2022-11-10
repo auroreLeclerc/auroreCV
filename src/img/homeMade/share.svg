@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="share.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title237">Stick share</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     showguides="true"
+     inkscape:zoom="0.88172778"
+     inkscape:cx="209.81532"
+     inkscape:cy="265.38803"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect234"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:21.2979;stroke-dasharray:none;stroke-opacity:1"
+       d="M 10.648929,10.648926 V 501.35107 H 501.35108 V 256 H 460.45924 V 460.45923 H 51.540768 V 51.540766 H 256 v -40.89184 z" />
+    <path
+       id="rect1034"
+       style="fill:none;stroke:#000000;stroke-width:21.2213;stroke-dasharray:none;stroke-opacity:1"
+       d="m 378.70687,25.616408 v 64.2432 c -25.45883,5.427667 -50.52472,15.105142 -74.27374,29.321542 -70.45583,42.40848 -116.46463,117.84312 -123.18955,201.98042 21.49001,-47.6577 56.51476,-87.38142 100.38014,-113.84966 30.8178,-18.44787 63.85251,-29.25844 97.08315,-33.05176 v 87.93101 c 118.28739,-118.28736 0,0 118.28739,-118.28736 -118.28739,-118.287392 0,0 -118.28739,-118.287392 z"
+       sodipodi:nodetypes="ccccccccc" />
+  </g>
+  <metadata
+     id="metadata235">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" />
+        <dc:title>Stick share</dc:title>
+        <dc:date>2022</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>GNU GPLv3</dc:title>
+          </cc:Agent>
+        </dc:rights>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

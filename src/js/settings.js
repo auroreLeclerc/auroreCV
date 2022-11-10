@@ -14,6 +14,8 @@ function checkFetchUpdate() {
 		if (onlineVsLocal.isUpper()) {
 			const msg = "♻️ Effacer le cache pour charger la mise à jour !"
 			update.textContent = msg;
+			update.classList.add("button");
+			update.addEventListener("click", DELETE_CACHE);
 			document.getElementById("changelogs").style.display = "flex";
 			if (getCookie("notification", true)) {
 				sendNotification(msg, [{action: "update", title: "Effacer le cache"}]);
@@ -58,6 +60,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			checkFetchUpdate();
 		}).catch(error => {
 			local.textContent = "❌ Erreur Fatale";
+			update.textContent = "Problème pour récupérer le cache...";
 			console.error('⚙️', error);
 		});
 
@@ -77,6 +80,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 				online.textContent = "✈️ Hors ligne";
 			}
 			else online.textContent = "❌ Erreur Fatale";
+			update.textContent = "Problème pour récupérer la version en ligne...";
 			console.error('⚙️', error);
 		});
 
