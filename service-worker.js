@@ -7,14 +7,14 @@ const gitBranches = [false, "main", "development"]; // [0] is for default handli
 // TODO: Create service worker class Error
 
 self.addEventListener("install", function(event) {
-	console.info('📮', "ServiceWorker installing...");
+	console.info("📮", "ServiceWorker installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
 			for (const url of OFFLINE_URLS) {
 				cache.add(url).then(() =>
-					console.info('📥', url)
+					console.info("📥", url)
 				).catch(error =>
-					console.error('📪', error.message, url)
+					console.error("📪", error.message, url)
 				);
 			}
 		})
@@ -26,9 +26,9 @@ self.addEventListener("fetch", function(event) {
 	event.respondWith((() => {
 		return getCookieFromStore("developmentBranch", false, 0).then(branch => {
 			let url = event.request.url,
-			request = event.request;
+				request = event.request;
 
-			if (gitBranches[branch] && !url.endsWith('/')) {
+			if (gitBranches[branch] && !url.endsWith("/")) {
 				url = url.replace(
 					// "localhost:8000/", // localhost development
 					"auroreleclerc.github.io/auroreCV/", // production
@@ -40,16 +40,16 @@ self.addEventListener("fetch", function(event) {
 			return caches.match(request).then(response => {
 				if (url.endsWith("!online")) {
 					url = url.substring(0, url.length - 7);
-					console.info('🌐', url);
+					console.info("🌐", url);
 					response = "!online";
 				}
 
 				if (response?.ok) {
-					console.info('📬', url);
+					console.info("📬", url);
 					if (gitBranches[branch]) {
 						let redirection = new Response(response.body, {
 							headers: new Headers()
-						})
+						});
 						redirection.headers.append("Content-Type", getMimeType(url)); // Workaround for some files being text/plain
 						return redirection;
 					}
@@ -59,23 +59,23 @@ self.addEventListener("fetch", function(event) {
 					return fetch(new Request(url)).then(fetched => {
 						try {
 							if (fetched?.ok) {
-								console.info('📫', url);
+								console.info("📫", url);
 
 								// Failsafe in case the service worker didn't cache the url in the install event
 								if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
 									cache.add(url).then(() =>
-										console.warn('⛑️', url)
+										console.warn("⛑️", url)
 									)
 								);
 							}
 							else {
 								// TODO: check quality code of throw new HttpError and check if refactor is needed for better then/catch
-								if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", url);
+								if (fetched?.type === "opaque") console.warn("🛃", "Cross-Origin Resource Sharing", url);
 								else throw new HttpError(fetched?.status, fetched?.statusText, url);
 							}
 						}
 						catch(error) {
-							console.error('📯‍📭', error);
+							console.error("📯‍📭", error);
 
 							// If HTTP Error, the browser handle it like usual
 							return fetched;
@@ -89,11 +89,11 @@ self.addEventListener("fetch", function(event) {
 										{type: getMimeType(url)}
 									)
 								);
-							})	
+							});
 						}
 						else return fetched;
 					}).catch(error => {
-						console.info('✈️‍📭', error.message, url);
+						console.info("✈️‍📭", error.message, url);
 
 						if (url.endsWith(".html")) {
 							return new Response(
@@ -126,7 +126,7 @@ self.addEventListener("fetch", function(event) {
 						}
 					});
 				}
-			})
+			});
 		}).catch(error => { // fatal error failsafe
 			console.error("Fatal Error ;", error);
 			return fetch(event.request);
@@ -143,7 +143,7 @@ function _checkUpdate() {
 		fetch(MANIFEST_NAME).then(response =>
 			response.json()
 		).then(online => {
-			const onlineVsLocal = new Version(online.version, local.version)
+			const onlineVsLocal = new Version(online.version, local.version);
 			if (onlineVsLocal.isUpper()) {
 				getCookieFromStore("notification", true, false).then(cookie => {
 					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
@@ -151,61 +151,63 @@ function _checkUpdate() {
 					navigator.setAppBadge(1);
 					caches.delete(CACHE_NAME);
 					self.dispatchEvent(new Event("installing"));
-					console.info('📦‍♻️', "Update will be installed on next reload");
+					console.info("📦‍♻️", "Update will be installed on next reload");
 				});
 			}
 			else {
 				getCookieFromStore("debug", true, false).then(cookie => {
 					if (cookie) sendNotification(`📦‍♻️ Local: ${onlineVsLocal.compare} is the same as Online: ${onlineVsLocal.self}`);
 				});
-				console.info('📦‍♻️', onlineVsLocal.self, '=', onlineVsLocal.compare);
+				console.info("📦‍♻️", onlineVsLocal.self, "=", onlineVsLocal.compare);
 			}
 		})
-	)
+	);
 }
 
 self.addEventListener("periodicsync", function(event) {
-    if (event.tag === "update") {
+	if (event.tag === "update") {
 		_checkUpdate();
-    }
+	}
 });
 
 self.addEventListener("message", function(event) {
-	console.info('📦‍✉️', event.data);
-	switch (message) {
-		case "update":
-			_checkUpdate();
+	console.info("📦‍✉️", event.data);
+	switch (event.action) {
+	case "update":
+		_checkUpdate();
 		break;
-	
-		default:
-			throw new UnregisteredError(event.action, true);
-		// break;
+		
+	default:
+		throw new UnregisteredError(event.action, true);
+			// break;
 	}
 });
 
 self.addEventListener("notificationclick", function(event) {
-	console.info('📦‍🔔', "notification", event.notification.tag, "wants to", event.action === '' ? "default" : event.action);
+	console.info("📦‍🔔", "notification", event.notification.tag, "wants to", event.action === "" ? "default" : event.action);
 	event.notification.close();
 
 	switch (event.action) {
-		case '':
-			event.waitUntil(clients.matchAll({
-				type: "window"
-			}).then((clientList) => {
-				for (const client of clientList) {
-					client.navigate('./');
-					return client.focus();
-				}
-				return clients.openWindow('./');
-			}));
+	case "":
+		// eslint-disable-next-line no-undef
+		event.waitUntil(clients.matchAll({
+			type: "window"
+		}).then((clientList) => {
+			for (const client of clientList) {
+				client.navigate("./");
+				return client.focus();
+			}
+			// eslint-disable-next-line no-undef
+			return clients.openWindow("./");
+		}));
 		break;
 
-		case "update":
-			_checkUpdate();
+	case "update":
+		_checkUpdate();
 		break;
 	
-		default:
-			throw new UnregisteredError(event.action, true);
+	default:
+		throw new UnregisteredError(event.action, true);
 		// break;
 	}
 });

@@ -1,42 +1,42 @@
 const CACHE_NAME = "auroreCV",
-OFFLINE_URLS = [
-	"./",
-	"LICENSE",
+	OFFLINE_URLS = [
+		"./",
+		"LICENSE",
 
-	"service-worker.js",
-	"index.html",
-	"manifest.json",
-	"rights.html",
-	"settings.html",
+		"service-worker.js",
+		"index.html",
+		"manifest.json",
+		"rights.html",
+		"settings.html",
 
-	"src/css/header.css",
-	"src/css/index.css",
-	"src/css/liberation.css",
-	"src/css/pwa.css",
-	"src/css/rights.css",
-	"src/css/settings.css",
-	"src/css/style.css",
-	"src/css/prettify.css",
+		"src/css/header.css",
+		"src/css/index.css",
+		"src/css/liberation.css",
+		"src/css/pwa.css",
+		"src/css/rights.css",
+		"src/css/settings.css",
+		"src/css/style.css",
+		"src/css/prettify.css",
 
-	"src/js/header.js",
-	"src/js/index.js",
-	"src/js/settings.js",
-	"src/js/variables.js",
-	"src/js/prettify.js",
+		"src/js/header.js",
+		"src/js/index.js",
+		"src/js/settings.js",
+		"src/js/variables.js",
+		"src/js/prettify.js",
 
-	"src/font/liberation/AUTHORS",
-	"src/font/liberation/LICENSE",
-];
+		"src/font/liberation/AUTHORS",
+		"src/font/liberation/LICENSE",
+	];
 
 self.addEventListener("install", function(event) {
-	console.info('📮', "ServiceWorker Lite installing...");
+	console.info("📮", "ServiceWorker Lite installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
 			for (const url of OFFLINE_URLS) {
 				cache.add(url).then(() =>
-					console.info('📥', url)
+					console.info("📥", url)
 				).catch(error =>
-					console.error('📪', error.message, url)
+					console.error("📪", error.message, url)
 				);
 			}
 		})
@@ -50,34 +50,34 @@ self.addEventListener("fetch", function(event) {
 
 			if (event.request.url.endsWith("!online")) {
 				request = new Request(event.request.url.substring(0, event.request.url.length - 7));
-				console.info('🌐', request.url);
+				console.info("🌐", request.url);
 				response = "!online";
 			}
 
 			if (response?.ok) {
-				console.info('📬', response.url);
+				console.info("📬", response.url);
 				return response;
 			}
 			else {						
 				return fetch(request).then(fetched => {
 					try {
 						if (fetched?.ok) {
-							console.info('📫', request.url);
+							console.info("📫", request.url);
 
 							// Failsafe in case the service worker didn't cache the url in the install event
 							if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
 								cache.add(request.url).then(() =>
-									console.warn('⛑️', request.url)
+									console.warn("⛑️", request.url)
 								)
 							);
 						}
 						else {
-							if (fetched?.type === "opaque") console.warn('🛃', "Cross-Origin Resource Sharing", request.url);
+							if (fetched?.type === "opaque") console.warn("🛃", "Cross-Origin Resource Sharing", request.url);
 							else throw new Error(`${fetched?.status} ${fetched?.statusText} for ${request.url}`);
 						}
 					}
 					catch(error) {
-						console.error('📯‍📭', error);
+						console.error("📯‍📭", error);
 
 						// If HTTP Error, the browser handle it like usual
 						return fetched;
@@ -85,9 +85,9 @@ self.addEventListener("fetch", function(event) {
 					
 					return fetched;
 				}).catch(error => {
-					console.info('✈️‍📭', error.message, request.url);
+					console.info("✈️‍📭", error.message, request.url);
 
-					if (url.endsWith(".html")) {
+					if (request.url.endsWith(".html")) {
 						return new Response(
 							new Blob([`
 								<!DOCTYPE html>

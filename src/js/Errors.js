@@ -34,9 +34,9 @@ export class UnregisteredError extends Error {
 		super();
 
 		this.name = "Unregistered Error";
-		this.message = '';
+		this.message = "";
 
-		if(internalError) this.message +=`Internal implementation error ! `;
+		if(internalError) this.message += "Internal implementation error ! ";
 		this.message += `${state} is not registered.`;		
 		if(msg) this.message +=` ${msg}.`;
 
@@ -58,7 +58,7 @@ export class NotFoundError extends Error {
 		super();
 
 		this.name = "Not Found Error";
-		this.message = '';
+		this.message = "";
 
 		this.message += `${element} not found.`;	
 		if(msg) this.message +=` ${msg}.`;

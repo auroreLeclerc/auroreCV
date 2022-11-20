@@ -2,7 +2,7 @@ const accordions = document.getElementsByClassName("accordion");
 
 while (accordions.length > 0) { // original array is dynamically slice with Element.replaceWith() 
 	const accordion = accordions[0];
-	accordion.textContent = accordion.textContent.replace(/\s/g, ''); // remove spaces (security)
+	accordion.textContent = accordion.textContent.replace(/\s/g, ""); // remove spaces (security)
 
 	const accordionised = document.createElement("div");
 	accordionised.setAttribute("class", "accordionised");

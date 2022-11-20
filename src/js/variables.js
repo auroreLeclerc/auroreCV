@@ -171,9 +171,9 @@ function _toBoolean(value, serviceWorker = false) {
 export function getCookie(name, boolean = false) {
 	let value;
 
-	value = document.cookie.split('; ').find(
+	value = document.cookie.split("; ").find(
 		row => row.startsWith(`${name}=`)
-	)?.split('=')[1];
+	)?.split("=")[1];
 
 	if (value) return boolean ? _toBoolean(value, false) : value;
 	else {
@@ -196,16 +196,18 @@ export async function getCookieFromStore(name, boolean = false, assumed = true) 
 
 	try {
 		// https://developer.mozilla.org/en-US/docs/Web/API/CookieStore#browser_compatibility
+		// eslint-disable-next-line no-undef
 		cookieStore.get("mozilla");
 	} catch (error) {
-		console.warn('🦊', error); 
+		console.warn("🦊", error); 
 		return Promise.resolve(assumed);
 	}
 	
+	// eslint-disable-next-line no-undef
 	return cookieStore.get(name).then(cookie => {
 		value = cookie?.value;
 		if (!value) {
-			throw new NotFoundError(`Cookie ${name}`, '📦‍🍪');
+			throw new NotFoundError(`Cookie ${name}`, "📦‍🍪");
 		}
 		return boolean ? _toBoolean(value, true) : value;
 	}).catch(error => {
@@ -235,7 +237,7 @@ export const SET_DEFAULT_COOKIES = () => {
 					}
 
 					setCookie("version", cookieVsCache.compare);
-					console.info('🍪‍♻️', "Cookies were updated");
+					console.info("🍪‍♻️", "Cookies were updated");
 				}
 				else if (cookieVsCache.isEqual()) throw new Error("Cookies are corrupted");
 				else if (cookieVsCache.isUpper()) throw new RangeError("Local is more recent than online");
@@ -254,7 +256,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				setCookie("UnregisteredError", null);
 			}
 		})
-	)
+	);
 };
 
 /**
@@ -298,66 +300,66 @@ export function sendNotification(body, actions = []) {
  * @returns {string} MIME Type
  */
 export function getMimeType(url) {
-	if (url.endsWith('/')) return "text/html";
+	if (url.endsWith("/")) return "text/html";
 	// Index workaround
 
-	const extension = url.split('.').pop();
+	const extension = url.split(".").pop();
 
 	switch (extension) {
-		case "css":
-			return "text/css";
+	case "css":
+		return "text/css";
 		// break;
 
-		case "html":
-		case "htm":
-			return "text/html";
+	case "html":
+	case "htm":
+		return "text/html";
 		// break;
 
-		case "ico":
-			return "image/vnd.microsoft.icon";
+	case "ico":
+		return "image/vnd.microsoft.icon";
 		// break;
 
-		case "jpeg":
-		case "jpg":
-			return "image/jpeg";
+	case "jpeg":
+	case "jpg":
+		return "image/jpeg";
 		// break;
 
-		case "js":
-			return "text/javascript";
+	case "js":
+		return "text/javascript";
 		// break;
 
-		case "json":
-			return "application/json";
+	case "json":
+		return "application/json";
 		// break;
 
-		case "otf":
-			return "font/otf";
+	case "otf":
+		return "font/otf";
 		// break;
 
-		case "png":
-			return "image/png";
+	case "png":
+		return "image/png";
 		// break;
 		
-		case "svg":
-			return "image/svg+xml";
+	case "svg":
+		return "image/svg+xml";
 		// break;
 
-		case "ttf":
-			return "font/ttf";
+	case "ttf":
+		return "font/ttf";
 		// break;
 
-		case "txt":
-			return "text/plain";
+	case "txt":
+		return "text/plain";
 		// break;
 
-		case "md":
-			return "text/markdown";
+	case "md":
+		return "text/markdown";
 		// break;
 
-		default:
-			setCookie("UnregisteredError", "Update path");
-			console.error(new UnregisteredError(extension, true));
-			return "text/plain";
+	default:
+		setCookie("UnregisteredError", "Update path");
+		console.error(new UnregisteredError(extension, true));
+		return "text/plain";
 		// break;
 	}
 }

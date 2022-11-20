@@ -3,16 +3,16 @@ import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, setCookie, g
 import { Version } from "./Version.js";
 
 let local = document.getElementById("local"),
-online = document.getElementById("online"),
-update = document.getElementById("update"),
-currentChangeslogs = document.getElementById("currentChangeslogs"),
-initialised = false;
+	online = document.getElementById("online"),
+	update = document.getElementById("update"),
+	currentChangeslogs = document.getElementById("currentChangeslogs"),
+	initialised = false;
 
 function checkFetchUpdate() {
 	try {
 		const onlineVsLocal = new Version(online.textContent, local.textContent);
 		if (onlineVsLocal.isUpper()) {
-			const msg = "♻️ Effacer le cache pour charger la mise à jour !"
+			const msg = "♻️ Effacer le cache pour charger la mise à jour !";
 			update.textContent = msg;
 			update.classList.add("button");
 			update.addEventListener("click", DELETE_CACHE);
@@ -52,7 +52,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			cache.match(MANIFEST_NAME)
 		).then(stream => {
 			if (!stream) throw new Error(`File '${MANIFEST_NAME}' not found in cache '${CACHE_NAME}'`);
-			return stream.json()
+			return stream.json();
 		}).then(json => {
 			currentChangeslogs.textContent = json.changelogs.join(", ");
 
@@ -61,7 +61,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 		}).catch(error => {
 			local.textContent = "❌ Erreur Fatale";
 			update.textContent = "Problème pour récupérer le cache...";
-			console.error('⚙️', error);
+			console.error("⚙️", error);
 		});
 
 		fetch(`${MANIFEST_NAME}!online`).then(response => {
@@ -81,7 +81,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 			}
 			else online.textContent = "❌ Erreur Fatale";
 			update.textContent = "Problème pour récupérer la version en ligne...";
-			console.error('⚙️', error);
+			console.error("⚙️", error);
 		});
 
 		const serviceWorker = document.getElementById("serviceWorker");
@@ -90,7 +90,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 				serviceWorker.textContent += registration.active.scriptURL;
 			}
 			liteMode();
-			alert(`Plusieurs Service Worker sont enregistrés. Effacer le cache ${registrations.length} fois pour les purger.`)
+			alert(`Plusieurs Service Worker sont enregistrés. Effacer le cache ${registrations.length} fois pour les purger.`);
 		}
 		else if (registrations[0].active.scriptURL.endsWith("service-worker-lite.js")) {
 			serviceWorker.textContent = registrations[0].active.scriptURL;
@@ -129,17 +129,17 @@ function checkboxButton(id, cookie, action) {
 		}
 
 		switch (id) {
-			case "notificationEnable":
-				sendNotification(`Les notifications ont bien été ${newCookie ? "activées" : "désactivées"}`);
+		case "notificationEnable":
+			sendNotification(`Les notifications ont bien été ${newCookie ? "activées" : "désactivées"}`);
 			break;
 
-			case "debugEnable":
-				document.getElementById("debug").style.display = newCookie ? "flex" : "none";
-				action();
+		case "debugEnable":
+			document.getElementById("debug").style.display = newCookie ? "flex" : "none";
+			action();
 			break;
 		
-			default:
-				action();
+		default:
+			action();
 			break;
 		}
 	});
@@ -149,10 +149,10 @@ checkboxButton("notificationEnable", "notification");
 checkboxButton("autoUpdateEnable", "autoUpdate", DELETE_CACHE);
 checkboxButton("debugEnable", "debug", function() {
 	let cookies = document.getElementById("cookies"),
-	manifest = document.getElementById("manifest");
+		manifest = document.getElementById("manifest");
 	cookies.textContent = ""; manifest.textContent = ""; // Removing childrens
 
-	for (const name of document.cookie.replace(/=\S+/g, '').split(' ')) {
+	for (const name of document.cookie.replace(/=\S+/g, "").split(" ")) {
 		cookies.insertAdjacentHTML("beforeend", `
 			<tr>
 				<td>${name}</td>
@@ -178,7 +178,7 @@ checkboxButton("debugEnable", "debug", function() {
 	
 	document.getElementById("developmentBranch").selected = true;
 });
-if (getCookie("debug", true)) debugEnable.click();
+if (getCookie("debug", true)) document.getElementById("debugEnable").click();
 
 document.getElementById("deleteCache").addEventListener("click", () => {
 	if(!navigator.onLine) {

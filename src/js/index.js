@@ -8,7 +8,7 @@ if ("serviceWorker" in navigator) {
 				scope: "./"
 			}
 		).then(registration => {
-			console.info('📮', "ServiceWorker called on", registration.scope);
+			console.info("📮", "ServiceWorker called on", registration.scope);
 			if(getCookie("autoUpdate", true)) {
 				if (registration.sync) {
 					navigator.serviceWorker.ready.then(registrationReady =>
@@ -16,7 +16,7 @@ if ("serviceWorker" in navigator) {
 							// minInterval: 24 * 60 * 60 * 1000
 							minInterval: 30 * 1000
 						}).then(() =>
-							console.info('📮', "periodicSync updater registered")
+							console.info("📮", "periodicSync updater registered")
 						).catch(error =>
 							console.warn("PWA not installed ;", error)
 						)						
@@ -34,7 +34,7 @@ if ("serviceWorker" in navigator) {
 					scope: "./"
 				}
 			).then(registration => {
-				console.info('📮', "ServiceWorker Lite called on", registration.scope);
+				console.info("📮", "ServiceWorker Lite called on", registration.scope);
 			}).catch(error => {
 				throw new Error("Navigator serviceWorker Lite registration failed", { cause: error });
 			});
