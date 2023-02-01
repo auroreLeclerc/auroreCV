@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    sodipodi:docname="progress.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    inkscape:export-filename="icons/progress.png"
    inkscape:export-xdpi="3"
    inkscape:export-ydpi="3"
@@ -33,7 +33,7 @@
      inkscape:document-units="px"
      showgrid="false"
      inkscape:zoom="0.8042881"
-     inkscape:cx="299.64387"
+     inkscape:cx="299.0222"
      inkscape:cy="273.53382"
      inkscape:window-width="1366"
      inkscape:window-height="739"
@@ -64,20 +64,30 @@
       <cc:Work
          rdf:about="">
         <dc:title>In progress</dc:title>
-        <dc:date>2022</dc:date>
+        <dc:date>2022-2023</dc:date>
         <dc:creator>
           <cc:Agent>
             <dc:title>Aurore Leclerc</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:rights>
-          <cc:Agent>
-            <dc:title>GNU GPLv3</dc:title>
-          </cc:Agent>
-        </dc:rights>
         <cc:license
-           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" />
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
 </svg>

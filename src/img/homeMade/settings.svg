@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    xml:space="preserve"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="settings.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -17,33 +17,64 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"><title
-     id="title132">Stick settings</title><sodipodi:namedview
-     id="namedview7"
-     pagecolor="#505050"
-     bordercolor="#ffffff"
-     borderopacity="1"
-     inkscape:showpageshadow="0"
-     inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="1"
-     inkscape:deskcolor="#505050"
-     inkscape:document-units="px"
-     showgrid="false"
-     inkscape:zoom="0.93943642"
-     inkscape:cx="253.34338"
-     inkscape:cy="278.89061"
-     inkscape:window-width="1366"
-     inkscape:window-height="739"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" /><defs
-     id="defs2" /><g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
-     id="layer1"><path
-       id="rect1060"
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:15.5152;stroke-dasharray:none;stroke-opacity:1"
-       d="m 214.62625,7.7575784 1e-5,88.3484976 a 165.49495,165.49495 0 0 0 -42.4596,17.547964 L 109.72222,51.209591 51.209592,109.72222 113.65403,172.16667 A 165.49495,165.49495 0 0 0 96.106057,214.62626 H 7.7575772 v 82.74748 H 96.106058 a 165.49495,165.49495 0 0 0 17.547982,42.4596 l -62.444447,62.44444 58.512627,58.51262 62.44445,-62.44445 a 165.49495,165.49495 0 0 0 42.45958,17.54798 l 1e-5,88.34849 h 82.74748 v -88.34849 a 165.49495,165.49495 0 0 0 42.45959,-17.54798 l 62.44445,62.44445 58.51263,-58.51262 -62.24749,-62.24748 a 165.49495,165.49495 0 0 0 17.67172,-42.65656 h 88.02777 l 10e-6,-82.74748 H 416.21464 A 165.49495,165.49495 0 0 0 398.54293,171.9697 L 460.79041,109.72222 402.27778,51.209601 339.83333,113.65404 A 165.49495,165.49495 0 0 0 297.37374,96.106057 V 7.7575784 Z M 256,173.25253 A 82.747474,82.747474 0 0 1 338.74747,256 82.747474,82.747474 0 0 1 256,338.74747 82.747474,82.747474 0 0 1 173.25253,256 82.747474,82.747474 0 0 1 256,173.25253 Z" /></g><metadata
-     id="metadata130"><rdf:RDF><cc:Work
-         rdf:about=""><cc:license
-           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" /><dc:title>Stick settings</dc:title><dc:date>2022</dc:date><dc:creator><cc:Agent><dc:title>Aurore Leclerc</dc:title></cc:Agent></dc:creator><dc:rights><cc:Agent><dc:title>GNU GPLv3</dc:title></cc:Agent></dc:rights></cc:Work></rdf:RDF></metadata></svg>
+   id="title132">Stick settings</title><sodipodi:namedview
+   id="namedview7"
+   pagecolor="#505050"
+   bordercolor="#ffffff"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="1"
+   inkscape:deskcolor="#505050"
+   inkscape:document-units="px"
+   showgrid="false"
+   inkscape:zoom="0.93943642"
+   inkscape:cx="252.81115"
+   inkscape:cy="278.89061"
+   inkscape:window-width="1366"
+   inkscape:window-height="739"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="layer1" /><defs
+   id="defs2" /><g
+   inkscape:label="Calque 1"
+   inkscape:groupmode="layer"
+   id="layer1"><path
+   id="rect1060"
+   style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:15.5152;stroke-dasharray:none;stroke-opacity:1"
+   d="m 214.62625,7.7575784 1e-5,88.3484976 a 165.49495,165.49495 0 0 0 -42.4596,17.547964 L 109.72222,51.209591 51.209592,109.72222 113.65403,172.16667 A 165.49495,165.49495 0 0 0 96.106057,214.62626 H 7.7575772 v 82.74748 H 96.106058 a 165.49495,165.49495 0 0 0 17.547982,42.4596 l -62.444447,62.44444 58.512627,58.51262 62.44445,-62.44445 a 165.49495,165.49495 0 0 0 42.45958,17.54798 l 1e-5,88.34849 h 82.74748 v -88.34849 a 165.49495,165.49495 0 0 0 42.45959,-17.54798 l 62.44445,62.44445 58.51263,-58.51262 -62.24749,-62.24748 a 165.49495,165.49495 0 0 0 17.67172,-42.65656 h 88.02777 l 10e-6,-82.74748 H 416.21464 A 165.49495,165.49495 0 0 0 398.54293,171.9697 L 460.79041,109.72222 402.27778,51.209601 339.83333,113.65404 A 165.49495,165.49495 0 0 0 297.37374,96.106057 V 7.7575784 Z M 256,173.25253 A 82.747474,82.747474 0 0 1 338.74747,256 82.747474,82.747474 0 0 1 256,338.74747 82.747474,82.747474 0 0 1 173.25253,256 82.747474,82.747474 0 0 1 256,173.25253 Z" />
+     </g>
+     <metadata
+   id="metadata130">
+      <rdf:RDF>
+        <cc:Work
+   rdf:about="">
+          <dc:title>Stick settings</dc:title>
+          <dc:date>2022-2023</dc:date>
+          <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

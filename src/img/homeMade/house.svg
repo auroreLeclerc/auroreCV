@@ -7,7 +7,7 @@
    viewBox="0 0 800 800.00003"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="house.svg"
    inkscape:export-filename="icons/house.png"
    inkscape:export-xdpi="1.92"
@@ -38,7 +38,7 @@
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
      inkscape:zoom="0.45210864"
-     inkscape:cx="203.49091"
+     inkscape:cx="202.38498"
      inkscape:cy="546.32886"
      inkscape:window-width="1366"
      inkscape:window-height="739"
@@ -71,20 +71,30 @@
       <cc:Work
          rdf:about="">
         <dc:title>Home</dc:title>
-        <dc:date>2022</dc:date>
+        <dc:date>2022-2023</dc:date>
         <dc:creator>
           <cc:Agent>
             <dc:title>Aurore Leclerc</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:rights>
-          <cc:Agent>
-            <dc:title>GNU GPLv3</dc:title>
-          </cc:Agent>
-        </dc:rights>
         <cc:license
-           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.html" />
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
 </svg>
