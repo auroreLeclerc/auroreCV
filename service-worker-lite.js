@@ -60,7 +60,9 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 				return response;
 			}
 			else {						
-				return fetch(new Request(url)).then(fetched => {
+				return fetch(new Request(url), {
+					mode: "no-cors",
+				}).then(fetched => {
 					try {
 						if (fetched?.ok) {
 							console.info("📫", url);

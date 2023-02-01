@@ -4,8 +4,6 @@ import { Version } from "./src/js/Version.js";
 
 const gitBranches = [false, "main", "development"]; // [0] is for default handling
 
-// TODO: Create service worker class Error
-
 self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker installing...");
 	event.waitUntil(
@@ -64,7 +62,9 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 					else return response;
 				}
 				else {						
-					return fetch(new Request(url)).then(fetched => {
+					return fetch(new Request(url), {
+						mode: "no-cors",
+					}).then(fetched => {
 						try {
 							if (fetched?.ok) {
 								console.info("📫", url);
@@ -101,6 +101,7 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 						}
 						else return fetched;
 					}).catch(error => {
+						console.error(error);
 						console.info("✈️‍📭", error.message, url);
 
 						if (url.endsWith(".html")) {

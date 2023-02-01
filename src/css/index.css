@@ -63,10 +63,9 @@ main ul {
 	padding-left: 0;
 }
 
-main section#skills article div ul li, main header#informations article ul li {
+main section#skills article div ul li {
 	list-style: none;
-	display: flex;
-	flex-flow: row nowrap;
+	display: block;
 }
 main section#skills article div ul li::before, main header#informations article ul li::before {
 	content: '';
@@ -108,6 +107,9 @@ main header#informations article ul {
 }
 main header#informations article ul li {
 	margin: 0.5em 0;
+	list-style: none;
+	display: flex;
+	flex-flow: row nowrap;
 }
 
 main header#informations article ul li.mail::before {
@@ -177,7 +179,7 @@ main section#skills article {
 	align-items: center;
 }
 
-main section#skills article div {
+main section#skills article div:not(div.accordionised, div.container) {
 	margin: 0 0.75em;
 }
 
@@ -194,6 +196,12 @@ main section#skills article div ul li.flag::before {
 }
 main section#skills article div ul li.progress::before {
 	background-image: url("../img/homeMade/progress.svg");
+	transition-property: transform;
+	transition-duration: 1.5s;
+	transition-timing-function: ease-in-out;
+}
+main section#skills article div ul li.progress:hover::before {
+	transform: rotate(1turn);
 }
 
 /* section#hobbies */

@@ -7,6 +7,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Mon curriculum vitæ, de moi même Aurore Leclerc, en version web avec une implémentation Progressive Web Application">
+		<meta property="og:title" content="Curriculum vitæ d'Aurore Leclerc">
+		<meta property="og:description" content="Mon curriculum vitæ, de moi même Aurore Leclerc, en version web avec une implémentation Progressive Web Application">
+		<meta property="og:image" content="./src/img/homeMade/CV.svg">
 		<title>Curriculum vitæ</title>
 		<link rel="icon" type="image/png" href="./src/img/homeMade/icons/192.png" />
 		<link rel="stylesheet" type="text/css" href="./src/css/index.css" />
@@ -112,33 +115,27 @@
 					EXPÉRIENCES
 				</h1>
 				<article>
-					<div class="center">
-						19/09/2022<br>
-						-<br>
-						06/09/2024<br>
-						&<br>
-						29/09/2021<br>
-						-<br>
-						02/09/2022<br>
+					<div class="center" title="19/09/2022 - 06/09/2024 ; 29/09/2021 - 02/09/2022">
+						2021 - 2024
 					</div>
 					<div>
 						<img src="./src/img/registeredTrademark/SAP_logo.svg" alt="SAP SE">
-						<h4>NodeJS Developer,
+						<h4>NodeJS Backend Developer,
 							<span class="accordion" accordion="Business Process Intelligence">BPI</span>
 							- <span title="intelligent">i</span><span class="accordion" accordion="Robotic Process Automation">RPA</span>
 							(FR) :
 						</h4> alternance 
-						chez SAP à Levallois-Perret (92300), au service iRPA. Au début
-						pour faire des tests unitaires NodeJS ainsi que corriger des bugs, référencés sur JIRA, pour me familiariser avec
-						l’application du service. Une application en Electron d’automatisation (dans mes
-						missions, de Microsoft Office Desktop). Ensuite j'ai participé au développement d'un 
-						nouveau service de ladite application pour l’automatisation des services Microsoft Office Cloud.
+						chez SAP à Levallois-Perret (92300), au service <span title="intelligent">i</span><span class="accordion" accordion="Robotic Process Automation">RPA</span>.
+						Au début pour faire des tests unitaires et corriger des bugs de l'application d’automatisation du service, codé en Electron.
+						Puis j'ai participé au développement d'un nouveau service pour l’automatisation de Microsoft Office 365 Online.
+						Ensuite j'ai développé de nouvelles activités pour Microsoft Excel, Microsoft Outlook et pour le nouveau service d'Office 365
+						ainsi que leurs couvertures en tests d'intégration et unitaires.
 					</div>
 
-					<div class="center">
-						12/04/2021<br>
+					<div class="center" title="12/04/2021 - 02/07/2021">
+						04/2021<br>
 						-<br>
-						02/07/2021<br>
+						07/2021<br>
 					</div>
 					<div>
 						<img src="./src/img/registeredTrademark/Givaudan_logo_red.svg" alt="Givaudan">
@@ -158,14 +155,19 @@
 					<div>
 						<h4>En langages de programmation :</h4>
 						<ul>
-							<li>HTML ; CSS ; PWA ; PHP (MVC)</li>
-							<li>SQL (PostgreSQL ; MySQL/MariaDB ; OracleDB)</li>
+							<li>HTML ; CSS ; 
+								<span class="accordion" accordion="Progressive Web App">PWA</span>
+								 ; PHP (<span class="accordion" accordion="Model View Controller">MVC</span>)
+							</li>
+							<li>SQL (PostgreSQL ; MySQL/MariaDB)</li>
 							<li>JavaScript ; DOM ; AJAX/Fetch ; JSON</li>
-							<li>NodeJS ; Yarn/Npm ; Electron ; Unit tests (Sinon.JS)</li>
+							<li>NodeJS ; TypeScript ; Yarn/Npm ; Electron</li>
+							<li class="progress">Tests unitaires (Sinon.JS) ; Tests d'intégration</li>
 							<li>Bash (Ubuntu Server ; Manjaro Desktop)</li>
 							<li>Python 3</li>
-							<li>Java ; Java EE (Spring) ; UML</li>
+							<li>Java ; Jakarta EE Platform (Apache Tomcat) ; UML</li>
 							<li class="progress">Microsoft Graph API</li>
+							<li class="progress">Microsoft VBA Office (Excel)</li>
 						</ul>
 					</div>
 					<div>
@@ -179,9 +181,9 @@
 						<h4>Bureautiques :</h4>
 						<ul>
 							<li>Suite LibreOffice</li>
-							<li>Suite Microsoft Office</li>
-							<li class="progress">Suite Microsoft SharePoint</li>
-							<li>JIRA (suivi de bugs)</li>
+							<li>Suite Microsoft Office, Office 365</li>
+							<li>Teams ; Outlook...</li>
+							<li class="progress">JIRA (gestion de tickets)</li>
 						</ul>
 					</div>
 					<div>
