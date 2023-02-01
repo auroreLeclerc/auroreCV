@@ -1,3 +1,4 @@
+import { EnhancedSring } from "./EnhancedSring.js";
 import { NotFoundError, UnregisteredError } from "./Errors.js";
 import { Version } from "./Version.js";
 
@@ -29,6 +30,7 @@ export const OFFLINE_URLS = [
 	"src/js/prettify.js",
 	"src/js/Errors.js",
 	"src/js/Version.js",
+	"src/js/EnhancedSring.js",
 
 	"src/font/liberation/AUTHORS",
 	"src/font/liberation/LICENSE",
@@ -109,6 +111,21 @@ export const OFFLINE_URLS = [
 	"src/img/registeredTrademark/icons/Linkedin.png"
 ];
 
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.addEventListener("message", (event) => {
+		console.info("🖥️‍✉️", event.data?.request);
+		switch (event.data?.request) {
+		case "SET_DEFAULT_COOKIES":
+			SET_DEFAULT_COOKIES();
+			break;
+			
+		default:
+			throw new UnregisteredError("Client message", event.data?.request, true);
+				// break;
+		}
+	});
+}
+
 /**
  * @description First delete the service worker then deleting the cache.
  * Otherwise a service worker with empty cache continues running, thus not installing itself.
@@ -119,19 +136,27 @@ export const DELETE_CACHE = () => {
 		for(let registration of registrations) {
 			registration.unregister();
 		}
-		caches.delete(CACHE_NAME).then(
-			window.location.reload()
-		);
+		caches.delete(CACHE_NAME).then(success => {
+			if (success) {
+				window.location.reload();
+			}
+			else {
+				sendNotification("Le cache n'a pas pu être effacé. Peut-être qu'il n'y a plus de données en cache.").then(() => {
+					// window.location.reload();
+				});
+			}
+		});
 	});
 };
 
 /**
  * @description Set a cookie
  * @param {string} name Name of the cookie
- * @param {string} value Value of the cookie
- * @param {int} expiration In days, when the cookie will be deleted
+ * @param {any} value Value of the cookie
+ * @param {number} expiration In days, when the cookie will be deleted
  */
 export function setCookie(name, value, expiration = 365 * 5) {
+	value = String(value).replace(/ /gi, "_");
 	let expirationDate = new Date();
 	expirationDate.setTime(
 		expirationDate.getTime() + (expiration * 24 * 60 * 60 * 1000)
@@ -140,79 +165,60 @@ export function setCookie(name, value, expiration = 365 * 5) {
 }
 
 /**
- * @private
- * @description Convert cookie string to boolean
- * @param {string} value Cookie value
- * @param {boolean} serviceWorker Can't restore cookies from Service Worker
- * @returns {boolean}
- * @throws {TypeError} Value is not a boolean
- */
-function _toBoolean(value, serviceWorker = false) {
-	try {
-		return JSON.parse(value);
-	} catch (error) {
-		if (serviceWorker) {
-			throw new TypeError(`📦‍🍪 ${value} is not a boolean`);
-		}
-		else {
-			SET_DEFAULT_COOKIES();
-			return false;
-		}
-	}
-}
-
-/**
  * @description Get a cookie (not for Service Worker)
  * @param {string} name Name of the cookie
- * @param {boolean} boolean To return the value in boolean
- * @returns {string|boolean} Value of the cookie
+ * @returns {EnhancedSring} Value of the cookie
  * @throws {NotFoundError} Cookie not found.
  */
-export function getCookie(name, boolean = false) {
+export function getCookie(name) {
 	let value;
 
 	value = document.cookie.split("; ").find(
 		row => row.startsWith(`${name}=`)
 	)?.split("=")[1];
 
-	if (value) return boolean ? _toBoolean(value, false) : value;
-	else {
+	if (!value) {
 		SET_DEFAULT_COOKIES();
 		throw new NotFoundError(`Cookie ${name}`, "Cookies were reset");
 	}
+
+	return new EnhancedSring(value);
 }
 
 /**
  * @async
  * @description Get a cookie from cookieStore (for Service Worker)
  * @param {string} name Name of the cookie
- * @param {boolean} boolean To return the value in boolean
- * @param {*} assumed Value to be returned in case cookieStore fails
- * @returns {Promise<string|boolean>} Promise that returns value of the cookie
+ * @param {string} [assumed] Value to be returned in case cookieStore fails
+ * @param {string} [clientId]
+ * @returns {Promise<EnhancedSring>} Promise that returns value of the cookie
  * @throws {NotFoundError} Cookie not found
  */
-export async function getCookieFromStore(name, boolean = false, assumed = true) {
+export async function getCookieFromStore(name, assumed = "", clientId = "") {
 	let value;
 
 	try {
 		// https://developer.mozilla.org/en-US/docs/Web/API/CookieStore#browser_compatibility
-		// eslint-disable-next-line no-undef
 		cookieStore.get("mozilla");
 	} catch (error) {
 		console.warn("🦊", error); 
-		return Promise.resolve(assumed);
+		return Promise.resolve(new EnhancedSring(assumed));
 	}
 	
-	// eslint-disable-next-line no-undef
 	return cookieStore.get(name).then(cookie => {
 		value = cookie?.value;
 		if (!value) {
-			throw new NotFoundError(`Cookie ${name}`, "📦‍🍪");
+			self.clients.get(clientId).then(client => {
+				client.postMessage({
+					request: "SET_DEFAULT_COOKIES",
+				});
+			});
+			throw new NotFoundError(`Cookie ${name} 📦‍🍪`, "Cookies were reset");
 		}
-		return boolean ? _toBoolean(value, true) : value;
-	}).catch(error => {
+		return new EnhancedSring(value);
+	}).catch((/** @type {TypeError} */ error) => {
 		console.error(error);
-		return assumed;
+		return new EnhancedSring(assumed);
 	});
 }
 
@@ -224,15 +230,15 @@ export const SET_DEFAULT_COOKIES = () => {
 	fetch(MANIFEST_NAME).then(response =>
 		response.json().then(json => {
 			try {
-				const cookieVsCache = new Version(getCookie("version", false), json.version);
+				const cookieVsCache = new Version(getCookie("version").toString(), json.version);
 				if(cookieVsCache.isLower()) {
 					cookieVsCache.compare = "1.1.0";
-					if (cookieVsCache.isLower) { // Local Vs PastNewVersion
+					if (cookieVsCache.isLower()) { // Local Vs PastNewVersion
 						setCookie("developmentBranch", 0);
 					}
 					
 					cookieVsCache.compare = "1.2.0";
-					if (cookieVsCache.isLower) { // Local Vs PastNewVersion
+					if (cookieVsCache.isLower()) { // Local Vs PastNewVersion
 						setCookie("UnregisteredError", null);
 					}
 
@@ -241,7 +247,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				}
 				else if (cookieVsCache.isEqual()) throw new Error("Cookies are corrupted");
 				else if (cookieVsCache.isUpper()) throw new RangeError("Local is more recent than online");
-				else throw new UnregisteredError("cookieVsCache", true);
+				else throw new UnregisteredError("SET_DEFAULT_COOKIES", `cookieVsCache.isLower=${cookieVsCache.isLower()}`, true);
 				
 			} catch (error) {
 				console.error(`SET_DEFAULT_COOKIES: ${error}`);
@@ -262,8 +268,8 @@ export const SET_DEFAULT_COOKIES = () => {
 /**
  * @description Notification manager
  * @param {string} body The message the notification will display
- * @param {Array.<{action: string, title: string, icon: string}>} actions Only with ServiceWorker, Buttons in the notification
- * @returns {Notification}
+ * @param {{action: string, title: string, icon?: string}[]} actions Only with ServiceWorker, Buttons in the notification
+ * @returns {Promise<void>}
  */
 export function sendNotification(body, actions = []) {
 	const title = "Curriculum vitæ d'Aurore Leclerc";
@@ -277,21 +283,45 @@ export function sendNotification(body, actions = []) {
 		actions: actions
 	};
 
-	if ("serviceWorker" in navigator) {
-		navigator.serviceWorker.ready.then(registration => {
-			if (Notification.permission !== "granted") {
-				Notification.requestPermission().then(response => {
-					if (response === "granted") {
-						return registration.showNotification(title, options);
-					}
-				});
-			}
-			else return registration.showNotification(title, options);
-		});
+	/**
+	 * @param {(value: void | PromiseLike<void>) => void} resolve
+	 */
+	function fallBack (resolve) {
+		new Notification(title, options);
+		resolve();
 	}
-	else { // Call from Service Worker (assumed to be headless)
-		return self.registration.showNotification(title, options);
+
+	/**
+	 * @param {(value: void | PromiseLike<void>) => void} resolve
+	 */
+	function forwardNotification(resolve) {
+		if ("serviceWorker" in navigator) { // DOM Scope
+			navigator.serviceWorker.getRegistration().then(registration => {
+				if (registration) {
+					registration.showNotification(title, options).then(() => resolve());
+				}
+				else fallBack(resolve);
+			});
+		}
+		else if ("serviceWorker" in self) { // Service Worker Scope
+			self.registration.showNotification(title, options).then(() => resolve());
+		}
+		else fallBack(resolve);
 	}
+	
+	return new Promise((resolve) => {
+		if (Notification.permission !== "granted") {
+			Notification.requestPermission().then(response => {
+				if (response === "granted") {
+					return forwardNotification(resolve);
+				}
+			});
+		}
+		else return forwardNotification(resolve);
+	});
+
+
+	
 }
 
 /**
@@ -357,8 +387,7 @@ export function getMimeType(url) {
 		// break;
 
 	default:
-		setCookie("UnregisteredError", "Update path");
-		console.error(new UnregisteredError(extension, true));
+		console.error(new UnregisteredError("getMimeType", extension, true));
 		return "text/plain";
 		// break;
 	}

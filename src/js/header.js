@@ -16,7 +16,7 @@ addEventListener("offline", OFFLINE);
 addEventListener("online", ONLINE);
 
 if ("share" in navigator) {
-	header.insertAdjacentHTML("beforeend", "<h1 id=\"share\"><a href=\"#top\">Partager !</a></h1>");
+	header.insertAdjacentHTML("beforeend", "<h1 id=\"share\"><a href=\"#share\">Partager !</a></h1>");
 	document.getElementById("share").addEventListener("click", () => {
 		navigator.share({
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
@@ -24,22 +24,27 @@ if ("share" in navigator) {
 			url: window.location.href,
 		}).then(() => {
 			console.info("Shared !");
+		}).catch(error => {
+			console.warn(error);
 		});
 	});
 }
 
 if ("print" in window && (window.location.pathname.endsWith("/index.html") || window.location.pathname.endsWith("/"))) {
-	header.insertAdjacentHTML("beforeend", "<h1 id=\"print\"><a href=\"#top\">Imprimer</a></h1>");
+	header.insertAdjacentHTML("beforeend", "<h1 id=\"print\"><a href=\"#print\">Imprimer</a></h1>");
 	document.getElementById("print").addEventListener("click", () => {
 		window.print();
 	});
 }
 
 if ("BeforeInstallPromptEvent" in window) {
-	header.insertAdjacentHTML("beforeend", "<h1 id=\"install\"><a href=\"#top\">Installer</a></h1>");
+	header.insertAdjacentHTML("beforeend", "<h1 id=\"install\"><a href=\"#install\">Installer</a></h1>");
 	const install = document.getElementById("install");
 	install.style.display = "none";
-	let deferredPrompt = null;
+	/**
+	 * @type {BeforeInstallPromptEvent}
+	 */
+	let deferredPrompt;
 
 	install.addEventListener("click", () => {
 		install.style.display = "none";

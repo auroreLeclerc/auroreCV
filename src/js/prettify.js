@@ -7,7 +7,11 @@ while (accordions.length > 0) { // original array is dynamically slice with Elem
 	const accordionised = document.createElement("div");
 	accordionised.setAttribute("class", "accordionised");
 	const fullText = accordion.getAttribute("accordion");
-	let nextInitial = "", containers = [];
+	let nextInitial = 0;
+	/**
+	 * @type {{ container: HTMLElement; initial: HTMLElement; lowercase: HTMLElement; }[]}
+	 */
+	let containers = [];
 
 	for (let i = 0; i < accordion.textContent.length; i++) {
 		const container = document.createElement("div");
@@ -18,7 +22,7 @@ while (accordions.length > 0) { // original array is dynamically slice with Elem
 		initial.textContent = accordion.textContent[i];
 		container.appendChild(initial);
 
-		const firstInitial = !nextInitial ? fullText.indexOf(accordion.textContent[i]) : nextInitial;
+		const firstInitial = nextInitial ? fullText.indexOf(accordion.textContent[i]) : nextInitial;
 		nextInitial = fullText.indexOf(accordion.textContent[i + 1], firstInitial);
 		if (nextInitial === -1) nextInitial = fullText.length + 1;
 		const textBetweenThoseTwoInitials = fullText.substring(firstInitial + 1, nextInitial - 1); // spaces are css handled

@@ -6,7 +6,7 @@ const gitBranches = [false, "main", "development"]; // [0] is for default handli
 
 // TODO: Create service worker class Error
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
@@ -22,11 +22,19 @@ self.addEventListener("install", function(event) {
 });
 
 // TODO: Refactor to reduce Cognitive Complexity
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 	event.respondWith((() => {
-		return getCookieFromStore("developmentBranch", false, 0).then(branch => {
+		// self.clients.get(event.clientId).then(client => {
+		// 	client.postMessage({
+		// 		msg: "Hey I just got a fetch from you!",
+		// 		url: event.request.url
+		// 	});
+		// });
+		return getCookieFromStore("developmentBranch", "0", event.clientId).then(branchString => {
+			const branch = Number(branchString);
 			let url = event.request.url,
-				request = event.request;
+				request = event.request,
+				online = false;
 
 			if (gitBranches[branch] && !url.endsWith("/")) {
 				url = url.replace(
@@ -41,10 +49,10 @@ self.addEventListener("fetch", function(event) {
 				if (url.endsWith("!online")) {
 					url = url.substring(0, url.length - 7);
 					console.info("🌐", url);
-					response = "!online";
+					online = true;
 				}
 
-				if (response?.ok) {
+				if (!online && response?.ok) {
 					console.info("📬", url);
 					if (gitBranches[branch]) {
 						let redirection = new Response(response.body, {
@@ -62,7 +70,7 @@ self.addEventListener("fetch", function(event) {
 								console.info("📫", url);
 
 								// Failsafe in case the service worker didn't cache the url in the install event
-								if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
+								if (!online) caches.open(CACHE_NAME).then(cache =>
 									cache.add(url).then(() =>
 										console.warn("⛑️", url)
 									)
@@ -119,7 +127,7 @@ self.addEventListener("fetch", function(event) {
 							); // Custom offline page
 						}
 						else {
-							return new Response(null, {
+							return new Response(undefined, {
 								status: 404,
 								statusText: "Offline"
 							}); // Custom offline response
@@ -145,8 +153,8 @@ function _checkUpdate() {
 		).then(online => {
 			const onlineVsLocal = new Version(online.version, local.version);
 			if (onlineVsLocal.isUpper()) {
-				getCookieFromStore("notification", true, false).then(cookie => {
-					if (cookie) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
+				getCookieFromStore("notification", "false").then(cookie => {
+					if (cookie.toType()) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
 
 					navigator.setAppBadge(1);
 					caches.delete(CACHE_NAME);
@@ -155,8 +163,8 @@ function _checkUpdate() {
 				});
 			}
 			else {
-				getCookieFromStore("debug", true, false).then(cookie => {
-					if (cookie) sendNotification(`📦‍♻️ Local: ${onlineVsLocal.compare} is the same as Online: ${onlineVsLocal.self}`);
+				getCookieFromStore("debug", "false").then(cookie => {
+					if (cookie.toType()) sendNotification(`📦‍♻️ Local: ${onlineVsLocal.compare} is the same as Online: ${onlineVsLocal.self}`);
 				});
 				console.info("📦‍♻️", onlineVsLocal.self, "=", onlineVsLocal.compare);
 			}
@@ -164,26 +172,37 @@ function _checkUpdate() {
 	);
 }
 
-self.addEventListener("periodicsync", function(event) {
+self.addEventListener("periodicsync", function(/** @type {PeriodicSyncEvent} */ event) {
 	if (event.tag === "update") {
 		_checkUpdate();
 	}
 });
 
-self.addEventListener("message", function(event) {
-	console.info("📦‍✉️", event.data);
-	switch (event.action) {
-	case "update":
-		_checkUpdate();
-		break;
-		
-	default:
-		throw new UnregisteredError(event.action, true);
-			// break;
+self.addEventListener("message", function(/** @type {MessageEvent} */ event) {
+	if (event.origin !== "localhost:8000/") { // localhost development
+	// if (event.origin !== "https://auroreleclerc.github.io/auroreCV/") { // production
+		console.info("📦‍✉️", event.data?.request);
+		switch (event.data?.request) {
+		case "update":
+			_checkUpdate();
+			break;
+
+		case "notification":
+			sendNotification(event.data.data, event.data?.action);
+			navigator.setAppBadge(1);
+			break;
+			
+		default:
+			throw new UnregisteredError("ServiceWorker message", event.data?.request, true);
+				// break;
+		}
+	}
+	else {
+		throw new HttpError(405, "Not Allowed", event.origin);
 	}
 });
 
-self.addEventListener("notificationclick", function(event) {
+self.addEventListener("notificationclick", function(/** @type {NotificationEvent} */ event) {
 	console.info("📦‍🔔", "notification", event.notification.tag, "wants to", event.action === "" ? "default" : event.action);
 	event.notification.close();
 
@@ -202,12 +221,15 @@ self.addEventListener("notificationclick", function(event) {
 		}));
 		break;
 
+	case "silent":
+		break;
+
 	case "update":
 		_checkUpdate();
 		break;
 	
 	default:
-		throw new UnregisteredError(event.action, true);
+		throw new UnregisteredError("ServiceWorker notification", event.action, true);
 		// break;
 	}
 });

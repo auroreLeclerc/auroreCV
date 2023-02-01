@@ -6,12 +6,29 @@ export class Version {
 	#compare = "";
 
 	/**
-    * @param {string} self "Number.Number.Number"
-    * @throws {TypeError} Wrongly formated string
-    */
+	 * @param {string} self "Number.Number.Number"
+	 * @param {string} compare
+	 * @throws {TypeError} Wrongly formated string
+	 */
 	constructor(self, compare) {
 		this.self = self;
 		this.compare = compare;
+	}
+
+	/**
+	 * @param {string} version
+	 * @param {"compare"|"self"} who
+	 * @returns {number}
+	 * @throws {TypeError} Wrongly formated string
+	 */
+	#versionInt(version, who) {
+		const versionInt = Number.parseInt(version.replace(/\./g, ""), 10);
+
+		if (Number.isNaN(versionInt)) {
+			throw new TypeError(`${who}=${version} :${typeof version}`);
+		}
+
+		return versionInt;
 	}
 
 	/**
@@ -19,14 +36,8 @@ export class Version {
     * @throws {TypeError} Wrongly formated string
     */
 	set self(self) {
-		const selfInt = Number.parseInt(self.replace(/\./g, ""), 10);
-
-		if (Number.isNaN(selfInt)) {
-			throw new TypeError(`self=${self} :${typeof self}`);
-		}
-
 		this.#self = self;
-		this.#selfInt = selfInt;
+		this.#selfInt = this.#versionInt(self, "self");
 	}
 
 	/**
@@ -34,14 +45,8 @@ export class Version {
     * @throws {TypeError} Wrongly formated string
     */
 	set compare(compare) {
-		const compareInt = Number.parseInt(compare.replace(/\./g, ""), 10);
-
-		if (Number.isNaN(compareInt)) {
-			throw new TypeError(`compare=${compare} :${typeof compare}`);
-		}
-
 		this.#compare = compare;
-		this.#compareInt = compareInt;
+		this.#compareInt = this.#versionInt(compare, "compare");
 	}
 
 	/**

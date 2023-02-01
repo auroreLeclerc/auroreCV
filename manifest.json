@@ -7,10 +7,14 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.3.4",
+	"version": "1.4.0",
 	"changelogs": [
 		"Correction de bugs",
-		"IOS prompt"
+		"iOS prompt",
+		"Icône dans la barre de menu sur smartphone",
+		"Stabilité",
+		"Protection des design avec licence Creative Commons",
+		"Mise à jour des compétences"
 	],
 	"display": "standalone",
 	"orientation": "any",

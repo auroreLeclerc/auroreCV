@@ -3,7 +3,7 @@ const CACHE_NAME = "auroreCV",
 		"./",
 		"LICENSE",
 
-		"service-worker.js",
+		"service-worker-lite.js",
 		"index.html",
 		"manifest.json",
 		"rights.html",
@@ -28,7 +28,7 @@ const CACHE_NAME = "auroreCV",
 		"src/font/liberation/LICENSE",
 	];
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker Lite installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
@@ -43,37 +43,38 @@ self.addEventListener("install", function(event) {
 	);
 });
 
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 	event.respondWith(
-		caches.match(event.request).then(response => {			
-			let request = event.request;
+		caches.match(event.request).then(response => {
+			let url = event.request.url,
+				online = false;
 
-			if (event.request.url.endsWith("!online")) {
-				request = new Request(event.request.url.substring(0, event.request.url.length - 7));
-				console.info("🌐", request.url);
-				response = "!online";
+			if (url.endsWith("!online")) {
+				url = url.substring(0, url.length - 7);
+				console.info("🌐", url);
+				online = true;
 			}
 
-			if (response?.ok) {
+			if (!online && response?.ok) {
 				console.info("📬", response.url);
 				return response;
 			}
 			else {						
-				return fetch(request).then(fetched => {
+				return fetch(new Request(url)).then(fetched => {
 					try {
 						if (fetched?.ok) {
-							console.info("📫", request.url);
+							console.info("📫", url);
 
 							// Failsafe in case the service worker didn't cache the url in the install event
-							if (response !== "!online") caches.open(CACHE_NAME).then(cache =>
-								cache.add(request.url).then(() =>
-									console.warn("⛑️", request.url)
+							if (!online) caches.open(CACHE_NAME).then(cache =>
+								cache.add(url).then(() =>
+									console.warn("⛑️", url)
 								)
 							);
 						}
 						else {
-							if (fetched?.type === "opaque") console.warn("🛃", "Cross-Origin Resource Sharing", request.url);
-							else throw new Error(`${fetched?.status} ${fetched?.statusText} for ${request.url}`);
+							if (fetched?.type === "opaque") console.warn("🛃", "Cross-Origin Resource Sharing", url);
+							else throw new Error(`${fetched?.status} ${fetched?.statusText} for ${url}`);
 						}
 					}
 					catch(error) {
@@ -85,9 +86,9 @@ self.addEventListener("fetch", function(event) {
 					
 					return fetched;
 				}).catch(error => {
-					console.info("✈️‍📭", error.message, request.url);
+					console.info("✈️‍📭", error.message, url);
 
-					if (request.url.endsWith(".html")) {
+					if (url.endsWith(".html")) {
 						return new Response(
 							new Blob([`
 								<!DOCTYPE html>
@@ -101,7 +102,7 @@ self.addEventListener("fetch", function(event) {
 									</head>
 									<body>
 										<main class="center">
-											<h1 style="word-break: break-word;">You are offline ✈️ and ${request.url} has not been found in the cache 📭...</h1>
+											<h1 style="word-break: break-word;">You are offline ✈️ and ${url} has not been found in the cache 📭...</h1>
 											<h2>Make sure you are not off domain 🛂</h2>
 											<h2><a href="./">Return to the home page 🏠</a></h2>
 										</main>

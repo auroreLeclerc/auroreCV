@@ -17,7 +17,7 @@ function checkFetchUpdate() {
 			update.classList.add("button");
 			update.addEventListener("click", DELETE_CACHE);
 			document.getElementById("changelogs").style.display = "flex";
-			if (getCookie("notification", true)) {
+			if (getCookie("notification").toType()) {
 				sendNotification(msg, [{action: "update", title: "Effacer le cache"}]);
 			}
 		}
@@ -76,7 +76,7 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
 				changelogs.insertAdjacentHTML("beforeend", `<li>${change}</li>`);
 			}
 		}).catch(error =>{
-			if (error instanceof HttpError && error.stack.statusText === "Offline") {
+			if (error instanceof HttpError && error.parameters.statusText === "Offline") {
 				online.textContent = "✈️ Hors ligne";
 			}
 			else online.textContent = "❌ Erreur Fatale";
@@ -111,19 +111,19 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
  * 
  * @param {string} id 
  * @param {string} cookie 
- * @param {Function} action 
+ * @param {Function} [action] 
  */
 function checkboxButton(id, cookie, action) {
 	let checkbox = document.getElementById(id);
-	checkbox.checked = getCookie(cookie, true);
+	checkbox.checked = getCookie(cookie).toType();
 	checkbox.addEventListener("click", () => {
 		let newCookie;
 		if (initialised) {
-			newCookie = !getCookie(cookie, true);
+			newCookie = !getCookie(cookie).toType();
 			setCookie(cookie, newCookie);
 		}
 		else {
-			newCookie = getCookie(cookie, true);
+			newCookie = getCookie(cookie).toType();
 			if (!initialised) checkbox.checked = true;
 			// Fake click nullification for handling initialization.
 		}
@@ -178,7 +178,7 @@ checkboxButton("debugEnable", "debug", function() {
 	
 	document.getElementById("developmentBranch").selected = true;
 });
-if (getCookie("debug", true)) document.getElementById("debugEnable").click();
+if (getCookie("debug").toType()) document.getElementById("debugEnable").click();
 
 document.getElementById("deleteCache").addEventListener("click", () => {
 	if(!navigator.onLine) {
