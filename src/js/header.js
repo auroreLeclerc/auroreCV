@@ -9,19 +9,25 @@ const OFFLINE = () => {
 	ONLINE = () => {
 		airplane.style.top = "2em";
 		airplane.style.left = "-2em";
-	};
+	}
+;
 
 navigator.onLine ? ONLINE() : OFFLINE();
 addEventListener("offline", OFFLINE);
 addEventListener("online", ONLINE);
 
 if ("share" in navigator) {
-	header.insertAdjacentHTML("beforeend", "<h1 id=\"share\"><a href=\"#share\">Partager !</a></h1>");
+	header.insertAdjacentHTML("beforeend",
+		`<h1 id="share">
+			<a href="#share" class="landscape-orientation">Partager !</a>
+			<a href="#share" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/share.svg" alt="Partager !"></a>
+		</h1>`
+	);
 	document.getElementById("share").addEventListener("click", () => {
 		navigator.share({
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
 			text: "Je t'ai montré le CV d'Aurore Leclerc ?\nRegarde il peut même être installé sur ton appareil (en PWA) !",
-			url: window.location.href,
+			url: `${location.host}/${location.pathname.split("/")[1]}`
 		}).then(() => {
 			console.info("Shared !");
 		}).catch(error => {
@@ -31,14 +37,24 @@ if ("share" in navigator) {
 }
 
 if ("print" in window && (window.location.pathname.endsWith("/index.html") || window.location.pathname.endsWith("/"))) {
-	header.insertAdjacentHTML("beforeend", "<h1 id=\"print\"><a href=\"#print\">Imprimer</a></h1>");
+	header.insertAdjacentHTML("beforeend",
+		`<h1 id="print">
+			<a href="#print" class="landscape-orientation">Imprimer</a>
+			<a href="#print" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/print.svg" alt="Imprimer"></a>
+		</h1>`
+	);
 	document.getElementById("print").addEventListener("click", () => {
 		window.print();
 	});
 }
 
 if ("BeforeInstallPromptEvent" in window) {
-	header.insertAdjacentHTML("beforeend", "<h1 id=\"install\"><a href=\"#install\">Installer</a></h1>");
+	header.insertAdjacentHTML("beforeend",
+		`<h1 id="install">
+			<a href="#install" class="landscape-orientation">Installer</a>
+			<a href="#install" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/install.svg" alt="Installer"></a>
+		</h1>`
+	);
 	const install = document.getElementById("install");
 	install.style.display = "none";
 	/**

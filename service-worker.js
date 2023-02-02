@@ -32,7 +32,8 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 			const branch = Number(branchString);
 			let url = event.request.url,
 				request = event.request,
-				online = false;
+				online = false
+			;
 
 			if (gitBranches[branch] && !url.endsWith("/")) {
 				url = url.replace(
@@ -72,13 +73,13 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 								// Failsafe in case the service worker didn't cache the url in the install event
 								if (!online) caches.open(CACHE_NAME).then(cache =>
 									cache.add(url).then(() =>
-										console.warn("⛑️", url)
+										console.info("⛑️", url)
 									)
 								);
 							}
 							else {
 								// TODO: check quality code of throw new HttpError and check if refactor is needed for better then/catch
-								if (fetched?.type === "opaque") console.warn("🛃", "Cross-Origin Resource Sharing", url);
+								if (fetched?.type === "opaque") console.info("🛃", "Cross-Origin Resource Sharing", url);
 								else throw new HttpError(fetched?.status, fetched?.statusText, url);
 							}
 						}
@@ -101,8 +102,7 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 						}
 						else return fetched;
 					}).catch(error => {
-						console.error(error);
-						console.info("✈️‍📭", error.message, url);
+						console.warn("✈️‍📭", error.message, url);
 
 						if (url.endsWith(".html")) {
 							return new Response(
@@ -195,7 +195,6 @@ self.addEventListener("message", function(/** @type {MessageEvent} */ event) {
 			
 		default:
 			throw new UnregisteredError("ServiceWorker message", event.data?.request, true);
-				// break;
 		}
 	}
 	else {
@@ -231,7 +230,6 @@ self.addEventListener("notificationclick", function(/** @type {NotificationEvent
 	
 	default:
 		throw new UnregisteredError("ServiceWorker notification", event.action, true);
-		// break;
 	}
 });
   

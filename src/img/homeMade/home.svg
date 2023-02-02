@@ -30,25 +30,21 @@
      inkscape:document-units="px"
      showgrid="false"
      inkscape:zoom="0.85666112"
-     inkscape:cx="235.21553"
+     inkscape:cx="86.965544"
      inkscape:cy="243.97045"
      inkscape:window-width="1366"
      inkscape:window-height="739"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="svg5" />
   <defs
      id="defs2" />
-  <g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
-     id="layer1">
-    <path
-       id="rect234"
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:15.4184;stroke-dasharray:none;stroke-opacity:1"
-       d="M 256,10.902446 58.644656,208.25779 V 504.29081 H 218.99587 V 356.2743 h 74.00825 V 504.29081 H 453.35534 V 208.25779 L 404.01651,158.91895 V 47.906573 h -49.33884 v 61.673547 z" />
-  </g>
+  <path
+     id="rect234"
+     style="fill:none;fill-opacity:1;stroke:#e4e6e7;stroke-width:15.0148;stroke-dasharray:none;stroke-opacity:1"
+     d="M 256,10.617073 58.449795,208.16728 V 504.49259 H 218.95933 V 356.32993 h 74.08132 V 504.49259 H 453.5502 V 208.16728 L 404.16265,158.77972 V 47.657736 H 354.7751 v 61.734434 z"
+     inkscape:label="house" />
   <metadata
      id="metadata255">
     <rdf:RDF>

@@ -92,6 +92,10 @@ a:hover {
 		display: none;
 	}
 
+	.force-theme {
+		filter: invert(0%);
+	}
+
 	.white-bg {
 		background-color: white;
 	}
@@ -119,6 +123,10 @@ a:hover {
 
 	.black-theme {
 		display: none;
+	}
+
+	.force-theme {
+		filter: invert(100%);
 	}
 
 	.black-bg {

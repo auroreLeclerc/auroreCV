@@ -6,7 +6,8 @@ let local = document.getElementById("local"),
 	online = document.getElementById("online"),
 	update = document.getElementById("update"),
 	currentChangeslogs = document.getElementById("currentChangeslogs"),
-	initialised = false;
+	initialised = false
+;
 
 function checkFetchUpdate() {
 	try {

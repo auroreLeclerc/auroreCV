@@ -118,10 +118,11 @@ if ("serviceWorker" in navigator) {
 		case "SET_DEFAULT_COOKIES":
 			SET_DEFAULT_COOKIES();
 			break;
-			
+		case "setCookie":
+			setCookie(event.data?.data);
+			break;
 		default:
 			throw new UnregisteredError("Client message", event.data?.request, true);
-				// break;
 		}
 	});
 }
@@ -141,9 +142,7 @@ export const DELETE_CACHE = () => {
 				window.location.reload();
 			}
 			else {
-				sendNotification("Le cache n'a pas pu être effacé. Peut-être qu'il n'y a plus de données en cache.").then(() => {
-					// window.location.reload();
-				});
+				sendNotification("Le cache n'a pas pu être effacé. Peut-être qu'il n'y a plus de données en cache.");
 			}
 		});
 	});
@@ -338,57 +337,32 @@ export function getMimeType(url) {
 	switch (extension) {
 	case "css":
 		return "text/css";
-		// break;
-
 	case "html":
 	case "htm":
 		return "text/html";
-		// break;
-
 	case "ico":
 		return "image/vnd.microsoft.icon";
-		// break;
-
 	case "jpeg":
 	case "jpg":
 		return "image/jpeg";
-		// break;
-
 	case "js":
 		return "text/javascript";
-		// break;
-
 	case "json":
 		return "application/json";
-		// break;
-
 	case "otf":
 		return "font/otf";
-		// break;
-
 	case "png":
-		return "image/png";
-		// break;
-		
+		return "image/png";		
 	case "svg":
 		return "image/svg+xml";
-		// break;
-
 	case "ttf":
 		return "font/ttf";
-		// break;
-
 	case "txt":
 		return "text/plain";
-		// break;
-
 	case "md":
 		return "text/markdown";
-		// break;
-
 	default:
 		console.error(new UnregisteredError("getMimeType", extension, true));
 		return "text/plain";
-		// break;
 	}
 }

@@ -12,7 +12,6 @@ body > header, body > footer {
 
 body > header {
     margin: -8px -8px 10px -8px;
-    padding: 0 8px;
     border-radius: 0 0 10px 10px;
 }
 
@@ -64,8 +63,32 @@ body > header a {
 	cursor: pointer;
 }
 
+body > header img {
+	max-height: 2em;
+}
+
 @media print {
 	body > header, body > footer {
 		display: none;
+	}
+}
+
+@media (orientation: portrait), (max-width: 1024px) {
+	body > header .portrait-orientation {
+		display: block;
+	}
+
+	body > header .landscape-orientation {
+		display: none;
+	}
+}
+
+@media (orientation: landscape) {
+	body > header .portrait-orientation {
+		display: none;
+	}
+
+	body > header .landscape-orientation {
+		display: block;
 	}
 }

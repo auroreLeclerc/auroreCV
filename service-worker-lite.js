@@ -26,7 +26,8 @@ const CACHE_NAME = "auroreCV",
 
 		"src/font/liberation/AUTHORS",
 		"src/font/liberation/LICENSE",
-	];
+	]
+;
 
 self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker Lite installing...");
@@ -70,12 +71,12 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 							// Failsafe in case the service worker didn't cache the url in the install event
 							if (!online) caches.open(CACHE_NAME).then(cache =>
 								cache.add(url).then(() =>
-									console.warn("⛑️", url)
+									console.info("⛑️", url)
 								)
 							);
 						}
 						else {
-							if (fetched?.type === "opaque") console.warn("🛃", "Cross-Origin Resource Sharing", url);
+							if (fetched?.type === "opaque") console.info("🛃", "Cross-Origin Resource Sharing", url);
 							else throw new Error(`${fetched?.status} ${fetched?.statusText} for ${url}`);
 						}
 					}
@@ -88,7 +89,7 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 					
 					return fetched;
 				}).catch(error => {
-					console.info("✈️‍📭", error.message, url);
+					console.warn("✈️‍📭", error.message, url);
 
 					if (url.endsWith(".html")) {
 						return new Response(
