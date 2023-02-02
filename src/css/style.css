@@ -3,7 +3,7 @@
 
 :root {
 	accent-color: DarkOrchid;
-	font-family: "LiberationSans";
+	font-family: "LiberationSans", sans-serif;
 	/* font-family: "LiberationSerif"; */
 	/* font-family: "LiberationMono"; */
 }
