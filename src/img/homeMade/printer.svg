@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="printer.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title7416">Stick printer</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.81569452"
+     inkscape:cx="215.76705"
+     inkscape:cy="296.67969"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <defs
+     id="defs2" />
+  <g
+     id="g7399"
+     inkscape:label="page"
+     transform="translate(-1e-6,-13.662264)">
+    <path
+       id="rect984-5-0"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.9351"
+       d="m 126.45784,345.01113 v 91.60482 59.83614 h 259.08432 v -59.83614 -91.60482 z m 40.74457,29.91808 h 175.80723 c 2.56308,0 4.6265,2.75122 4.6265,6.16867 0,3.41743 -2.06342,6.16867 -4.6265,6.16867 H 167.20241 c -2.56308,0 -4.6265,-2.75124 -4.6265,-6.16867 0,-3.41745 2.06342,-6.16867 4.6265,-6.16867 z m 0.89398,39.63373 h 175.80722 c 2.56307,0 4.62651,2.75123 4.62651,6.16867 0,3.41744 -2.06344,6.16868 -4.62651,6.16868 H 168.09639 c -2.56309,0 -4.62651,-2.75124 -4.62651,-6.16868 0,-3.41744 2.06342,-6.16867 4.62651,-6.16867 z m 1.54217,39.63373 H 280.6747 c 3.41743,0 6.16867,2.75123 6.16867,6.16868 0,3.41743 -2.75124,6.16867 -6.16867,6.16867 H 169.63856 c -3.41745,0 -6.16868,-2.75124 -6.16868,-6.16867 0,-3.41745 2.75123,-6.16868 6.16868,-6.16868 z"
+       inkscape:label="bottom" />
+    <path
+       id="path1056"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:38.0919"
+       d="M 126.45784,42.872439 V 162.54444 H 385.54216 V 42.872439 Z"
+       inkscape:label="top" />
+  </g>
+  <path
+     id="rect984-6"
+     style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:19.7003;stroke-dasharray:none;stroke-opacity:1"
+     d="m 59.060888,148.88218 c -27.262888,0 -49.21074,24.99282 -49.21074,56.03806 v 168.22363 c 0,31.04523 21.947852,56.03805 49.21074,56.03805 H 126.77133 V 325.12064 h 258.45734 v 104.06128 h 67.71044 c 27.26289,0 49.21074,-24.99282 49.21074,-56.03805 V 204.92024 c 0,-31.04524 -21.94785,-56.03806 -49.21074,-56.03806 z m 341.552152,61.66595 h 30.76873 c 8.52293,0 15.38437,7.81336 15.38437,17.51872 0,9.70537 -6.86144,17.51874 -15.38437,17.51874 h -30.76873 c -8.52293,0 -15.38437,-7.81337 -15.38437,-17.51874 0,-9.70536 6.86144,-17.51872 15.38437,-17.51872 z"
+     inkscape:label="printer" />
+  <metadata
+     id="metadata132">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:title>Stick printer</dc:title>
+        <dc:date>2023</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

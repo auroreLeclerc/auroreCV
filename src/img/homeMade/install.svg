@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="install.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title136">Stick installer</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.42567132"
+     inkscape:cx="132.73152"
+     inkscape:cy="340.63841"
+     inkscape:window-width="1366"
+     inkscape:window-height="739"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5"
+     showguides="true" />
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata132">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Stick installer</dc:title>
+        <dc:date>2023</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="rect240"
+     style="display:inline;fill:none;fill-opacity:1;stroke:#e4e6e7;stroke-width:14.5731;stroke-dasharray:none;stroke-opacity:1"
+     d="M 71.400391 67.521484 L 7.2871094 370.8418 L 7.2871094 437.77734 L 7.2871094 504.71289 L 504.71289 504.71289 L 504.71289 437.77734 L 504.71289 370.8418 L 440.59961 67.521484 L 438.91797 67.521484 L 353.1543 67.521484 L 353.1543 115.63086 L 391.38281 115.63086 L 392.62891 115.63086 L 440.08008 340.12695 L 440.08008 370.8418 L 71.919922 370.8418 L 71.919922 340.12695 L 119.37109 115.63086 L 120.61719 115.63086 L 158.8457 115.63086 L 158.8457 67.521484 L 73.082031 67.521484 L 71.400391 67.521484 z M 427.53711 405.74219 A 32.036247 32.036263 0 0 1 459.57227 437.7793 A 32.036247 32.036263 0 0 1 427.53711 469.81445 A 32.036247 32.036263 0 0 1 395.5 437.7793 A 32.036247 32.036263 0 0 1 427.53711 405.74219 z "
+     inkscape:label="hard-drive" />
+  <path
+     id="rect6062"
+     style="display:inline;fill:none;fill-opacity:1;stroke:#e4e6e7;stroke-width:15;stroke-dasharray:none;stroke-opacity:1"
+     d="m 222.66667,13.5 v 150 H 156 l 100,100 100,-100 h -66.66667 v -150 z"
+     inkscape:label="download" />
+  <rect
+     style="display:none;fill:none;fill-opacity:1;stroke:#e4e6e7;stroke-width:14.9819;stroke-dasharray:none;stroke-opacity:1"
+     id="rect10145"
+     width="497.00598"
+     height="133.66052"
+     x="7.4970093"
+     y="370.84247"
+     inkscape:label="split" />
+</svg>

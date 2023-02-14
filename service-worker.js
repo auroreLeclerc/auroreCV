@@ -180,8 +180,8 @@ self.addEventListener("periodicsync", function(/** @type {PeriodicSyncEvent} */ 
 });
 
 self.addEventListener("message", function(/** @type {MessageEvent} */ event) {
-	if (event.origin !== "localhost:8000/") { // localhost development
-	// if (event.origin !== "https://auroreleclerc.github.io/auroreCV/") { // production
+	// if (event.origin !== "localhost:8000/") { // localhost development
+	if (event.origin !== "https://auroreleclerc.github.io/auroreCV/") { // production
 		console.info("📦‍✉️", event.data?.request);
 		switch (event.data?.request) {
 		case "update":

@@ -40,7 +40,7 @@ if ("print" in window && (window.location.pathname.endsWith("/index.html") || wi
 	header.insertAdjacentHTML("beforeend",
 		`<h1 id="print">
 			<a href="#print" class="landscape-orientation">Imprimer</a>
-			<a href="#print" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/print.svg" alt="Imprimer"></a>
+			<a href="#print" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/printer.svg" alt="Imprimer"></a>
 		</h1>`
 	);
 	document.getElementById("print").addEventListener("click", () => {
