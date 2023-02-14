@@ -27,7 +27,7 @@ if ("share" in navigator) {
 		navigator.share({
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
 			text: "Je t'ai montré le CV d'Aurore Leclerc ?\nRegarde il peut même être installé sur ton appareil (en PWA) !",
-			url: `${location.host}/${location.pathname.split("/")[1]}`
+			url: "https://auroreleclerc.github.io/auroreCV/"
 		}).then(() => {
 			console.info("Shared !");
 		}).catch(error => {
