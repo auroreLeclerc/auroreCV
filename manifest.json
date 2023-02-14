@@ -7,9 +7,9 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"changelogs": [
-		"Lien de partage en dur"
+		"Icône de partage"
 	],
 	"display": "standalone",
 	"orientation": "any",
