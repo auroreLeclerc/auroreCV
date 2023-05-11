@@ -9,13 +9,8 @@
 		<link rel="apple-touch-icon" type="image/png" href="./src/img/homeMade/icons/settings.png">
 		<link rel="stylesheet" type="text/css" href="./src/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="./src/css/header.css" />
+		<link rel="manifest" href="./manifest.json">
 		<style>
-			body > header, body > footer {
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: space-around;
-			}
-
 			html, body {
 				height: 100%;
 				display: flex;
@@ -23,11 +18,17 @@
 				justify-content: space-between;
 			}
 
-			main {
+			body > header, body > footer {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+			}
+
+			body > main {
 				height: 100%;
 			}
 
-			section.center {
+			body > main > section.center {
 				display: flex;
 				flex-flow: row wrap;
 				justify-content: center;
@@ -35,7 +36,7 @@
 				height: 100%;
 			}
 
-			section.center button {
+			body > main > section.center button {
 				margin: 0.25em 1em;
 				font-size: 2em;
 				font-weight: bold;
@@ -51,16 +52,16 @@
 		<main>
 			<section class="center">
 				<button class="button" onclick="
-					const button1 = this;
+					const buttonWorker = this;
 					navigator.serviceWorker.getRegistrations().then(function(registrations) {
 						if (registrations.length) {
 							for(let registration of registrations) {
 								registration.unregister();
 							}
-							button1.textContent = 'Service Worker effacé !';
+							buttonWorker.textContent = 'Service Worker effacé !';
 						}
 						else {
-							button1.textContent = 'Aucun Service Worker présent !';
+							buttonWorker.textContent = 'Aucun Service Worker présent !';
 						}
 					});
 					
@@ -72,17 +73,17 @@
 					this.textContent = 'Cookies effacés !';
 				">Effacer les cookies</button>
 				<button class="button" onclick="
-					const button2 = this;
+					const buttonCache = this;
 					function clearCache(variable, error) {
 						caches.delete(variable?.CACHE_NAME ? variable?.CACHE_NAME : 'auroreCV').then(success => {
 							if (success) {
-								button2.textContent = 'Cache effacé !';
+								buttonCache.textContent = 'Cache effacé !';
 							}
 							else {
-								button2.textContent = 'Aucun cache trouvé !';
+								buttonCache.textContent = 'Aucun cache trouvé !';
 							}
 							if (error) {
-								button2.textContent += ` \n AND ${error}`
+								buttonCache.textContent += ` \n & ${error}`
 							}
 						});
 					}
@@ -91,7 +92,6 @@
 					}).catch(error => {
 						clearCache({}, error);
 					});
-					
 				">Effacer le cache</button>
 			</section>
 		</main>
