@@ -28,6 +28,9 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 		// 		url: event.request.url
 		// 	});
 		// });
+		if (event.request.url.endsWith("maintenance.html")) {
+			return fetch(event.request);
+		}
 		return getCookieFromStore("developmentBranch", "0", event.clientId).then(branchString => {
 			const branch = Number(branchString);
 			let url = event.request.url,

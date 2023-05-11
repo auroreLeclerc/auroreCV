@@ -9,18 +9,19 @@
    id="svg5"
    xml:space="preserve"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-   sodipodi:docname="settings.svg"
+   sodipodi:docname="colorfull_settinfs.svg"
    inkscape:export-filename="icons/settings.png"
    inkscape:export-xdpi="36"
    inkscape:export-ydpi="36"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"><title
-   id="title132">Stick settings</title><sodipodi:namedview
+   id="title132">Colorfull settings</title><sodipodi:namedview
    id="namedview7"
    pagecolor="#505050"
    bordercolor="#ffffff"
@@ -32,25 +33,43 @@
    inkscape:document-units="px"
    showgrid="false"
    inkscape:zoom="0.93943642"
-   inkscape:cx="146.89658"
+   inkscape:cx="161.2669"
    inkscape:cy="278.89061"
    inkscape:window-width="1366"
    inkscape:window-height="739"
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
-   inkscape:current-layer="svg5" /><defs
-   id="defs2" /><path
+   inkscape:current-layer="svg5"
+   showguides="true" /><defs
+   id="defs2"><linearGradient
+     inkscape:collect="always"
+     id="linearGradient871"><stop
+       style="stop-color:#e830c9;stop-opacity:1;"
+       offset="0"
+       id="stop867" /><stop
+       style="stop-color:#3b3be8;stop-opacity:1;"
+       offset="1"
+       id="stop869" /></linearGradient><linearGradient
+     inkscape:collect="always"
+     xlink:href="#linearGradient871"
+     id="linearGradient873"
+     x1="7.507555"
+     y1="7.5075564"
+     x2="504.49246"
+     y2="504.49246"
+     gradientUnits="userSpaceOnUse"
+     gradientTransform="matrix(1.0302124,0,0,1.0302124,-7.7343763,-7.7343775)" /></defs><path
    id="rect1060"
-   style="fill:none;fill-opacity:1;stroke:#e4e6e7;stroke-width:15.0151;stroke-dasharray:none;stroke-opacity:1"
-   d="m 214.58458,7.5075561 1e-5,88.4374809 A 165.66163,165.66163 0 0 0 172.08222,113.51067 L 109.57489,51.003333 51.003334,109.57489 113.51066,172.08223 A 165.66163,165.66163 0 0 0 95.945017,214.58459 H 7.507555 v 82.83082 h 88.437463 a 165.66163,165.66163 0 0 0 17.565652,42.50236 l -62.507335,62.50734 58.571555,58.57155 62.50734,-62.50734 a 165.66163,165.66163 0 0 0 42.50235,17.56565 l 1e-5,88.43747 h 82.83082 v -88.43747 a 165.66163,165.66163 0 0 0 42.50235,-17.56565 l 62.50735,62.50734 58.57156,-58.57155 -62.31019,-62.31018 A 165.66163,165.66163 0 0 0 416.376,297.41541 h 88.11643 l 10e-6,-82.83082 H 416.376 A 165.66163,165.66163 0 0 0 398.68649,171.88506 L 460.99667,109.57489 402.42511,51.003343 339.91776,113.51067 A 165.66163,165.66163 0 0 0 297.41541,95.945017 V 7.5075561 Z M 256,173.16919 A 82.830815,82.830815 0 0 1 338.83081,256 82.830815,82.830815 0 0 1 256,338.83081 82.830815,82.830815 0 0 1 173.16919,256 82.830815,82.830815 0 0 1 256,173.16919 Z"
+   style="fill:url(#linearGradient873);fill-opacity:1;stroke:none;stroke-width:15.469;stroke-dasharray:none;stroke-opacity:1"
+   d="m 213.33332,0 1e-5,91.109392 A 170.66667,170.66667 0 0 0 169.54686,109.20573 L 105.15103,44.80989 44.809892,105.15103 109.20572,169.54687 A 170.66667,170.66667 0 0 0 91.109371,213.33333 H 0 v 85.33334 h 91.109372 a 170.66667,170.66667 0 0 0 18.096358,43.78646 l -64.395837,64.39584 60.341137,60.34113 64.39584,-64.39583 a 170.66667,170.66667 0 0 0 43.78645,18.09635 l 1e-5,91.10938 h 85.33334 v -91.10938 a 170.66667,170.66667 0 0 0 43.78645,-18.09635 l 64.39585,64.39583 60.34114,-60.34113 -64.19273,-64.19272 a 170.66667,170.66667 0 0 0 18.22397,-43.98958 h 90.77864 L 512,213.33333 H 421.22135 A 170.66667,170.66667 0 0 0 402.99739,169.34374 L 467.19011,105.15103 406.84897,44.8099 342.45312,109.20573 A 170.66667,170.66667 0 0 0 298.66667,91.10937 V 0 Z M 256,170.66667 A 85.333334,85.333334 0 0 1 341.33333,256 85.333334,85.333334 0 0 1 256,341.33333 85.333334,85.333334 0 0 1 170.66667,256 85.333334,85.333334 0 0 1 256,170.66667 Z"
    inkscape:label="gear" />
      <metadata
    id="metadata130">
       <rdf:RDF>
         <cc:Work
    rdf:about="">
-          <dc:title>Stick settings</dc:title>
+          <dc:title>Colorfull settings</dc:title>
           <dc:date>2022-2023</dc:date>
           <dc:creator>
           <cc:Agent>

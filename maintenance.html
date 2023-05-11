@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="theme-color" content="DarkOrchid"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Maintenance du Curriculum vitæ</title>
+		<link rel="icon" type="image/png" href="./src/img/homeMade/icons/settings.png" />
+		<link rel="apple-touch-icon" type="image/png" href="./src/img/homeMade/icons/settings.png">
+		<link rel="stylesheet" type="text/css" href="./src/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="./src/css/header.css" />
+		<style>
+			body > header, body > footer {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+			}
+
+			html, body {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+
+			main {
+				height: 100%;
+			}
+
+			section.center {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+			}
+
+			section.center button {
+				margin: 0.25em 1em;
+				font-size: 2em;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1 id="home">
+				<a href="./">Revenir à l'accueil</a>
+			</h1>
+		</header>
+		<main>
+			<section class="center">
+				<button class="button" onclick="
+					const button1 = this;
+					navigator.serviceWorker.getRegistrations().then(function(registrations) {
+						if (registrations.length) {
+							for(let registration of registrations) {
+								registration.unregister();
+							}
+							button1.textContent = 'Service Worker effacé !';
+						}
+						else {
+							button1.textContent = 'Aucun Service Worker présent !';
+						}
+					});
+					
+				">Effacer le Service Worker</button>
+				<button class="button" onclick="
+					document.cookie.split(';').forEach(function(cookie) {
+						document.cookie = cookie.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+					});
+					this.textContent = 'Cookies effacés !';
+				">Effacer les cookies</button>
+				<button class="button" onclick="
+					const button2 = this;
+					function clearCache(variable, error) {
+						caches.delete(variable?.CACHE_NAME ? variable?.CACHE_NAME : 'auroreCV').then(success => {
+							if (success) {
+								button2.textContent = 'Cache effacé !';
+							}
+							else {
+								button2.textContent = 'Aucun cache trouvé !';
+							}
+							if (error) {
+								button2.textContent += ` \n AND ${error}`
+							}
+						});
+					}
+					import('./src/js/variables.js').then(variable => {
+						clearCache(variable, undefined);
+					}).catch(error => {
+						clearCache({}, error);
+					});
+					
+				">Effacer le cache</button>
+			</section>
+		</main>
+		<footer>
+			<h4><a href="./rights.html">Mentions Légales</a></h4>
+			<h4>© 2022-2023 Aurore Leclerc</h4>
+			<h4>
+				Mis à disposition selon les termes de la
+				<a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPLv3</a>
+				et de la
+				<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+			</h4>
+		</footer>
+	</body>
+</html>
