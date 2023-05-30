@@ -7,9 +7,9 @@
 	"background_color": "darkorchid",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "1.4.5",
+	"version": "1.4.6",
 	"changelogs": [
-		"Ajout de propriété Open Graph"
+		"Optimisation Open Graph"
 	],
 	"display": "standalone",
 	"orientation": "any",
