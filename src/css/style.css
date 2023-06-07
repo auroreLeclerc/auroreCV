@@ -1,11 +1,15 @@
+/* stylelint-disable declaration-empty-line-before */
+/* stylelint-disable rule-empty-line-before */
 @import url("./liberation.css");
 @import url("./pwa.css");
 
 :root {
+	/* stylelint-disable-next-line value-keyword-case */
 	accent-color: DarkOrchid;
-	font-family: "LiberationSans", sans-serif;
-	/* font-family: "LiberationSerif"; */
-	/* font-family: "LiberationMono"; */
+	font-family: LiberationSans, sans-serif;
+
+	/* font-family: "LiberationSerif";
+	   font-family: "LiberationMono"; */
 }
 
 html, body {
@@ -68,7 +72,7 @@ button.button {
 .button {
 	position: relative;
 	cursor:pointer;
-	background: linear-gradient(to bottom right, hsl(256, 100%, 65%), hsl(240, 79%, 57%));
+	background: linear-gradient(to bottom right, hsl(256deg 100% 65%), hsl(240deg 79% 57%));
 	color: white;
 	padding: 10px 20px;
 	text-align: center;
@@ -84,7 +88,7 @@ button.button {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: linear-gradient(to bottom right, hsl(340, 100%, 63%), hsl(310, 80%, 55%));
+	background: linear-gradient(to bottom right, hsl(340deg 100% 63%), hsl(310deg 80% 55%));
 	z-index: -1;
 
 	opacity: 0;
@@ -111,7 +115,7 @@ main div.prettyTriangles {
 /* div.prettyTriangles.top */
 
 main div.prettyTriangles.top {
-	left: 0px;
+	left: 0;
 	top: 5px;
 }
 
@@ -135,7 +139,7 @@ main div.prettyTriangles.top span.bottom {
 /* div.prettyTriangles.bottom */
 
 main div.prettyTriangles.bottom {
-	right: 0px;
+	right: 0;
 	bottom: 5px;
 }
 
@@ -147,11 +151,11 @@ main div.prettyTriangles.bottom span.top, main div.prettyTriangles.bottom span.b
 main div.prettyTriangles.bottom span.top {
 	height: 100%;
 	width: 50%;
-	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(256, 100%, 65%) 50%, hsl(240, 79%, 57%) 100%);
+	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(256deg 100% 65%) 50%, hsl(240deg 79% 57%) 100%);
 }
 
 main div.prettyTriangles.bottom span.bottom {
 	height: 50%;
 	width: 100%;
-	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(340, 100%, 63%) 50%, hsl(310, 80%, 55%) 100%);
+	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(340deg 100% 63%) 50%, hsl(310deg 80% 55%) 100%);
 }

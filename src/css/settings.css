@@ -35,8 +35,8 @@ h3#changelogs ul li:not(li.title) {
 }
 
 section#debug {
-    display: none;
     /* display: flex; */
+    display: none;
     justify-content: space-around;
     flex-flow: row wrap;
     align-items: center;

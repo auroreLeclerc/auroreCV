@@ -1,3 +1,5 @@
+/* stylelint-disable shorthand-property-no-redundant-values */
+/* stylelint-disable declaration-empty-line-before */
 body > header, body > footer {
     position: relative;
     z-index: 1;
@@ -7,7 +9,7 @@ body > header, body > footer {
 	align-items: center;
 	text-align: center;
 
-    background: linear-gradient(to bottom right, hsl(310, 80%, 55%), hsl(240, 79%, 57%));
+    background: linear-gradient(to bottom right, hsl(310deg 80% 55%), hsl(240deg 79% 57%));
 }
 
 body > header {
@@ -32,7 +34,7 @@ body > header::before, body > footer::before {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: linear-gradient(to bottom right, hsl(340, 100%, 63%), hsl(256, 100%, 65%));
+	background: linear-gradient(to bottom right, hsl(340deg 100% 63%), hsl(256deg 100% 65%));
 	z-index: -1;
 
 	opacity: 0;
@@ -73,7 +75,7 @@ body > header img {
 	}
 }
 
-@media (orientation: portrait), (max-width: 1024px) {
+@media (orientation: portrait), (width <= 1024px) {
 	body > header .portrait-orientation {
 		display: block;
 	}

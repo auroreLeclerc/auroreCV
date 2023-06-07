@@ -49,37 +49,22 @@ export class Version {
 		this.#compareInt = this.#versionInt(compare, "compare");
 	}
 
-	/**
-    * @returns {string}
-    */
 	get self() {
 		return this.#self;
 	}
 
-	/**
-    * @returns {string}
-    */
 	get compare() {
 		return this.#compare;
 	}
 
-	/**
-    * @returns {boolean}
-    */
 	isUpper() {
 		return this.#selfInt > this.#compareInt;
 	}
 
-	/**
-    * @returns {boolean}
-    */
 	isLower() {
 		return this.#selfInt < this.#compareInt;
 	}
 
-	/**
-    * @returns {boolean}
-    */
 	isEqual() {
 		return this.#selfInt === this.#compareInt;
 	}
