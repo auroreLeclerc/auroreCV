@@ -40,7 +40,7 @@ main section article div img {
     float: right;
 }
 
-main section article div.flexCenter img {
+main section article div.flex-center img {
 	margin: 0 5px;
     max-height: 1em;
 }
@@ -244,7 +244,7 @@ main section#hobbies h1::after {
 		margin: 0.25em 0;
 	}
 	
-	main section article div.flexCenter {
+	main section article div.flex-center {
 		flex-direction: column;
 	}
 }

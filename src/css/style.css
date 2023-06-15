@@ -59,7 +59,7 @@ div.separator.vertical {
 	font-style: italic;
 }
 
-.flexCenter {	
+.flex-center {	
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-around;
@@ -100,62 +100,62 @@ button.button {
 	opacity: 1;
 }
 
-/* div.prettyTriangles */
+/* div.pretty-triangles */
 
-main div.prettyTriangles, main div.prettyTriangles span.top, main div.prettyTriangles span.bottom {
+main div.pretty-triangles, main div.pretty-triangles span.top, main div.pretty-triangles span.bottom {
 	position: absolute;
 }
 
-main div.prettyTriangles {
+main div.pretty-triangles {
 	height: 20em;
 	width: 20em;
 	z-index: -99;
 }
 
-/* div.prettyTriangles.top */
+/* div.pretty-triangles.top */
 
-main div.prettyTriangles.top {
+main div.pretty-triangles.top {
 	left: 0;
 	top: 5px;
 }
 
-main div.prettyTriangles.top span.top, main div.prettyTriangles.top span.bottom {
+main div.pretty-triangles.top span.top, main div.pretty-triangles.top span.bottom {
 	left: 0;
 	top: 0;
 }
 
-main div.prettyTriangles.top span.top {
+main div.pretty-triangles.top span.top {
 	height: 100%;
 	width: 50%;
-	background: linear-gradient(to top left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(240, 79%, 57%) 50%, hsl(256, 100%, 65%) 100%);
+	background: linear-gradient(to top left, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(240deg 79% 57%) 50%, hsl(256deg 100% 65%) 100%);
 }
 
-main div.prettyTriangles.top span.bottom {
+main div.pretty-triangles.top span.bottom {
 	height: 50%;
 	width: 100%;
-	background: linear-gradient(to top left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(310, 80%, 55%) 50%, hsl(340, 100%, 63%) 100%);
+	background: linear-gradient(to top left, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(310deg 80% 55%) 50%, hsl(340deg 100% 63%) 100%);
 }
 
-/* div.prettyTriangles.bottom */
+/* div.pretty-triangles.bottom */
 
-main div.prettyTriangles.bottom {
+main div.pretty-triangles.bottom {
 	right: 0;
 	bottom: 5px;
 }
 
-main div.prettyTriangles.bottom span.top, main div.prettyTriangles.bottom span.bottom {
+main div.pretty-triangles.bottom span.top, main div.pretty-triangles.bottom span.bottom {
 	right: 0;
 	bottom: 0;
 }
 
-main div.prettyTriangles.bottom span.top {
+main div.pretty-triangles.bottom span.top {
 	height: 100%;
 	width: 50%;
-	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(256deg 100% 65%) 50%, hsl(240deg 79% 57%) 100%);
+	background: linear-gradient(to bottom right, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(256deg 100% 65%) 50%, hsl(240deg 79% 57%) 100%);
 }
 
-main div.prettyTriangles.bottom span.bottom {
+main div.pretty-triangles.bottom span.bottom {
 	height: 50%;
 	width: 100%;
-	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, hsl(340deg 100% 63%) 50%, hsl(310deg 80% 55%) 100%);
+	background: linear-gradient(to bottom right, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(340deg 100% 63%) 50%, hsl(310deg 80% 55%) 100%);
 }

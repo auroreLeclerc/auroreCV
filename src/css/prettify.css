@@ -22,13 +22,12 @@ div.accordionised div.container, div.accordionised div.container span.initial, d
     display: inline-block;
 }
 
-div.accordionised div.container:not(:last-child) span.lowercase:after {
+div.accordionised div.container:not(:last-child) span.lowercase::after {
 	content: "\00A0";
 }
 
 /* window.print() */
 
-/* prefers-color-scheme override */
 @media print {
 	:root {
 		background-color: white;
@@ -63,7 +62,7 @@ div.accordionised div.container:not(:last-child) span.lowercase:after {
 		/* TODO: make it vertical */
 	}
 
-	main div.prettyTriangles {
+	main div.pretty-triangles {
 		display: none;
 	}
 
@@ -74,10 +73,10 @@ div.accordionised div.container:not(:last-child) span.lowercase:after {
 		display: none;
 	}
 
-	main section#skills article div ul li, main header#informations article ul li {
+	main header#informations article ul li, main section#skills article div ul li {
 		display: list-item;
 	}
-	main section#skills article div ul li::before, main header#informations article ul li::before {
+	main header#informations article ul li::before, main section#skills article div ul li::before {
 		display: none;
 	}
 }
