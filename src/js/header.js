@@ -94,7 +94,7 @@ if ("BeforeInstallPromptEvent" in window) {
 	});
 }
 
-fetch("/src/apple.html").then(response => {
+fetch("./src/apple.html").then(response => {
 	response.text().then(text => {
 		const apple = new DOMParser().parseFromString(text, "text/html");
 		while(apple.head.children.length) {

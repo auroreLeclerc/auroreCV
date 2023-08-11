@@ -83,32 +83,32 @@ div.accordionised div.container:not(:last-child) span.lowercase::after {
 
 /* Chrome loading list-style-image after print rendering workaround */
 main section#skills article div ul li {
-	list-style-image: url("/src/img/homeMade/icons/checkmark.png");
+	list-style-image: url("./src/img/homeMade/icons/checkmark.png");
 }
 main section#skills article div ul li.flag {
-	list-style-image: url("/src/img/homeMade/icons/greenflag.png");
+	list-style-image: url("./src/img/homeMade/icons/greenflag.png");
 }
 main section#skills article div ul li.progress {
-	list-style-image: url("/src/img/homeMade/icons/progress.png");
+	list-style-image: url("./src/img/homeMade/icons/progress.png");
 }
 main header#informations article ul li.mail {
-	list-style-image: url("/src/img/homeMade/icons/mail.png");
+	list-style-image: url("./src/img/homeMade/icons/mail.png");
 }
 main header#informations article ul li.linkedin {
-	list-style-image: url("/src/img/registeredTrademark/icons/Linkedin.png");
+	list-style-image: url("./src/img/registeredTrademark/icons/Linkedin.png");
 }
 main header#informations article ul li.github {
-	list-style-image: url("/src/img/registeredTrademark/icons/Github_black.png");
+	list-style-image: url("./src/img/registeredTrademark/icons/Github_black.png");
 }
 main header#informations article ul li.phone {
-	list-style-image: url("/src/img/homeMade/icons/phone.png");
+	list-style-image: url("./src/img/homeMade/icons/phone.png");
 }
 main header#informations article ul li.agenda {
-	list-style-image: url("/src/img/homeMade/icons/agenda.png");
+	list-style-image: url("./src/img/homeMade/icons/agenda.png");
 }
 main header#informations article ul li.house {
-	list-style-image: url("/src/img/homeMade/icons/house.png");
+	list-style-image: url("./src/img/homeMade/icons/house.png");
 }
 main header#informations article ul li.mbti {
-	list-style-image: url("/src/img/homeMade/icons/mbti.png");
+	list-style-image: url("./src/img/homeMade/icons/mbti.png");
 }

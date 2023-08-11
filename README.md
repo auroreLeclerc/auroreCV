@@ -7,4 +7,4 @@ Mon curriculum vitæ, de moi même Aurore Leclerc, en version web avec une impl�
 
 ***
 
-Ce code source est sous licence GNU GPLv3. À l'exception des fichiers dans "/src/img/registeredTrademark/" qui sont copyright et des polices d'écritures dans "/src/font/" qui ont leurs propres licences.
+Ce code source est sous licence GNU GPLv3. À l'exception des fichiers dans "./src/img/registeredTrademark/" qui sont copyright et des polices d'écritures dans "./src/font/" qui ont leurs propres licences.
