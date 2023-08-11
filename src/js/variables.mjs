@@ -2,114 +2,31 @@ import { EnhancedSring } from "./EnhancedSring.js";
 import { NotFoundError, UnregisteredError } from "./Errors.js";
 import { Version } from "./Version.js";
 
-export const CACHE_NAME = "auroreCV";
-export const MANIFEST_NAME = "manifest.json";
-export const OFFLINE_URLS = [
-	"./",
-	"LICENSE",
+export const
+	CACHE_NAME = "auroreCV",
+	MANIFEST_NAME = "manifest.json"
+;
 
-	"service-worker.js",
-	"index.html",
-	"manifest.json",
-	"rights.html",
-	"settings.html",
-
-	"src/css/header.css",
-	"src/css/index.css",
-	"src/css/liberation.css",
-	"src/css/pwa.css",
-	"src/css/rights.css",
-	"src/css/settings.css",
-	"src/css/style.css",
-	"src/css/prettify.css",
-
-	"src/js/header.js",
-	"src/js/index.js",
-	"src/js/settings.js",
-	"src/js/variables.js",
-	"src/js/prettify.js",
-	"src/js/Errors.js",
-	"src/js/Version.js",
-	"src/js/EnhancedSring.js",
-
-	"src/font/liberation/AUTHORS",
-	"src/font/liberation/LICENSE",
-	"src/font/liberation/LiberationMono-Bold.ttf",
-	"src/font/liberation/LiberationMono-BoldItalic.ttf",
-	"src/font/liberation/LiberationMono-Italic.ttf",
-	"src/font/liberation/LiberationMono-Regular.ttf",
-	"src/font/liberation/LiberationSans-Bold.ttf",
-	"src/font/liberation/LiberationSans-BoldItalic.ttf",
-	"src/font/liberation/LiberationSans-Italic.ttf",
-	"src/font/liberation/LiberationSans-Regular.ttf",
-	"src/font/liberation/LiberationSerif-Bold.ttf",
-	"src/font/liberation/LiberationSerif-BoldItalic.ttf",
-	"src/font/liberation/LiberationSerif-Italic.ttf",
-	"src/font/liberation/LiberationSerif-Regular.ttf",
-
-	"src/img/homeMade/agenda.svg",
-	"src/img/homeMade/checkmark.svg",
-	"src/img/homeMade/CV.svg",
-	"src/img/homeMade/diploma.svg",
-	"src/img/homeMade/experiences.svg",
-	"src/img/homeMade/greenflag.svg",
-	"src/img/homeMade/progress.svg",
-	"src/img/homeMade/hobbies.svg",
-	"src/img/homeMade/house.svg",
-	"src/img/homeMade/initials.svg",
-	"src/img/homeMade/mail.svg",
-	"src/img/homeMade/mbti.svg",
-	"src/img/homeMade/phone.svg",
-	"src/img/homeMade/skills.svg",
-
-	"src/img/homeMade/icons/agenda.png",
-	"src/img/homeMade/icons/checkmark.png",
-	"src/img/homeMade/icons/greenflag.png",
-	"src/img/homeMade/icons/progress.png",
-	"src/img/homeMade/icons/house.png",
-	"src/img/homeMade/icons/mail.png",
-	"src/img/homeMade/icons/mbti.png",
-	"src/img/homeMade/icons/phone.png",
-	"src/img/homeMade/icons/initials.png",
-
-	"src/img/homeMade/icons/IOS.png",
-	"src/img/homeMade/icons/192.png",
-	"src/img/homeMade/icons/192_maskable.png",
-	"src/img/homeMade/icons/384.png",
-	"src/img/homeMade/icons/384_maskable.png",
-	"src/img/homeMade/icons/512.png",
-	"src/img/homeMade/icons/512_maskable.png",
-	"src/img/homeMade/icons/1024.png",
-	"src/img/homeMade/icons/1024_maskable.png",
-	
-	"src/img/registeredTrademark/AFIA_CFA_blanc.svg",
-	"src/img/registeredTrademark/AFIA_CFA_couleur.svg",
-	"src/img/registeredTrademark/DL_02_Dip_Etat_blanc.svg",
-	"src/img/registeredTrademark/DL_02_Dip_Etat.svg",
-	"src/img/registeredTrademark/Github_black.svg",
-	"src/img/registeredTrademark/Github_white.svg",
-	"src/img/registeredTrademark/Givaudan_logo_black.svg",
-	"src/img/registeredTrademark/Givaudan_logo_red.svg",
-	"src/img/registeredTrademark/Givaudan_logo_white.svg",
-	"src/img/registeredTrademark/Givaudan_text_black.svg",
-	"src/img/registeredTrademark/Givaudan_text_white.svg",
-	"src/img/registeredTrademark/Linkedin.svg",
-	"src/img/registeredTrademark/SAP_logo.svg",
-	"src/img/registeredTrademark/UniversiteParis_couleur.svg",
-	"src/img/registeredTrademark/UniversiteParis_noir.svg",
-	"src/img/registeredTrademark/UniversiteParisCite_couleur.svg",
-	"src/img/registeredTrademark/UniversiteParisCite_noir.svg",
-	"src/img/registeredTrademark/UPJV_blanc.svg",
-	"src/img/registeredTrademark/UPJV_bleu.svg",
-	"src/img/registeredTrademark/UPJV_noir.svg",
-	"src/img/registeredTrademark/USPN_2021_logo.svg",
-	"src/img/registeredTrademark/USPN_2021.svg",
-	"src/img/registeredTrademark/USPN_2022_logo.svg",
-	"src/img/registeredTrademark/USPN_2022.svg",
-
-	"src/img/registeredTrademark/icons/Github_black.png",
-	"src/img/registeredTrademark/icons/Linkedin.png"
-];
+const
+	GENDERS = [
+		"",
+		"&#8205;&female;",
+		"&#8205;&male;"
+	],
+	PERSONNS = [
+		"&#129489;",
+		"&#128105;",
+		"&#128104;"
+	],
+	SKINTONES = [
+		"",
+		"&#127995;",
+		"&#127996;",
+		"&#127997;",
+		"&#127998;",
+		"&#127999;"
+	]
+;
 
 if ("serviceWorker" in navigator) {
 	navigator.serviceWorker.addEventListener("message", (event) => {
@@ -134,6 +51,7 @@ if ("serviceWorker" in navigator) {
 export const DELETE_CACHE = () => {
 	navigator.serviceWorker.getRegistrations().then(function(registrations) {
 		setCookie("developmentBranch", 0);
+		setCookie("service-worker", true);
 		for(let registration of registrations) {
 			registration.unregister();
 		}
@@ -142,6 +60,7 @@ export const DELETE_CACHE = () => {
 				window.location.reload();
 			}
 			else {
+				// TODO: make an internal frontend sendNotification fallback because in this case it is needed to give information why nothing happens
 				sendNotification("Le cache n'a pas pu être effacé. Peut-être qu'il n'y a plus de données en cache.");
 			}
 		});
@@ -196,15 +115,23 @@ export function getCookie(name) {
 export async function getCookieFromStore(name, assumed = "", clientId = "") {
 	let value;
 
+	/**
+	 * @returns {import("./typedef.js").CookieStore}
+	 */
+	function getCookieStore() {
+		// @ts-ignore
+		// eslint-disable-next-line no-undef
+		return cookieStore;
+	}
+
 	try {
-		// https://developer.mozilla.org/en-US/docs/Web/API/CookieStore#browser_compatibility
-		cookieStore.get("mozilla");
+		getCookieStore().get("firefox");
 	} catch (error) {
 		console.warn("🦊", error); 
 		return Promise.resolve(new EnhancedSring(assumed));
 	}
-	
-	return cookieStore.get(name).then(cookie => {
+
+	return getCookieStore().get(name).then(cookie => {
 		value = cookie?.value;
 		if (!value) {
 			self.clients.get(clientId).then(client => {
@@ -235,10 +162,15 @@ export const SET_DEFAULT_COOKIES = () => {
 					if (cookieVsCache.isLower()) { // Local Vs PastNewVersion
 						setCookie("developmentBranch", 0);
 					}
-					
+
 					cookieVsCache.compare = "1.2.0";
 					if (cookieVsCache.isLower()) { // Local Vs PastNewVersion
 						setCookie("UnregisteredError", null);
+					}
+
+					cookieVsCache.compare = "2.0.0";
+					if (cookieVsCache.isLower()) { // Local Vs PastNewVersion
+						setCookie("service-worker", true);
 					}
 
 					setCookie("version", cookieVsCache.compare);
@@ -249,7 +181,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				else throw new UnregisteredError("SET_DEFAULT_COOKIES", `cookieVsCache.isLower=${cookieVsCache.isLower()}`, true);
 				
 			} catch (error) {
-				console.error(`SET_DEFAULT_COOKIES: ${error}`);
+				console.error(`SET_DEFAULT_COOKIES: ${error.toString()}`);
 				
 				setCookie("firstUse", false);
 				setCookie("autoUpdate", true);
@@ -259,6 +191,7 @@ export const SET_DEFAULT_COOKIES = () => {
 				setCookie("lastReset", new Date().toISOString());
 				setCookie("developmentBranch", 0);
 				setCookie("UnregisteredError", null);
+				setCookie("service-worker", true);
 			}
 		})
 	);
@@ -346,6 +279,7 @@ export function getMimeType(url) {
 	case "jpg":
 		return "image/jpeg";
 	case "js":
+	case "mjs":
 		return "text/javascript";
 	case "json":
 		return "application/json";
@@ -364,5 +298,19 @@ export function getMimeType(url) {
 	default:
 		console.error(new UnregisteredError("getMimeType", extension, true));
 		return "text/plain";
+	}
+}
+
+/**
+ * @param {string} emoji as HTML decimal/hexadecimal encoded emoji
+ * @param {boolean} isAccessory to construct an emoji with an accessory rather than a person emoji 
+ */
+export function getEmojiPeople(emoji, isAccessory = false) {
+	const randomIndex = (/** @type {string[]} */ array) => Math.floor(Math.random() * array.length);
+	if (isAccessory) {
+		return `${PERSONNS[randomIndex(PERSONNS)]}${SKINTONES[randomIndex(SKINTONES)]}&#8205;${emoji}`;
+	}
+	else {
+		return `${emoji}${SKINTONES[randomIndex(SKINTONES)]}${GENDERS[randomIndex(GENDERS)]}`;
 	}
 }

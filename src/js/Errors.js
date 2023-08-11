@@ -1,39 +1,43 @@
-import { setCookie } from "./variables.js";
+import { setCookie } from "./variables.mjs";
 
 export class HttpError extends Error {
 	/**
-	* @description HTTP Error
-	* @param {number} code status
-	* @param {string} response statusText
-	* @param {string} url URL
-	* @param {string} [msg] Additional message
-	*/
-	constructor(code, response, url, msg = undefined) {
+	 * @description HTTP Error
+	 * @param {number} code status
+	 * @param {string} response statusText
+	 * @param {string} url URL
+	 * @param {string[]} msgs
+	 */
+	constructor(code, response, url, ...msgs) {
 		super();
 
 		this.name = `HTTP Error ${code}`;
 		this.message = `${url} is ${response}.`;
+		const main = `${this.name}: ${this.message}`;
 		
-		if(msg) this.message += ` ${msg}.`;
+		for (const msg of msgs) {
+			this.message += ` ${msg}.`;
+		}
 
 		this.parameters = {
+			main: main,
 			status: code,
 			statusText: response,
 			url: url,
-			msg: msg
+			addMsgs: msgs
 		};
 	}
 }
 
 export class UnregisteredError extends Error {
 	/**
-	* @description Condition not registered
-	* @param {string} where Where does the error come from
-	* @param {any} what What argument caused the error
-	* @param {boolean} [internalError] Internal error message
-	* @param {string} [msg] Additional message
-	*/
-	constructor(where, what, internalError = false, msg = undefined) {
+	 * @description Condition not registered
+	 * @param {string} where Where does the error come from
+	 * @param {any} what What argument caused the error
+	 * @param {boolean} [internalError] Internal error message
+	 * @param {string} [msg] Additional message
+	 */
+	constructor(where, what, internalError = false, msg = "") {
 		super();
 
 		this.name = "Unregistered Error";
@@ -54,6 +58,8 @@ export class UnregisteredError extends Error {
 			setCookie("UnregisteredError", this.message);
 		}
 		else {
+			// @ts-ignore
+			// eslint-disable-next-line no-undef
 			cookieStore.set({
 				name: "UnregisteredError",
 				value: this.message.replace(/ /gi, "_"),
@@ -66,11 +72,11 @@ export class UnregisteredError extends Error {
 
 export class NotFoundError extends Error {
 	/**
-	* @description Not Found
-	* @param {string} element element
-	* @param {string} [msg] Additional message
-	*/
-	constructor(element, msg = undefined) {
+	 * @description Not Found
+	 * @param {string} element element
+	 * @param {string} [msg] Additional message
+	 */
+	constructor(element, msg = "") {
 		super();
 
 		this.name = "Not Found Error";
@@ -83,5 +89,18 @@ export class NotFoundError extends Error {
 			element: element,
 			msg: msg
 		};
+	}
+}
+
+export class ArchitectureError extends Error {
+	/**
+	 * @description Human error to be thrown when architectural checks fail
+	 * @param {string} message
+	 */
+	constructor(message) {
+		super();
+
+		this.name = "Architecture Error";
+		this.message = message;
 	}
 }

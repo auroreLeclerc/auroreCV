@@ -19,31 +19,48 @@ addEventListener("online", ONLINE);
 if ("share" in navigator) {
 	header.insertAdjacentHTML("beforeend",
 		`<h1 id="share">
-			<a href="#share" class="landscape-orientation">Partager !</a>
-			<a href="#share" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/share.svg" alt="Partager !"></a>
+			<a href="javascript:void(null);" class="landscape-orientation">Partager !</a>
+			<a href="javascript:void(null);" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/share.svg" alt="Partager !"></a>
 		</h1>`
 	);
 	document.getElementById("share").addEventListener("click", () => {
 		navigator.share({
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
 			text: "Je t'ai montré le CV d'Aurore Leclerc ?\nRegarde il peut même être installé sur ton appareil (en PWA) !",
-			url: "https://auroreleclerc.github.io/auroreCV/index.html"
+			url: "https://auroreleclerc.github.io/auroreCV/"
 		}).then(() => {
 			console.info("Shared !");
 		}).catch(error => {
-			console.warn(error);
+			console.info(error);
 		});
 	});
 }
 
-if ("print" in window && (window.location.pathname.endsWith("/index.html") || window.location.pathname.endsWith("/"))) {
+/**
+ * @param {Location | URL} url
+ * @param {HTMLElement} print
+ */
+function checkIfPrintAvaible(url, print) {
+	if (url.hash.endsWith("#home") || url.hash === "") {
+		print.style.display = null;
+	}
+	else print.style.display = "none";
+}
+if ("print" in window) {
 	header.insertAdjacentHTML("beforeend",
 		`<h1 id="print">
-			<a href="#print" class="landscape-orientation">Imprimer</a>
-			<a href="#print" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/printer.svg" alt="Imprimer"></a>
+			<a href="javascript:void(null);" class="landscape-orientation">Imprimer</a>
+			<a href="javascript:void(null);" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/printer.svg" alt="Imprimer"></a>
 		</h1>`
 	);
-	document.getElementById("print").addEventListener("click", () => {
+	const print = document.getElementById("print");
+	print.style.display = "none";
+
+	checkIfPrintAvaible(window.location, print);
+	addEventListener("hashchange", (event) => {		
+		checkIfPrintAvaible(new URL(event.newURL), print);
+	});
+	print.addEventListener("click", () => {
 		window.print();
 	});
 }
@@ -51,8 +68,8 @@ if ("print" in window && (window.location.pathname.endsWith("/index.html") || wi
 if ("BeforeInstallPromptEvent" in window) {
 	header.insertAdjacentHTML("beforeend",
 		`<h1 id="install">
-			<a href="#install" class="landscape-orientation">Installer</a>
-			<a href="#install" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/install.svg" alt="Installer"></a>
+			<a href="javascript:void(null);" class="landscape-orientation">Installer</a>
+			<a href="javascript:void(null);" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/install.svg" alt="Installer"></a>
 		</h1>`
 	);
 	const install = document.getElementById("install");
@@ -73,6 +90,15 @@ if ("BeforeInstallPromptEvent" in window) {
 	window.addEventListener("beforeinstallprompt", (event) => {
 		event.preventDefault();
 		deferredPrompt = event;
-		install.style.display = "block";
+		install.style.display = null;
 	});
 }
+
+fetch("/src/apple.html").then(response => {
+	response.text().then(text => {
+		const apple = new DOMParser().parseFromString(text, "text/html");
+		while(apple.head.children.length) {
+			document.head.appendChild(apple.head.firstChild);
+		}
+	});
+});

@@ -1,0 +1,25 @@
+html, body {
+    min-height: calc(100vh - 18px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+body > header, body > footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+body > main > section {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+body > main > section button {
+    margin: 1em;
+    font-size: 2em;
+    font-weight: bold;
+}

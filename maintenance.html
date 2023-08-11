@@ -4,39 +4,13 @@
 		<meta charset="UTF-8"/>
 		<meta name="theme-color" content="DarkOrchid"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Maintenance du Curriculum vitæ</title>
+		<title>Maintenance</title>
 		<link rel="icon" type="image/png" href="./src/img/homeMade/icons/settings.png" />
 		<link rel="apple-touch-icon" type="image/png" href="./src/img/homeMade/icons/settings.png">
 		<link rel="stylesheet" type="text/css" href="./src/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="./src/css/header.css" />
+		<link rel="stylesheet" type="text/css" href="./src/css/maintenance.css" />
 		<link rel="manifest" href="./manifest.json">
-		<style>
-			html, body {
-				min-height: calc(100vh - 18px);
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-			}
-
-			body > header, body > footer {
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: space-around;
-			}
-
-			body > main > section {
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: center;
-				align-items: center;
-			}
-
-			body > main > section button {
-				margin: 1em;
-				font-size: 2em;
-				font-weight: bold;
-			}
-		</style>
 	</head>
 	<body>
 		<header>
@@ -45,51 +19,13 @@
 			</h1>
 		</header>
 		<main>
-			<section>
-				<button class="button" onclick="
-					const buttonWorker = this;
-					navigator.serviceWorker.getRegistrations().then(function(registrations) {
-						if (registrations.length) {
-							for(let registration of registrations) {
-								registration.unregister();
-							}
-							buttonWorker.textContent = 'Service Worker effacé !';
-						}
-						else {
-							buttonWorker.textContent = 'Aucun Service Worker présent !';
-						}
-					});
-					
-				">Effacer le Service Worker</button>
-				<button class="button" onclick="
-					document.cookie.split(';').forEach(function(cookie) {
-						document.cookie = cookie.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
-					});
-					this.textContent = 'Cookies effacés !';
-				">Effacer les cookies</button>
-				<button class="button" onclick="
-					const buttonCache = this;
-					function clearCache(variable, error) {
-						caches.delete(variable?.CACHE_NAME ? variable?.CACHE_NAME : 'auroreCV').then(success => {
-							if (success) {
-								buttonCache.textContent = 'Cache effacé !';
-							}
-							else {
-								buttonCache.textContent = 'Aucun cache trouvé !';
-							}
-							if (error) {
-								buttonCache.textContent += ` \n & ${error}`
-							}
-						});
-					}
-					import('./src/js/variables.js').then(variable => {
-						clearCache(variable, undefined);
-					}).catch(error => {
-						clearCache({}, error);
-					});
-				">Effacer le cache</button>
-			</section>
+			<article>
+				<button class="button" onclick="clearServiceWorker(this);">Effacer le Service Worker</button>
+				<button class="button" onclick="clearCookies(this);">Effacer les cookies</button>
+				<button class="button" onclick="clearCacheButton(this);">Effacer le cache</button>
+			</article>
 		</main>
+		<script src="./src/js/maintenance.js"></script>
 		<footer>
 			<h4><a href="./rights.html">Mentions Légales</a></h4>
 			<h4>© 2022-2023 Aurore Leclerc</h4>

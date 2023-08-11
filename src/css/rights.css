@@ -1,6 +1,3 @@
-@import url("./style.css");
-@import url("./header.css");
-
 article div.mosaic {
 	display: flex;
 	flex-flow: row wrap;

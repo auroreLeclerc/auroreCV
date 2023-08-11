@@ -1,0 +1,27 @@
+{
+	"name": "aurore-cv",
+	"repository": "git@github.com:auroreLeclerc/auroreCV.git",
+	"scripts": {
+		"localhost": "npx http-server",
+		"cors": "npx http-server -o --cors",
+		"upgrade-all": "npx npm-check-updates -u; npm install",
+		"populate-apple": "npx pwa-asset-generator ./src/img/homeMade/CV.svg ./src/img/homeMade/icons/apple -i ./src/apple.html -b 'linear-gradient(to bottom right, #e830c9, #3b3be8)'",
+		"populate-cache": "git ls-files --cached --others --exclude-standard | grep -E -v 'maintenance\\.[a-z]*$|^package|^\\.|tsconfig' | jq -R -s 'split(\"\n\") | map(select(. != \"\"))'> ./src/json/cache.json",
+		"populate": "npm run populate-apple; npm run populate-cache"
+	},
+	"author": "Aurore Leclerc",
+	"license": "GPL-3.0",
+	"type": "module",
+	"devDependencies": {
+		"@tsconfig/recommended": "^1.0.2",
+		"@types/serviceworker": "^0.0.72",
+		"@types/web": "^0.0.112",
+		"eslint": "^8.46.0",
+		"http-server": "^14.1.1",
+		"npm-check-updates": "^16.10.18",
+		"pwa-asset-generator": "^6.3.1",
+		"stylelint": "^15.10.2",
+		"stylelint-config-standard": "^34.0.0",
+		"typescript": "^5.1.6"
+	}
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Chargement du Service Worker</title>
+		<link rel="stylesheet" type="text/css" href="./src/css/serviceWorkerLoader.css" />
+	</head>
+	<body>
+		<main>
+			<section id="service-worker">
+				<span onclick='
+					for (const model of globalThis.mvc.models) {
+						if (model.constructor.name == "ServiceWorkerLoader") {
+							if (model.hold) {
+								window.location.reload();
+							}
+							else {
+								model.hold = true;
+							}
+						}
+					}
+				'>📦</span>
+				<svg class="round-step-loading">
+					<circle></circle>
+				</svg>
+			</section>
+		</main>
+		<script type="module" src="/src/js/model/ServiceWorkerLoader.js"></script>
+	</body>
+</html>

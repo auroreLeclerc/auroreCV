@@ -1,20 +1,56 @@
-import { HttpError, UnregisteredError } from "./src/js/Errors.js";
-import { CACHE_NAME, OFFLINE_URLS, MANIFEST_NAME, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.js";
+import { ArchitectureError, HttpError, UnregisteredError } from "./src/js/Errors.js";
+import { CACHE_NAME, MANIFEST_NAME, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.mjs";
 import { Version } from "./src/js/Version.js";
 
-const gitBranches = [false, "main", "development"]; // [0] is for default handling
+/**
+ * @description [0] is for default handling
+ */
+const gitBranches = [false, "main", "development"];
 
 self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
-			for (const url of OFFLINE_URLS) {
-				cache.add(url).then(() =>
-					console.info("📥", url)
-				).catch(error =>
-					console.error("📪", error.message, url)
-				);
-			}
+			const channel = new BroadcastChannel("service-worker");
+			let done = 1;
+			fetch("./src/json/cache.json").then(response => {
+				if (response.ok) {
+					response.json().then((/** @type {string[]} */ urls) => {
+						urls.push("./");
+						for (const url of urls) {
+							if (url.endsWith("maintenance.html") || url.endsWith("maintenance.js") || url.endsWith("maintenance.css")) {
+								throw new ArchitectureError("No maintenance file must be saved !");
+							}
+							cache.add(new Request(
+								url, {
+									headers: {
+										Pragma: "no-cache",
+										Expires: "-1",
+										"Cache-Control": "no-cache",
+									}
+								},
+							)).then(() => {
+								console.info("📥", url);
+								channel.postMessage({
+									request: "installing",
+									state: "success",
+									total: urls.length,
+									done: done++
+								});			  
+							}).catch(error =>{
+								console.error("📪", error.message, url);
+								channel.postMessage({
+									request: "installing",
+									state: "failed",
+									total: urls.length,
+									done: done++
+								});	
+							});
+						}
+					});
+				}
+				else throw new ArchitectureError(new HttpError(response.status, response.statusText, response.url).toString());
+			});
 		})
 	);
 });
@@ -22,13 +58,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 // TODO: Refactor to reduce Cognitive Complexity
 self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 	event.respondWith((() => {
-		// self.clients.get(event.clientId).then(client => {
-		// 	client.postMessage({
-		// 		msg: "Hey I just got a fetch from you!",
-		// 		url: event.request.url
-		// 	});
-		// });
-		if (event.request.url.endsWith("maintenance.html")) {
+		if (event.request.url.endsWith("maintenance.html") || event.request.url.endsWith("maintenance.js") || event.request.url.endsWith("maintenance.css")) {
 			return fetch(event.request);
 		}
 		return getCookieFromStore("developmentBranch", "0", event.clientId).then(branchString => {
@@ -40,7 +70,7 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 
 			if (gitBranches[branch] && !url.endsWith("/")) {
 				url = url.replace(
-					// "localhost:8000/", // localhost development
+					// "localhost:8080/", // localhost development
 					"auroreleclerc.github.io/auroreCV/", // production
 					`raw.githubusercontent.com/auroreLeclerc/auroreCV/${gitBranches[branch]}/`
 				);
@@ -65,7 +95,7 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 					}
 					else return response;
 				}
-				else {						
+				else {
 					return fetch(new Request(url), {
 						mode: "no-cors",
 					}).then(fetched => {
@@ -81,7 +111,6 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 								);
 							}
 							else {
-								// TODO: check quality code of throw new HttpError and check if refactor is needed for better then/catch
 								if (fetched?.type === "opaque") console.info("🛃", "Cross-Origin Resource Sharing", url);
 								else throw new HttpError(fetched?.status, fetched?.statusText, url);
 							}
@@ -106,41 +135,18 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 						else return fetched;
 					}).catch(error => {
 						console.warn("✈️‍📭", error.message, url);
-
-						if (url.endsWith(".html")) {
-							return new Response(
-								new Blob([`
-									<!DOCTYPE html>
-									<html lang="en">
-										<head>
-											<meta charset="UTF-8"/>
-											<meta name="theme-color" content="DeepPink"/>
-											<meta name="viewport" content="width=device-width, initial-scale=1">
-											<title>Not Found</title>
-											<link rel="stylesheet" type="text/css" href="/src/css/style.css" />
-										</head>
-										<body>
-											<main class="center">
-												<h1 style="word-break: break-word;">You are offline ✈️ and ${url} has not been found in the cache 📭...</h1>
-												<h2>Make sure you are not off domain 🛂</h2>
-												<h2><a href="./">Return to the home page 🏠</a></h2>
-											</main>
-										</body>
-									</html>
-								`], {type : "text/html"})
-							); // Custom offline page
-						}
-						else {
-							return new Response(undefined, {
-								status: 404,
-								statusText: "Offline"
-							}); // Custom offline response
-						}
+						return new Response(undefined, {
+							status: 444, // 444 No Response
+							statusText: "Offline",
+							headers: {
+								"Error-Details": "You are offline and the content has not been found in the cache."
+							}
+						});
 					});
 				}
 			});
 		}).catch(error => { // fatal error failsafe
-			console.error("Fatal Error ;", error);
+			console.error("📦 Service Worker Fatal Error.", error);
 			return fetch(event.request);
 		});
 	})());
@@ -176,6 +182,7 @@ function _checkUpdate() {
 	);
 }
 
+// @ts-ignore
 self.addEventListener("periodicsync", function(/** @type {PeriodicSyncEvent} */ event) {
 	if (event.tag === "update") {
 		_checkUpdate();

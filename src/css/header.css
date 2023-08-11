@@ -75,7 +75,7 @@ body > header img {
 	}
 }
 
-@media (orientation: portrait), (width <= 1024px) {
+@media (orientation: portrait) {
 	body > header .portrait-orientation {
 		display: block;
 	}

@@ -1,5 +1,5 @@
 /* stylelint-disable declaration-empty-line-before */
-section#loading {
+section#service-worker {
 	user-select: none;
 	visibility: visible;
 	position: absolute;
@@ -14,25 +14,21 @@ section#loading {
 	transition: opacity 1s, visibility 1s;
 }
 
-section#loading img {
+section#service-worker span {
 	position: absolute;
 	top: 50%; left: 50%;
 	transform: translate(-50%, -50%);
-	height: 40%;
+	font-size: 6em;
 }
 
-svg.round-loading {
+section#service-worker svg.round-step-loading {
 	height: 80%;
-	animation-name: round-turning;
-	animation-timing-function: ease-in-out;
-	animation-duration: 5s;
-	animation-iteration-count: infinite;
 }
 
-svg.round-loading circle {
+section#service-worker svg.round-step-loading circle {
 	--pi: 3.1415;
 	--width: 100%;
-	--stroke: 1em;
+	--stroke: 2em;
 	--radius: calc((var(--width) / 2) - (var(--stroke) * 2));
 	--circumference: calc((2 * var(--pi)) * var(--radius));
 
@@ -42,40 +38,42 @@ svg.round-loading circle {
 	fill: transparent;
 	stroke-width: var(--stroke);
 	stroke-linecap: round;
-	stroke-dasharray: var(--circumference) var(--circumference);
-	animation-name: round-loading;
+    stroke: #392359;
+	stroke-dasharray: 0 var(--circumference);
+
+	animation-name: breathing;
+    animation-direction: alternate;
 	animation-timing-function: ease-in-out;
-	animation-duration: 5s;
+	animation-duration: 2.5s;
 	animation-iteration-count: infinite;
 }
 
-@keyframes round-loading {
-	0% {
+@keyframes breathing {
+	from {
 		stroke: #392359;
-		stroke-dasharray: 0 var(--circumference);
 	}
 
-	50% {
+	to {
 		stroke: #9f7ecd;
-		stroke-dasharray: var(--circumference) var(--circumference);
-	}
-
-	100% {
-		stroke: #392359;
-		stroke-dasharray: 0 var(--circumference);
 	}
 }
 
-@keyframes round-turning {
-	0% {
-		transform: rotate(0turn);
+@keyframes error-breathing {
+	from {
+		stroke: firebrick;
 	}
 
-	50% {
-		transform: rotate(0.5turn);
+	to {
+		stroke: palevioletred;
+	}
+}
+
+@keyframes warning-breathing {
+	from {
+		stroke: yellow;
 	}
 
-	100% {
-		transform: rotate(1turn);
+	to {
+		stroke: yellowgreen;
 	}
 }

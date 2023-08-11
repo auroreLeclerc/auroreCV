@@ -1,0 +1,43 @@
+main article {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 40vh;
+}
+
+main article div#emote {
+    font-size: 15vh;
+    margin: 0 8vw;
+	animation-name: hey;
+	animation-timing-function: linear;
+	animation-duration: 0.25s;
+	animation-iteration-count: 3;
+}
+
+@keyframes hey {
+    0% {
+        margin: 0 8vw;
+    }
+
+    25% {
+        margin: 0 4vw 0 0;
+    }
+
+    50% {
+        margin: 0 8vw;
+    }
+
+    75% {
+        margin: 0 0 0 4vw;
+    }
+
+    100% {
+        margin: 0 8vw;
+    }
+}
+
+main article section h2 {
+    word-break: break-all;
+}
