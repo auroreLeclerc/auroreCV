@@ -9,7 +9,8 @@
 	"id": "🏳️‍⚧️",
 	"version": "2.0.0",
 	"changelogs": [
-		"Implémentation d'une architecture MVC"
+		"Implémentation d'une architecture MVC",
+		"Abandon du service worker lite"
 	],
 	"display": "standalone",
 	"orientation": "any",
