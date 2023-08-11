@@ -38,7 +38,7 @@ section#service-worker svg.round-step-loading circle {
 	fill: transparent;
 	stroke-width: var(--stroke);
 	stroke-linecap: round;
-    stroke: #392359;
+    stroke: darkorchid;
 	stroke-dasharray: 0 var(--circumference);
 
 	animation-name: breathing;
@@ -50,11 +50,11 @@ section#service-worker svg.round-step-loading circle {
 
 @keyframes breathing {
 	from {
-		stroke: #392359;
+		stroke: hsl(280deg 61% 33%);
 	}
 
 	to {
-		stroke: #9f7ecd;
+		stroke: hsl(265deg 44% 66%);
 	}
 }
 

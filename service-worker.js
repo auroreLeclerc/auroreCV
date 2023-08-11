@@ -3,7 +3,7 @@ import { CACHE_NAME, MANIFEST_NAME, sendNotification, getCookieFromStore, getMim
 import { Version } from "./src/js/Version.js";
 
 /**
- * @description [0] is for default handling
+ * @note [0] is for default handling
  */
 const gitBranches = [false, "main", "development"];
 
@@ -34,7 +34,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 								channel.postMessage({
 									request: "installing",
 									state: "success",
-									total: urls.length,
+									total: urls.length - 1,
 									done: done++
 								});			  
 							}).catch(error =>{
@@ -42,7 +42,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 								channel.postMessage({
 									request: "installing",
 									state: "failed",
-									total: urls.length,
+									total: urls.length - 1,
 									done: done++
 								});	
 							});

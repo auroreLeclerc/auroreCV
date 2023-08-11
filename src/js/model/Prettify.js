@@ -66,8 +66,8 @@ export class Prettify {
 		});
 		document.body.addEventListener("click", event => {
 			let notOutclick = 0;
-			if (!(event.target instanceof SVGCircleElement)) {
-				throw TypeError(`You clicked on a ${Object.prototype.toString.call(event.target)}, "wich is not a SVGCircleElement for some unknown reasons...`);
+			if (!(event.target instanceof HTMLElement || event.target instanceof SVGElement)) {
+				throw TypeError(`You clicked on a ${Object.prototype.toString.call(event.target)}, "wich is not a HTMLElement/SVGElement for some unknown reasons...`);
 			}
 			for (const className of ["accordionised", "container", "initial", "lowercase"]) {
 				notOutclick += Number(event.target.classList.contains(className));
