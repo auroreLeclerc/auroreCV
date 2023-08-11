@@ -3,6 +3,7 @@
 	"short_name": "CV Aurore Leclerc",
 	"description": "Mon curriculum vitæ, de moi même Aurore Leclerc, en version web avec une implémentation Progressive Web Application.",
 	"lang": "fr",
+	"dir": "ltr",
 	"theme_color": "#9932CC",
 	"background_color": "#9932CC",
 	"start_url": "./",
@@ -17,7 +18,8 @@
 	"icons": [{
 		"src": "./src/img/homeMade/icons/192.png",
 		"type": "image/png",
-		"sizes": "192x192"
+		"sizes": "192x192",
+		"purpose": "any"
 	}, {
 		"src": "./src/img/homeMade/icons/192_maskable.png",
 		"type": "image/png",
@@ -26,7 +28,8 @@
 	}, {
 		"src": "./src/img/homeMade/icons/384.png",
 		"type": "image/png",
-		"sizes": "384x384"
+		"sizes": "384x384",
+		"purpose": "any"
 	}, {
 		"src": "./src/img/homeMade/icons/384_maskable.png",
 		"type": "image/png",
@@ -35,7 +38,8 @@
 	}, {
 		"src": "./src/img/homeMade/icons/512.png",
 		"type": "image/png",
-		"sizes": "512x512"
+		"sizes": "512x512",
+		"purpose": "any"
 	}, {
 		"src": "./src/img/homeMade/icons/512_maskable.png",
 		"type": "image/png",
@@ -44,7 +48,8 @@
 	}, {
 		"src": "./src/img/homeMade/icons/1024.png",
 		"type": "image/png",
-		"sizes": "1024x1024"
+		"sizes": "1024x1024",
+		"purpose": "any"
 	}, {
 		"src": "./src/img/homeMade/icons/1024_maskable.png",
 		"type": "image/png",
@@ -64,10 +69,9 @@
             ]
         }
     ],
-	"related_applications": [
-		{
-		  "platform": "webapp",
-		  "url": "https://auroreleclerc.github.io/auroreCV/"
-		}
+	"categories": [
+		"social",
+		"business",
+		"education"
 	]
 }

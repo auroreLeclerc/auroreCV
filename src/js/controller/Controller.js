@@ -47,6 +47,7 @@ export class Controller {
 			this.#elementsLoaded = 0;
 		}
 		else if (this.#elementsLoaded >= this.#elementsToBeLoaded) {
+			throw Error();
 			if (this.#elementsLoaded !== this.#elementsToBeLoaded) {
 				console.warn(`${this.#elementsLoaded} != ${this.#elementsToBeLoaded} ; known bug: when a model fetch (of many) errors out`);
 			}
