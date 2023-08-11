@@ -42,6 +42,7 @@ svg.round-loading circle {
 	fill: transparent;
 	stroke-width: var(--stroke);
 	stroke-linecap: round;
+    stroke: darkorchid;
 	stroke-dasharray: var(--circumference) var(--circumference);
 	animation-name: round-loading;
 	animation-timing-function: ease-in-out;
@@ -51,17 +52,17 @@ svg.round-loading circle {
 
 @keyframes round-loading {
 	0% {
-		stroke: #392359;
+		stroke: hsl(280deg 61% 33%);
 		stroke-dasharray: 0 var(--circumference);
 	}
 
 	50% {
-		stroke: #9f7ecd;
+		stroke: hsl(265deg 44% 66%);
 		stroke-dasharray: var(--circumference) var(--circumference);
 	}
 
 	100% {
-		stroke: #392359;
+		stroke: hsl(280deg 61% 33%);
 		stroke-dasharray: 0 var(--circumference);
 	}
 }
