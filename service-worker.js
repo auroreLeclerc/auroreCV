@@ -68,7 +68,7 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 				online = false
 			;
 
-			if (gitBranches[branch] && !url.endsWith("/")) {
+			if (gitBranches[branch]) {
 				url = url.replace(
 					// "localhost:8080/", // localhost development
 					"auroreleclerc.github.io/auroreCV/", // production

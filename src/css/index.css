@@ -5,13 +5,27 @@ section#loading {
 	position: absolute;
 	top: 50%; left: 50%;
 	transform: translate(-50%, -50%);
-	height: 60%;
-	width: 95%;
+	height: 50vh;
+	width: 50vh;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
 	transition: opacity 1s, visibility 1s;
+}
+
+@media (orientation: portrait) {
+	section#loading {
+		height: 50vw;
+		width: 50vw;
+	}
+}
+
+@media (orientation: landscape) {
+	section#loading {
+		height: 50vh;
+		width: 50vh;
+	}
 }
 
 section#loading img {
@@ -22,7 +36,8 @@ section#loading img {
 }
 
 svg.round-loading {
-	height: 80%;
+	height: 100%;
+	width: 100%;
 	animation-name: round-turning;
 	animation-timing-function: ease-in-out;
 	animation-duration: 5s;
