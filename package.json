@@ -5,7 +5,7 @@
 		"localhost": "npx http-server",
 		"cors": "npx http-server -o --cors",
 		"upgrade-all": "npx npm-check-updates -u; npm install",
-		"populate-apple": "npx pwa-asset-generator ./src/img/homeMade/CV.svg ./src/img/homeMade/icons/apple -i ./src/apple.html -b 'linear-gradient(to bottom right, #e830c9, #3b3be8)'",
+		"populate-apple": "npx pwa-asset-generator ./src/img/homeMade/CV.svg ./src/img/homeMade/icons/apple -a './src' -i ./src/apple.html -b 'linear-gradient(to bottom right, #e830c9, #3b3be8)'",
 		"populate-cache": "git ls-files --cached --others --exclude-standard | grep -E -v 'maintenance\\.[a-z]*$|^package|^\\.|tsconfig' | jq -R -s 'split(\"\n\") | map(select(. != \"\"))'> ./src/json/cache.json",
 		"populate": "npm run populate-apple; npm run populate-cache"
 	},

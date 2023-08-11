@@ -53,6 +53,10 @@ div.accordionised div.container:not(:last-child) span.lowercase::after {
 
 /* CSS override */
 @media print {
+	.ios {
+		display: none;
+	}
+
 	main {
 		display: table;
 	}
