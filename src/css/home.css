@@ -112,25 +112,25 @@ main header#informations article ul li {
 }
 
 main header#informations article ul li.mail::before {
-	background-image: url("./src/img/homeMade/mail.svg");
+	background-image: url("../img/homeMade/mail.svg");
 }
 main header#informations article ul li.linkedin::before {
-	background-image: url("./src/img/registeredTrademark/Linkedin.svg");
+	background-image: url("../img/registeredTrademark/Linkedin.svg");
 }
 main header#informations article ul li.github::before {
-	background-image: url("./src/img/registeredTrademark/Github_black.svg");
+	background-image: url("../img/registeredTrademark/Github_black.svg");
 }
 main header#informations article ul li.phone::before {
-	background-image: url("./src/img/homeMade/phone.svg");
+	background-image: url("../img/homeMade/phone.svg");
 }
 main header#informations article ul li.agenda::before {
-	background-image: url("./src/img/homeMade/agenda.svg");
+	background-image: url("../img/homeMade/agenda.svg");
 }
 main header#informations article ul li.house::before {
-	background-image: url("./src/img/homeMade/house.svg");
+	background-image: url("../img/homeMade/house.svg");
 }
 main header#informations article ul li.mbti::before {
-	background-image: url("./src/img/homeMade/mbti.svg");
+	background-image: url("../img/homeMade/mbti.svg");
 }
 
 /* section#formation */
@@ -188,13 +188,13 @@ main section#skills article div h4 {
 }
 
 main section#skills article div ul li::before {
-	background-image: url("./src/img/homeMade/checkmark.svg");
+	background-image: url("../img/homeMade/checkmark.svg");
 }
 main section#skills article div ul li.flag::before {
-	background-image: url("./src/img/homeMade/greenflag.svg");
+	background-image: url("../img/homeMade/greenflag.svg");
 }
 main section#skills article div ul li.progress::before {
-	background-image: url("./src/img/homeMade/progress.svg");
+	background-image: url("../img/homeMade/progress.svg");
 	transition-property: transform;
 	transition-duration: 1.5s;
 	transition-timing-function: ease-in-out;
