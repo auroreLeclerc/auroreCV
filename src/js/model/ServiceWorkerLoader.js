@@ -38,7 +38,7 @@ export class ServiceWorkerLoader {
 			navigator.serviceWorker.getRegistrations().then(registrations => {
 				if (!registrations.length) {
 					navigator.serviceWorker.register(
-						"/service-worker.js", {
+						"./service-worker.js", {
 							type: "module", // https://bugzilla.mozilla.org/show_bug.cgi?id=1247687
 							scope: "./"
 						}
