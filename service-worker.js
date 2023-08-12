@@ -36,7 +36,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 									state: "success",
 									total: urls.length - 1,
 									done: done++
-								});			  
+								});
 							}).catch(error =>{
 								console.error("📪", error.message, url);
 								channel.postMessage({
@@ -44,7 +44,11 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 									state: "failed",
 									total: urls.length - 1,
 									done: done++
-								});	
+								});
+							}).finally(() => {
+								if (done >= urls.length - 1) {
+									channel.close();
+								}	  
 							});
 						}
 					});

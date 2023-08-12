@@ -11,11 +11,11 @@ export class ServiceWorkerLoader {
 	#total = 2;
 	#done = 1;
 	#initialised = false;
+	#channel = new BroadcastChannel("service-worker");
 	hold = false;
 
 	constructor() {
-		const channel = new BroadcastChannel("service-worker");
-		channel.onmessage = (event) => {
+		this.#channel.onmessage = (event) => {
 			if (!this.#initialised) {
 				this.#total += event.data.total;
 				this.#initialised = true;
@@ -28,8 +28,11 @@ export class ServiceWorkerLoader {
 	#next() {
 		this.#done++;
 		this.#circle.style.strokeDasharray = `calc(${this.#done / this.#total} * var(--circumference)) var(--circumference)`;
-		if (this.#done >= this.#total && !this.hold) {
-			window.location.reload();
+		if (this.#done >= this.#total) {
+			this.#channel.close();
+			if (!this.hold) {
+				window.location.reload();
+			}
 		}
 	}
 
