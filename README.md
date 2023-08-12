@@ -1,4 +1,5 @@
 [![GitHub](https://img.shields.io/github/license/auroreLeclerc/auroreCV?style=for-the-badge)](./LICENSE)
+![GitHub manifest version (path)](https://img.shields.io/github/manifest-json/v/auroreLeclerc/auroreCV?style=for-the-badge)
 [![Website](https://img.shields.io/website?label=github.io&style=for-the-badge&url=https%3A%2F%2Fauroreleclerc.github.io%2FauroreCV%2F)](https://auroreleclerc.github.io/auroreCV/)
 [![GitHub deployments](https://img.shields.io/github/deployments/auroreLeclerc/auroreCV/github-pages?label=pages%20build%20and%20deployment&style=for-the-badge)](https://github.com/auroreLeclerc/auroreCV/deployments)
 
