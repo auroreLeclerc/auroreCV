@@ -69,7 +69,7 @@ export class ServiceWorkerLoader {
 					}).catch(error => {
 						this.#circle.style.animationName = "error-breathing";
 						setCookie("service-worker", false);
-						console.error(new Error(`Navigator serviceWorker registration as a module failed. ${error}`));
+						console.error(`Navigator serviceWorker registration as a module failed. ${error}`);
 						this.#next();
 					});
 				}
@@ -78,7 +78,7 @@ export class ServiceWorkerLoader {
 		else {
 			this.#circle.style.animationName = "error-breathing";
 			setCookie("service-worker", false);
-			console.error(new Error("Browser does not even know what a service-worker is !"));
+			console.error("Browser does not even know what a service-worker is !");
 			this.#next();
 		}
 

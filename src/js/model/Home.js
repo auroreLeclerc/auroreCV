@@ -1,4 +1,4 @@
-import { getCookie } from "../variables.mjs";
+import { getCookie, setCookie } from "../variables.mjs";
 /**
  * @typedef {import("../controller/Controller.js").Controller} Controller
  */
@@ -32,13 +32,19 @@ export class Home {
 			}
 		}
 
-		navigator.serviceWorker.getRegistrations().then(registrations => {
-			if (!registrations.length && getCookie("service-worker").toType()) {
-				/**
-				 * @type {Controller}
-				 */
-				globalThis.mvc.controller.render("serviceWorkerLoader");
-			}
-		});
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker.getRegistrations().then(registrations => {
+				if (!registrations.length && getCookie("service-worker").toType()) {
+					/**
+					 * @type {Controller}
+					 */
+					globalThis.mvc.controller.render("serviceWorkerLoader");
+				}
+			});
+		}
+		else {
+			setCookie("service-worker", false);
+			console.error("Browser does not even know what a service-worker is !");
+		}
 	}
 }
