@@ -84,10 +84,15 @@
 		  "sizes": "800x450",
 		  "label": "Aperçu en paysage avec le thème sombre."
 		}, {
-			"src": "./src/img/homeMade/screenshots/screenshot_ios.png",
+			"src": "./src/img/homeMade/screenshots/screenshot_ios_light.png",
 			"type": "image/png",
 			"sizes": "369x800",
 			"label": "Aperçu sur iOS en portrait avec le thème clair."
+		}, {
+			"src": "./src/img/homeMade/screenshots/screenshot_ios_dark.png",
+			"type": "image/png",
+			"sizes": "369x800",
+			"label": "Aperçu sur iOS en portrait avec le thème sombre."
 		}, {
 		  "src": "./src/img/homeMade/screenshots/CV_LECLERC_Aurore.png",
 		  "type": "image/png",
