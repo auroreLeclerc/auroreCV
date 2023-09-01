@@ -88,27 +88,32 @@ main header#informations {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: center;
-	align-items: center;
-	
+	align-items: flex-start;
+
 	width: 100%;
 	margin-bottom: 2em;
 }
 
 main header#informations article#name {
+	flex: 1;
+	text-align: end;
+    max-width: calc(100% - 24px); /* 100% - div.separator width */
 	font-size: 2.5em;
 }
-
 main header#informations article#name h1 {
 	margin: 0;
 }
-main header#informations article ul {
-	margin: 0;	
+
+main header#informations article#my-informations {
+	flex: 1;
 }
-main header#informations article ul li {
+main header#informations article#my-informations ul {
+	margin: 0;
+}
+main header#informations article#my-informations ul li {
 	margin: 0.5em 0;
-	list-style: none;
-	display: flex;
-	flex-flow: row nowrap;
+	display: block;
+    overflow-wrap: break-word;
 }
 
 main header#informations article ul li.mail::before {
@@ -215,24 +220,11 @@ main section#hobbies h1::after {
 
 /* @media */
 
-@media (orientation: portrait) {
-	div.separator {
-		border-width: 0; /* chrome mobile workaround */
-		border-bottom-width: 4px; /* otherwise empty separator */
-		width: 100%;
-		height: 0;
-		margin: 10px 0;
-	}
-	
+@media (orientation: portrait) {	
 	main {
 		flex-flow: column nowrap;
 		justify-content: space-around;
 		align-items: center;
-	}
-
-	main header#informations {
-		flex-flow: column nowrap;
-		margin-bottom: 0.25em;
 	}
 	
 	main section {
@@ -243,5 +235,29 @@ main section#hobbies h1::after {
 	
 	main section article div.flex-center {
 		flex-direction: column;
+	}
+}
+
+@media screen and (orientation: portrait) {
+	div.separator {
+		border-width: 0; /* chrome mobile workaround */
+		border-bottom-width: 4px; /* otherwise empty separator */
+		width: 100%;
+		height: 0;
+		margin: 10px 0;
+	}
+
+	main header#informations {
+		flex-flow: column nowrap;
+		align-items: center;
+		margin-bottom: 0.25em;
+	}
+
+	main header#informations article#name {
+		text-align: start;
+	}
+
+	main header#informations article#my-informations {
+		width: 75%;
 	}
 }

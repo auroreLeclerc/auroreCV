@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"resolveJsonModule": true,
 		"module": "NodeNext",
+		"lib": ["WebWorker", "DOM"],
 		"outDir": "./src/ts/",
 		"checkJs": true,
 		"strictNullChecks": false

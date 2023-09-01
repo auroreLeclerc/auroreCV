@@ -22,7 +22,7 @@ div.accordionised div.container, div.accordionised div.container span.initial, d
     display: inline-block;
 }
 
-div.accordionised div.container:not(:last-child) span.lowercase::after {
+div.accordionised:not(.no-space) div.container:not(:last-child) span.lowercase::after {
 	content: "\00A0";
 }
 
@@ -53,32 +53,31 @@ div.accordionised div.container:not(:last-child) span.lowercase::after {
 
 /* CSS override */
 @media print {
-	.ios {
+	.ios, section#loading {
 		display: none;
 	}
 
-	main {
-		display: table;
+	main section {
+		break-inside: avoid;
 	}
 
-	main header#informations {
-		/* TODO: make it vertical */
+	main header#informations article ul {
+		padding-left: calc(16px + 0.5em);
 	}
 
 	main div.pretty-triangles {
 		display: none;
 	}
 
-	div.accordionised div.container, div.accordionised div.container span.initial {
+	div.accordionised div.container {
 		display: inline;
 	}
 	div.accordionised div.container span.lowercase {
 		display: none;
 	}
 
-	main header#informations article ul li, main section#skills article div ul li {
+	main section#skills article div ul li, main header#informations article#my-informations ul li {
 		display: list-item;
-		list-style: initial;
 	}
 	main header#informations article ul li::before, main section#skills article div ul li::before {
 		display: none;

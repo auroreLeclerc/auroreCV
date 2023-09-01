@@ -55,7 +55,6 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 	);
 });
 
-// TODO: Refactor to reduce Cognitive Complexity
 self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 	event.respondWith((() => {
 		if (event.request.url.endsWith("maintenance.html") || event.request.url.endsWith("maintenance.js") || event.request.url.endsWith("maintenance.css")) {

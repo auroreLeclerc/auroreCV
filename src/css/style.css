@@ -8,8 +8,8 @@
 	accent-color: DarkOrchid;
 	font-family: LiberationSans, sans-serif;
 
-	/* font-family: "LiberationSerif";
-	   font-family: "LiberationMono"; */
+	/* font-family: LiberationSerif;
+	   font-family: LiberationMono; */
 }
 
 html, body {
@@ -33,7 +33,7 @@ table caption {
 div.separator {
 	width: 0;
 	padding: 0;
-	height: 100%;
+	height: auto;
 	align-self: stretch;
 	border-width: 0; /* chrome mobile workaround */
 	border-left-width: 4px; /* otherwise empty separator */
@@ -107,9 +107,16 @@ main div.pretty-triangles, main div.pretty-triangles span.top, main div.pretty-t
 }
 
 main div.pretty-triangles {
-	height: 20em;
-	width: 20em;
+	height: 50vh;
+	width: 50vh;
 	z-index: -99;
+}
+
+@media (orientation: portrait) {
+	main div.pretty-triangles {
+		height: 50vw;
+		width: 50vw;
+	}
 }
 
 /* div.pretty-triangles.top */
