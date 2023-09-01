@@ -64,34 +64,39 @@
 	}],
 	"screenshots": [
 		{
-			"src": "./src/img/homeMade/screenshots/screenshot_ios.png",
+			"src": "./src/img/homeMade/screenshots/screenshot_android_light.png",
 			"type": "image/png",
-			"sizes": "1242x2688",
-			"label": "Aperçu sur iOS en portrait avec le thème clair."
-		}, {
-			"src": "./src/img/homeMade/screenshots/screenshot_android.png",
-			"type": "image/png",
-			"sizes": "1080x2340",
+			"sizes": "369x800",
 			"label": "Aperçu sur Android en portrait avec le thème clair."
+		}, {
+			"src": "./src/img/homeMade/screenshots/screenshot_android_dark.png",
+			"type": "image/png",
+			"sizes": "369x800",
+			"label": "Aperçu sur Android en portrait avec le thème sombre."
 		}, {
 			"src": "./src/img/homeMade/screenshots/screenshot_desktop_light.png",
 			"type": "image/png",
-			"sizes": "1920x1080",
+			"sizes": "800x450",
 			"label": "Aperçu en paysage avec le thème clair."
 		}, {
 		  "src": "./src/img/homeMade/screenshots/screenshot_desktop_dark.png",
 		  "type": "image/png",
-		  "sizes": "1920x1080",
+		  "sizes": "800x450",
 		  "label": "Aperçu en paysage avec le thème sombre."
+		}, {
+			"src": "./src/img/homeMade/screenshots/screenshot_ios.png",
+			"type": "image/png",
+			"sizes": "369x800",
+			"label": "Aperçu sur iOS en portrait avec le thème clair."
 		}, {
 		  "src": "./src/img/homeMade/screenshots/CV_LECLERC_Aurore.png",
 		  "type": "image/png",
-		  "sizes": "967x1367",
+		  "sizes": "566x800",
 		  "label": "Mon CV en version papier."
 		}, {
 			"src": "./src/img/homeMade/screenshots/icon.png",
 			"type": "image/png",
-			"sizes": "726x1024",
+			"sizes": "600x846",
 			"label": "L'icône de mon CV web."
 		}
 	],
