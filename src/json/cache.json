@@ -1,5 +1,4 @@
 [
-  "src/img/homeMade/screenshots/screenshot_ios_dark.png",
   "LICENSE",
   "README.md",
   "index.html",
@@ -105,7 +104,8 @@
   "src/img/homeMade/screenshots/screenshot_android_light.png",
   "src/img/homeMade/screenshots/screenshot_desktop_dark.png",
   "src/img/homeMade/screenshots/screenshot_desktop_light.png",
-  "src/img/homeMade/screenshots/screenshot_ios.png",
+  "src/img/homeMade/screenshots/screenshot_ios_dark.png",
+  "src/img/homeMade/screenshots/screenshot_ios_light.png",
   "src/img/homeMade/settings.svg",
   "src/img/homeMade/share.svg",
   "src/img/homeMade/skills.svg",
