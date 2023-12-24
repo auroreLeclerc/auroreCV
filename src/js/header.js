@@ -1,7 +1,3 @@
-/**
- * @typedef {import("./typedef.mjs").BeforeInstallPromptEvent} BeforeInstallPromptEvent
- */
-
 const header = document.querySelector("body header");
 header.insertAdjacentHTML("afterbegin", "<div id=\"airplane\">✈️</div>");
 const airplane = document.getElementById("airplane");
@@ -79,13 +75,14 @@ if ("BeforeInstallPromptEvent" in window) {
 	const install = document.getElementById("install");
 	install.style.display = "none";
 	/**
-	 * @type {BeforeInstallPromptEvent & Event}
+	 * @type {Event}
 	 */
 	let deferredPrompt = null;
 
 	install.addEventListener("click", () => {
 		install.style.display = "none";
-		deferredPrompt.prompt().then(choice => {
+		// @ts-ignore
+		deferredPrompt.prompt().then((/** @type {{ platform: string; outcome: string; }} */ choice) => {
 			console.info(`${choice.platform} user ${choice.outcome} the A2HS prompt`);
 			deferredPrompt = null;
 		});

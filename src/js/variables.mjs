@@ -67,7 +67,7 @@ export function sendNotification(body, actions = []) {
 	const title = "Curriculum vitæ d'Aurore Leclerc";
 	const options = {
 		lang: "FR",
-		badge: "./src/img/homeMade/icons/notification.png",
+		badge: "./src/img/homeMade/icons/initials.png",
 		body: body,
 		tag: "🏳️‍⚧️",
 		icon: "./src/img/homeMade/icons/384.png",
