@@ -1,8 +1,8 @@
 {
 	"extends": "@tsconfig/recommended/tsconfig.json",
 	"compilerOptions": {
-		"resolveJsonModule": true,
-		"module": "NodeNext",
+		"resolveJsonModule": false,
+		"module": "ES2020",
 		"lib": ["WebWorker", "DOM"],
 		"outDir": "./src/ts/",
 		"checkJs": true,

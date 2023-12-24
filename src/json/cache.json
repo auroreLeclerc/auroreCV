@@ -1,4 +1,10 @@
 [
+  "src/img/homeMade/icons/notification.png",
+  "src/img/homeMade/screenshots/screenshot_android_dark.webp",
+  "src/img/homeMade/screenshots/screenshot_android_light.webp",
+  "src/img/homeMade/screenshots/screenshot_desktop_dark.webp",
+  "src/img/homeMade/screenshots/screenshot_desktop_light.webp",
+  "src/js/DataBaseHelper.js",
   "LICENSE",
   "README.md",
   "index.html",

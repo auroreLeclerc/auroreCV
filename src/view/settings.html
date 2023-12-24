@@ -8,10 +8,16 @@
 	<body>
 		<main>
 			<h2 class="center flex">
-				<div>Version de l'application dans le cache 📲 (local) : <span id="local">Chargement</span></div>
-				<div>Version de l'application sur le serveur 🌐 (distant) : <span id="online">Chargement</span></div>
+				<div>Version de l'application dans le cache 📲 (local) : <span id="local">
+					<progress></progress>
+				</span></div>
+				<div>Version de l'application sur le serveur 🌐 (distant) : <span id="online">
+					<progress></progress>
+				</span></div>
 			</h2>
-			<h2 class="center flex" id="update">Recherche de mise à jour en cours</h2>
+			<h2 class="center flex" id="update">
+				<progress></progress>
+			</h2>
 			<h3 class="flex-center" id="changelogs">
 				<ul>
 					<li class="title">La nouvelle version apporte :</li>
@@ -22,7 +28,7 @@
 					<input type="checkbox" id="notificationEnable" name="notificationEnable">
 					<label for="notificationEnable">M'avertir par notification lors d'une mise à jour</label>
 				</div>
-				<div id="iosWarning">
+				<div>
 					<input type="checkbox" id="autoUpdateEnable" name="autoUpdateEnable">
 					<label for="autoUpdateEnable">Automatiquement mettre à jour l'application</label>
 				</div>
@@ -30,7 +36,9 @@
 
 			<div class="separator vertical"></div>
 
-			<h4 class="center">La version actuelle a apportée : <span id="currentChangeslogs">Chargement</span></h4>
+			<h4 class="center">La version actuelle a apportée : <span id="currentChangeslogs">
+				<progress></progress>
+			</span></h4>
 
 			<div class="separator vertical"></div>
 
@@ -51,31 +59,34 @@
 				</span>
 			</h2>
 			<section id="debug">
-				<p>
-					<label for="developmentBranch">Synchronisation avec la branche git</label>
-					<select name="developmentBranch" id="developmentBranch">
-						<option value="0">Par défaut</option>
-						<option value="1">Main</option>
-						<option value="2">Development</option>
-					</select>
-				</p>
 				<table>
-					<caption>Cookies de configuration :</caption>
+					<caption>Configuration :</caption>
 					<thead>
 						<tr>
-							<th>Cookie name</th>
-							<th>Cookie value</th>
+							<th>Key</th>
+							<th>Value</th>
 						</tr>
 					</thead>
-					<tbody id="cookies">
+					<tbody id="config">
+					</tbody>
+				</table>
+				<table>
+					<caption>Erreurs d'éxécution :</caption>
+					<thead>
+						<tr>
+							<th>Erreur</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody id="errors">
 					</tbody>
 				</table>
 				<table>
 					<caption>Manifeste PWA :</caption>
 					<thead>
 						<tr>
-							<th>Json property</th>
-							<th>Json value</th>
+							<th>Pzroperty</th>
+							<th>Value</th>
 						</tr>
 					</thead>
 					<tbody id="manifest">
@@ -88,7 +99,7 @@
 					Service Worker: 
 					<span id="serviceWorker">🚫</span>
 				</p>
-				<p class="button" id="resetCookies" title="Ceci va aussi réinitialiser toute la configuration">Réinitialiser les cookies</p>
+				<p class="button" id="resetConfig">Réinitialiser la configuration</p>
 			</section>
 		</main>
 		<script type="module" src="./src/js/model/Settings.js"></script>

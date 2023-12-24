@@ -1,17 +1,13 @@
-import { ArchitectureError, HttpError, UnregisteredError } from "./src/js/Errors.js";
-import { CACHE_NAME, MANIFEST_NAME, sendNotification, getCookieFromStore, getMimeType } from "./src/js/variables.mjs";
+import { DataBaseHelper } from "./src/js/DataBaseHelper.js";
+import { ArchitectureError, HttpError, NotFoundError } from "./src/js/Errors.js";
+import { CACHE_NAME, MANIFEST_NAME, sendNotification } from "./src/js/variables.mjs";
 import { Version } from "./src/js/Version.js";
-
-/**
- * @note [0] is for default handling
- */
-const gitBranches = [false, "main", "development"];
 
 self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
-			const channel = new BroadcastChannel("service-worker");
+			const channel = new BroadcastChannel("serviceWorkerLoader");
 			let done = 1;
 			fetch("./src/json/cache.json").then(response => {
 				if (response.ok) {
@@ -23,11 +19,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 							}
 							cache.add(new Request(
 								url, {
-									headers: {
-										Pragma: "no-cache",
-										Expires: "-1",
-										"Cache-Control": "no-cache",
-									}
+									headers: {"Cache-Control": "no-store"}
 								},
 							)).then(() => {
 								console.info("📥", url);
@@ -49,7 +41,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 						}
 					});
 				}
-				else throw new ArchitectureError(new HttpError(response.status, response.statusText, response.url).toString());
+				else throw new ArchitectureError(JSON.stringify(new HttpError(response.status, response.statusText, response.url)));
 			});
 		})
 	);
@@ -60,93 +52,58 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 		if (event.request.url.endsWith("maintenance.html") || event.request.url.endsWith("maintenance.js") || event.request.url.endsWith("maintenance.css")) {
 			return fetch(event.request);
 		}
-		return getCookieFromStore("developmentBranch", "0", event.clientId).then(branchString => {
-			const branch = Number(branchString);
-			let url = event.request.url,
-				request = event.request,
-				online = false
-			;
-
-			if (gitBranches[branch]) {
-				url = url.replace(
-					// "localhost:8080/", // localhost development
-					"auroreleclerc.github.io/auroreCV/", // production
-					`raw.githubusercontent.com/auroreLeclerc/auroreCV/${gitBranches[branch]}/`
-				);
-
-				request = new Request(url);
+		let url = event.request.url,
+			request = event.request,
+			online = false
+		;
+		return caches.match(request).then(response => {
+			if (url.endsWith("!online")) {
+				url = url.substring(0, url.length - 7);
+				console.info("🌐", url);
+				online = true;
 			}
-			return caches.match(request).then(response => {
-				if (url.endsWith("!online")) {
-					url = url.substring(0, url.length - 7);
-					console.info("🌐", url);
-					online = true;
-				}
 
-				if (!online && response?.ok) {
-					console.info("📬", url);
-					if (gitBranches[branch]) {
-						let redirection = new Response(response.body, {
-							headers: new Headers()
-						});
-						redirection.headers.append("Content-Type", getMimeType(url)); // Workaround for some files being text/plain
-						return redirection;
+			if (!online && response?.ok) {
+				console.info("📬", url);
+				return response;
+			}
+			else {
+				return fetch(new Request(url), {
+					mode: "no-cors",
+				}).then(fetched => {
+					try {
+						if (fetched?.ok) {
+							console.info("📫", url);
+
+							// Failsafe in case the service worker didn't cache the url in the install event
+							if (!online) caches.open(CACHE_NAME).then(cache =>
+								cache.add(url).then(() =>
+									console.info("⛑️", url)
+								)
+							);
+						}
+						else if (fetched?.type === "opaque") console.info("🛃", "Cross-Origin Resource Sharing", url);
+						else throw new HttpError(fetched?.status, fetched?.statusText, url);
 					}
-					else return response;
-				}
-				else {
-					return fetch(new Request(url), {
-						mode: "no-cors",
-					}).then(fetched => {
-						try {
-							if (fetched?.ok) {
-								console.info("📫", url);
+					catch(error) {
+						console.error("📯‍📭", error);
 
-								// Failsafe in case the service worker didn't cache the url in the install event
-								if (!online) caches.open(CACHE_NAME).then(cache =>
-									cache.add(url).then(() =>
-										console.info("⛑️", url)
-									)
-								);
-							}
-							else {
-								if (fetched?.type === "opaque") console.info("🛃", "Cross-Origin Resource Sharing", url);
-								else throw new HttpError(fetched?.status, fetched?.statusText, url);
-							}
+						// If HTTP Error, the browser handle it like usual
+						return fetched;
+					}
+							
+					return fetched;
+				}).catch(error => {
+					console.warn("✈️‍📭", error.message, url);
+					return new Response(undefined, {
+						status: 444, // 444 No Response
+						statusText: "Offline",
+						headers: {
+							"Error-Details": "You are offline and the content has not been found in the cache."
 						}
-						catch(error) {
-							console.error("📯‍📭", error);
-
-							// If HTTP Error, the browser handle it like usual
-							return fetched;
-						}
-						
-						if (gitBranches[branch]) {
-							return fetched.text().then(text => {
-								return new Response(
-									new Blob(
-										[text],
-										{type: getMimeType(url)}
-									)
-								);
-							});
-						}
-						else return fetched;
-					}).catch(error => {
-						console.warn("✈️‍📭", error.message, url);
-						return new Response(undefined, {
-							status: 444, // 444 No Response
-							statusText: "Offline",
-							headers: {
-								"Error-Details": "You are offline and the content has not been found in the cache."
-							}
-						});
 					});
-				}
-			});
-		}).catch(error => { // fatal error failsafe
-			console.error("📦 Service Worker Fatal Error.", error);
-			return fetch(event.request);
+				});
+			}
 		});
 	})());
 });
@@ -160,30 +117,38 @@ function _checkUpdate() {
 		fetch(MANIFEST_NAME).then(response =>
 			response.json()
 		).then(online => {
-			const onlineVsLocal = new Version(online.version, local.version);
-			if (onlineVsLocal.isUpper()) {
-				getCookieFromStore("notification", "false").then(cookie => {
-					if (cookie.toType()) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
-
-					navigator.setAppBadge(1);
-					caches.delete(CACHE_NAME);
-					self.dispatchEvent(new Event("installing"));
-					console.info("📦‍♻️", "Update will be installed on next reload");
-				});
-			}
-			else {
-				getCookieFromStore("debug", "false").then(cookie => {
-					if (cookie.toType()) sendNotification(`📦‍♻️ Local: ${onlineVsLocal.compare} is the same as Online: ${onlineVsLocal.self}`);
-				});
-				console.info("📦‍♻️", onlineVsLocal.self, "=", onlineVsLocal.compare);
-			}
+			new DataBaseHelper().start.then(transaction => {
+				const onlineVsLocal = new Version(online.version, local.version);
+				if (onlineVsLocal.isUpper()) {
+					transaction.getAppConfig("notification").then(notification => {
+						if (notification) sendNotification("L'application a été mise à jour !\nVenez voir les nouveautés !");
+						navigator.setAppBadge(1);
+						caches.delete(CACHE_NAME);
+						self.dispatchEvent(new Event("installing"));
+						console.info("📦‍♻️", "Update will be installed on next reload");
+					});
+				}
+				else {
+					transaction.getAppConfig("debug").then(debug => {
+						if (debug) sendNotification(`📦‍♻️ Local: ${onlineVsLocal.compare} is the same as Online: ${onlineVsLocal.self}`);
+						console.info("📦‍♻️", onlineVsLocal.self, "=", onlineVsLocal.compare);
+					});
+				}
+			});
 		})
 	);
 }
 
 // @ts-ignore
-self.addEventListener("periodicsync", function(/** @type {PeriodicSyncEvent} */ event) {
+self.addEventListener("periodicsync", (event) => {
+	// @ts-ignore
 	if (event.tag === "update") {
+		new DataBaseHelper().start.then(transaction => {
+			transaction.getAppConfig("debug").then(debug => {
+				if (debug) sendNotification("periodicsync event");
+				navigator.setAppBadge(1);
+			});
+		});
 		_checkUpdate();
 	}
 });
@@ -203,7 +168,7 @@ self.addEventListener("message", function(/** @type {MessageEvent} */ event) {
 			break;
 			
 		default:
-			throw new UnregisteredError("ServiceWorker message", event.data?.request, true);
+			throw new NotFoundError(`ServiceWorker message : ${event.data?.request}`);
 		}
 	}
 	else {
@@ -217,8 +182,7 @@ self.addEventListener("notificationclick", function(/** @type {NotificationEvent
 
 	switch (event.action) {
 	case "":
-		// eslint-disable-next-line no-undef
-		event.waitUntil(clients.matchAll({
+		event.waitUntil(self.clients.matchAll({
 			type: "window"
 		}).then((clientList) => {
 			for (const client of clientList) {
@@ -238,7 +202,6 @@ self.addEventListener("notificationclick", function(/** @type {NotificationEvent
 		break;
 	
 	default:
-		throw new UnregisteredError("ServiceWorker notification", event.action, true);
+		throw new NotFoundError(`ServiceWorker notification : ${event.action}`);
 	}
 });
-  

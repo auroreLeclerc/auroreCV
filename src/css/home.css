@@ -247,6 +247,10 @@ main section#hobbies h1::after {
 		margin: 10px 0;
 	}
 
+	main {
+		padding-bottom: calc(50vw / 6);
+	}
+
 	main header#informations {
 		flex-flow: column nowrap;
 		align-items: center;

@@ -1,9 +1,12 @@
+import { ArchitectureError } from "../Errors.js";
+
 export class Prettify {
 	#accordions = document.getElementsByClassName("accordion prettify-js");
 	/**
-	 * @type {Object.<string, string>}}
-	 * @note space are mandatory even for no-space
-	 * @note first letter can be lowercase, the algo doesn't mind, but only the first letter of the first word
+	 * @readonly
+	 * @enum {string}
+	 * @note space are mandatory even for no-space phrase
+	 * @note the first letter of the first word can be lowercase, the algo doesn't mind
 	 */
 	#fullTexts = { // import assert {type: json} https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#browser_compatibility
 		"MBTI": "Myers Briggs Type Indicator",
@@ -102,7 +105,7 @@ export class Prettify {
 		document.body.addEventListener("click", event => {
 			let notOutclick = 0;
 			if (!(event.target instanceof HTMLElement || event.target instanceof SVGElement)) {
-				throw TypeError(`You clicked on a ${Object.prototype.toString.call(event.target)}, "wich is not a HTMLElement/SVGElement for some unknown reasons...`);
+				throw new ArchitectureError(`You clicked on a "${JSON.stringify(event.target)}", wich is not a HTMLElement/SVGElement for some unknown reasons...`);
 			}
 			for (const className of ["accordionised", "container", "initial", "lowercase"]) {
 				notOutclick += Number(event.target.classList.contains(className));

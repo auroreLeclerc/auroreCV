@@ -1,18 +1,12 @@
-import { getCookie, setCookie } from "../variables.mjs";
 /**
  * @typedef {import("../controller/Controller.js").Controller} Controller
  */
 
+import { DataBaseHelper } from "../DataBaseHelper.js";
+
 export class Home {
 	constructor() {
 		document.getElementById("calculateAge").textContent = (new Date().getFullYear() - 2001) + " ans";
-
-		try {
-			getCookie("firstUse");
-		}
-		catch(error) {
-			console.info(error);
-		}
 
 		// @ts-ignore
 		if (/iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase()) && !window.navigator?.standalone) {
@@ -32,19 +26,23 @@ export class Home {
 			}
 		}
 
-		if ("serviceWorker" in navigator) {
-			navigator.serviceWorker.getRegistrations().then(registrations => {
-				if (!registrations.length && getCookie("service-worker").toType()) {
-					/**
-					 * @type {Controller}
-					 */
-					globalThis.mvc.controller.render("serviceWorkerLoader");
-				}
-			});
-		}
-		else {
-			setCookie("service-worker", false);
-			console.error("Browser does not even know what a service-worker is !");
-		}
+		new DataBaseHelper().start.then(transaction => {	
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.getRegistrations().then(registrations => {
+					transaction.getAppConfig("serviceWorker").then(isServiceWorker => {
+						if (!registrations.length && isServiceWorker) {
+							/**
+							 * @type {Controller}
+							 */
+							globalThis.mvc.controller.render("serviceWorkerLoader");
+						}
+					});
+				});
+			}
+			else {
+				transaction.setAppConfig("serviceWorker", false);
+				console.error("Browser does not even know what a service-worker is !");
+			}
+		});
 	}
 }

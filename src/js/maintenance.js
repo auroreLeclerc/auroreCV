@@ -4,55 +4,47 @@
  * @param {HTMLButtonElement} button
  */
 function clearCacheButton(button) {
-	/**
-	 * @param {typeof import("./variables.mjs")} variable
-	 * @param {Error} error
-	*/
-	function clearCache(variable, error) {
-		caches.delete(variable?.CACHE_NAME ? variable?.CACHE_NAME : "auroreCV").then(success => {
-			if (success) {
-				button.textContent = "Cache effacé !";
-			}
-			else {
-				button.textContent = "Aucun cache trouvé !";
-			}
-			if (error) {
-				button.textContent += ` \n & ${error}`;
-			}
-		});
-	}
-	import("./variables.mjs").then(variable => {
-		clearCache(variable, undefined);
-	}).catch(error => {
-		clearCache(null, error);
+	button.textContent = "";
+	caches.keys().then((keyList) => {
+		for (const key of keyList) {	
+			caches.delete(key).then(success => {
+				if (success) {
+					button.textContent += `Cache "${key}" effacé !\n`;
+				}
+				else {
+					button.textContent += `"${key}" NotFound\n`;
+				}
+			});
+		}
 	});
 }
-
 
 /**
  * @param {HTMLButtonElement} button
  */
 function clearCookies(button) {
-	document.cookie.split(";").forEach(function(cookie) {
-		document.cookie = cookie.trim().split("=")[0] + "=;" + "expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-	});
-	button.textContent = "Cookies effacés !";
+	window.indexedDB.databases().then((databasesInfo) => {
+		for (const databaseInfo of databasesInfo) window.indexedDB.deleteDatabase(databaseInfo.name);
+	}).then(() => {
+		button.textContent = "Configurations effacées !";
+	}).catch(error => button.textContent = error);
 }
 
 /**
  * @param {HTMLButtonElement} button
  */
 function clearServiceWorker(button) {
+	button.textContent = "";
 	navigator.serviceWorker.getRegistrations().then(registrations => {
 		if (registrations.length) {
-			for(let registration of registrations) {
-				registration.unregister();
+			for(const registration of registrations) {
+				registration.unregister().then(sucsess => {
+					button.textContent += `${registration.active.scriptURL} ${sucsess ? "effacé" : "échoué"} !`;
+				});
 			}
-			button.textContent = "Service Worker effacé !";
 		}
 		else {
 			button.textContent = "Aucun Service Worker présent !";
 		}
-	});
-	
+	});	
 }

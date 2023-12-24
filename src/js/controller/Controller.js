@@ -1,5 +1,4 @@
 import { ArchitectureError, HttpError } from "../Errors.js";
-import { getEmojiPeople } from "../variables.mjs";
 
 export class Controller {
 	#elementsToBeLoaded = 0;
@@ -96,73 +95,11 @@ export class Controller {
 				this.#doneExecuting();
 			}).catch(error => {
 				if (error instanceof ArchitectureError) {
-					this._renderError(new HttpError(521, "Internal Architecture Failure", window.location.toString(), error.toString()));
+					this._renderError(new HttpError(521, "Internal Architecture Failure", window.location.toString(), JSON.stringify(error)));
 				}
 				this._renderError(new HttpError(500, "Internal Import Model Failure", script.src, error.toString()));
 			});
 		}
-	}
-
-	/**
-	 * @param {Document} view
-	 * @param {HttpError} errorToRender
-	 * @throws {TypeError}
-	 */
-	#errorPreProcess(view, errorToRender) {
-		switch (errorToRender.parameters.status.toString()[0]) {
-		case "1":
-			view.getElementById("emote").innerHTML = getEmojiPeople("&#128295;", true);
-			break;
-		case "2":
-			view.getElementById("emote").innerHTML = getEmojiPeople("&#1F646;");
-			break;
-		case "3":
-			view.getElementById("emote").innerHTML = getEmojiPeople("&#127939;");
-			break;
-		case "4":
-			switch (errorToRender.parameters.status) {
-			case 404:
-				view.getElementById("emote").innerHTML = getEmojiPeople("&#128373;");
-				break;
-
-			case 403:
-				view.getElementById("emote").innerHTML = getEmojiPeople("&#128110;");
-				break;
-
-			case 406:
-				view.getElementById("emote").innerHTML = getEmojiPeople("&#9878;&#65039;", true);
-				break;
-
-			case 444:
-				view.getElementById("emote").innerHTML = "&#9992;&#65039;";
-				break;
-
-			default:
-				view.getElementById("emote").innerHTML = getEmojiPeople("&#128581;");
-				break;
-			}
-			break;
-		case "5":
-			switch (errorToRender.parameters.status) {
-			case 508:
-				view.getElementById("emote").innerHTML = "&#9854;&#65039;";
-				break;
-
-			case 521:
-				view.getElementById("emote").innerHTML = getEmojiPeople("&#127979;", true);
-				break;
-
-			default:
-				view.getElementById("emote").innerHTML = getEmojiPeople("&#128187;", true);
-				break;
-			}
-			break;
-		default:
-			view.getElementById("emote").innerHTML = "❌";
-			break;
-		}
-		view.getElementById("error").textContent = errorToRender.parameters.main;
-		view.getElementById("additional").textContent = errorToRender.parameters.addMsgs.toString();
 	}
 
 	render(id = "home") {
@@ -188,10 +125,12 @@ export class Controller {
 					const view = new DOMParser().parseFromString(text, "text/html");
 					if (errorToRender) {
 						try {
-							this.#errorPreProcess(view, errorToRender);
+							view.getElementById("emote").innerHTML = errorToRender.emoji;
+							view.getElementById("error").textContent = errorToRender.parameters.main;
+							view.getElementById("additional").textContent = errorToRender.parameters.addMsgs.toString();
 						} catch (error) {
 							console.error(error);
-							this._recovery(new HttpError(521, "Internal Architecture Failure", response.url, new ArchitectureError(error.toString()).toString()));
+							this._recovery(new HttpError(521, "Internal Architecture Failure", response.url, JSON.stringify(new ArchitectureError(JSON.stringify(error)))));
 						}
 					}
 					while(view.body.firstElementChild.children.length) {
@@ -210,13 +149,11 @@ export class Controller {
 					this.#doneExecuting();
 				});
 			}
-			else {
-				if(errorToRender) this._recovery(new HttpError(508, "Loop Detected", response.url, errorToRender.toString()));
-				else this._renderError(new HttpError(response.status, response.statusText, response.url, response.headers.get("Error-Details")));
-			}
+			else if (errorToRender) this._recovery(new HttpError(508, "Loop Detected", response.url, JSON.stringify(errorToRender)));
+			else this._renderError(new HttpError(response.status, response.statusText, response.url, response.headers.get("Error-Details")));
 		}).catch(error => {
 			console.error(error);
-			if(errorToRender) this._recovery(new HttpError(508, "Loop Detected", window.location.toString(), error.toString(), errorToRender.toString()));
+			if(errorToRender) this._recovery(new HttpError(508, "Loop Detected", window.location.toString(), error.toString(), JSON.stringify(errorToRender)));
 			else this._renderError(new HttpError(500, "Internal Service Error", window.location.toString(), error.toString()));
 		});
 	}

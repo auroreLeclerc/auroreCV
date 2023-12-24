@@ -1,4 +1,5 @@
-import { setCookie } from "./variables.mjs";
+import { DataBaseHelper } from "./DataBaseHelper.js";
+import { getEmojiPeople } from "./variables.mjs";
 
 export class HttpError extends Error {
 	/**
@@ -26,47 +27,49 @@ export class HttpError extends Error {
 			url: url,
 			addMsgs: msgs
 		};
+
+		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
-}
 
-export class UnregisteredError extends Error {
-	/**
-	 * @description Condition not registered
-	 * @param {string} where Where does the error come from
-	 * @param {any} what What argument caused the error
-	 * @param {boolean} [internalError] Internal error message
-	 * @param {string} [msg] Additional message
-	 */
-	constructor(where, what, internalError = false, msg = "") {
-		super();
-
-		this.name = "Unregistered Error";
-		this.message = "";
-
-		if(internalError) this.message += "Internal implementation error ! ";
-		this.message += `${what} is not registered in ${where}.`;		
-		if(msg) this.message +=` ${msg}.`;
-
-		this.parameters = {
-			where: where,
-			what: what,
-			internal: internalError,
-			msg: msg
-		};
-
-		if (typeof document !== "undefined") {
-			setCookie("UnregisteredError", this.message);
+	get emoji() {
+		switch (this.parameters.status.toString()[0]) {
+		case "1":
+			return getEmojiPeople("&#128295;", true);
+		case "2":
+			return getEmojiPeople("&#1F646;");
+		case "3":
+			return getEmojiPeople("&#127939;");
+		case "4":
+			switch (this.parameters.status) {
+			case 404:
+				return getEmojiPeople("&#128373;");
+	
+			case 403:
+				return getEmojiPeople("&#128110;");
+	
+			case 406:
+				return getEmojiPeople("&#9878;&#65039;", true);
+	
+			case 444:
+				return "&#9992;&#65039;";
+	
+			default:
+				return getEmojiPeople("&#128581;");
+			}
+		case "5":
+			switch (this.parameters.status) {
+			case 508:
+				return "&#9854;&#65039;";
+	
+			case 521:
+				return getEmojiPeople("&#127979;", true);
+	
+			default:
+				return getEmojiPeople("&#128187;", true);
+			}
+		default:
+			return "❌";
 		}
-		else {
-			// @ts-ignore
-			// eslint-disable-next-line no-undef
-			cookieStore.set({
-				name: "UnregisteredError",
-				value: this.message.replace(/ /gi, "_"),
-				expires: Date.now() + (365 * 5 * 24 * 60 * 60 * 1000)
-			});
-		}
-
 	}
 }
 
@@ -89,6 +92,8 @@ export class NotFoundError extends Error {
 			element: element,
 			msg: msg
 		};
+
+		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
 }
 
@@ -102,5 +107,7 @@ export class ArchitectureError extends Error {
 
 		this.name = "Architecture Error";
 		this.message = message;
+
+		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
 }
