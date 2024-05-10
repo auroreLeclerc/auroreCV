@@ -269,7 +269,7 @@ export class Controller {
 				<h2>${msg}</h2>
 			`;
 		}
-		main += "<h3><a href='/maintenance.html'>Maintenance</a></h3>";
+		main += "<h3><a href='./maintenance.html'>Maintenance</a></h3>";
 		this.#view.insertAdjacentHTML("afterbegin", main);
 		this.#doneExecuting();
 		throw error;
