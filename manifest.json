@@ -8,10 +8,11 @@
 	"background_color": "#9932CC",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"changelogs": [
-		"Stockage de la configuration dans indexedDB",
-		"Ajustements"
+		"Traduction en anglais",
+		"Correction de bugs",
+		"Implémentation d'outils de qualité"
 	],
 	"display": "standalone",
 	"orientation": "any",
@@ -101,7 +102,6 @@
     ],
 	"categories": [
 		"social",
-		"business",
-		"education"
+		"business"
 	]
 }

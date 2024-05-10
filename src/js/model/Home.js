@@ -6,7 +6,7 @@ import { DataBaseHelper } from "../DataBaseHelper.js";
 
 export class Home {
 	constructor() {
-		document.getElementById("calculateAge").textContent = (new Date().getFullYear() - 2001) + " ans";
+		document.getElementById("calculateAge").textContent = (new Date().getFullYear() - 2001).toString();
 
 		// @ts-ignore
 		if (/iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase()) && !window.navigator?.standalone) {
@@ -26,7 +26,7 @@ export class Home {
 			}
 		}
 
-		new DataBaseHelper().start.then(transaction => {	
+		new DataBaseHelper().start.then(transaction => {
 			if ("serviceWorker" in navigator) {
 				navigator.serviceWorker.getRegistrations().then(registrations => {
 					transaction.getAppConfig("serviceWorker").then(isServiceWorker => {

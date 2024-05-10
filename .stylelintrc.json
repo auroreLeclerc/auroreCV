@@ -1,3 +1,8 @@
 {
-	"extends": ["stylelint-config-standard"]
+	"extends": ["stylelint-config-standard"],
+	"rules": {
+		"declaration-empty-line-before": null,
+		"shorthand-property-no-redundant-values": null,
+		"rule-empty-line-before": null
+	}
 }

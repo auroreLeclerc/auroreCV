@@ -1,6 +1,6 @@
 import { DataBaseHelper } from "../DataBaseHelper.js";
-import { ArchitectureError, HttpError} from "../Errors.js";
-import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, SET_DEFAULT_CONFIG, toDatetimeLocal } from "../variables.mjs";
+import { ArchitectureError, HttpError } from "../Errors.js";
+import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, toDatetimeLocal, getEmojiPeople, LOCALES } from "../variables.mjs";
 import { Version } from "../Version.js";
 /**
  * @typedef {import("../DataBaseHelper.js").DataBaseHelperTransactionType} DataBaseHelperTransactionType
@@ -26,17 +26,17 @@ export class Settings {
 				document.getElementById("changelogs").style.display = "flex";
 				transaction.getAppConfig("notification").then(notification => {
 					if (notification) {
-						sendNotification(msg, [{action: "update", title: "Effacer le cache"}]);
+						sendNotification(msg, [{ action: "update", title: "Effacer le cache" }]);
 					}
 				});
 			}
 			else {
 				this.#update.textContent = "Aucune mise à jour diponible";
-			}	
+			}
 		}
 	}
 
-	#liteMode() {
+	#liteMode(forceErrorText = "") {
 		for (const element of [
 			document.getElementById("autoUpdateEnable"),
 			document.getElementById("notificationEnable"),
@@ -46,13 +46,19 @@ export class Settings {
 			}
 			else throw new ArchitectureError(JSON.stringify(element));
 		}
+		if (forceErrorText) {
+			this.#online.textContent = forceErrorText;
+			this.#local.textContent = forceErrorText;
+			this.#currentChangeslogs.textContent = forceErrorText;
+			this.#update.textContent = forceErrorText;
+		}
 	}
 
 	/**
+	 * @param {DataBaseHelperTransactionType} transaction
 	 * @param {string} id
 	 * @param {keyof import("../DataBaseHelper.js").AppConfig} config
 	 * @param {Function} [action]
-	 * @param {DataBaseHelperTransactionType} transaction
 	 */
 	#checkboxButton(transaction, id, config, action) {
 		/**
@@ -72,17 +78,17 @@ export class Settings {
 				transaction.setAppConfig(config, newConfig);
 
 				switch (id) {
-				case "notificationEnable":
-					sendNotification(`Les notifications ont bien été ${newConfig ? "activées" : "désactivées"}`);
-					break;
+					case "notificationEnable":
+						sendNotification(`Les notifications ont bien été ${newConfig ? "activées" : "désactivées"}`);
+						break;
 
-				case "debugEnable":
-					this.#debugEnable(newConfig);
-					break;
-			
-				default:
-					action();
-					break;
+					case "debugEnable":
+						this.#debugEnable(newConfig);
+						break;
+
+					default:
+						action();
+						break;
 				}
 			});
 		});
@@ -90,8 +96,10 @@ export class Settings {
 
 	constructor() {
 		new DataBaseHelper().start.then(transaction => {
-			navigator.serviceWorker.getRegistrations().then(registrations => {
-				if(registrations.length === 0) {
+			document.getElementById("resetConfig").addEventListener("click", () => transaction.hardReset());
+			if (!("serviceWorker" in navigator)) this.#liteMode(getEmojiPeople(0x1F9D3));
+			else navigator.serviceWorker.getRegistrations().then(registrations => {
+				if (registrations.length === 0) {
 					transaction.getAppConfig("serviceWorker").then(isServiceWorker => {
 						const unreachable = isServiceWorker ? "📦 Service Worker inatteignable" : "📦 Service Worker n'est pas enregistrable";
 						this.#online.textContent = unreachable;
@@ -104,9 +112,9 @@ export class Settings {
 				}
 				else {
 					caches.open(CACHE_NAME).then(cache =>
-						cache.match(MANIFEST_NAME)
+						cache.match(MANIFEST_NAME),
 					).then(stream =>
-						stream.json()
+						stream.json(),
 					).then(json => {
 						this.#currentChangeslogs.textContent = json.changelogs.join(", ");
 						this.#local.textContent = json.version;
@@ -139,9 +147,9 @@ export class Settings {
 
 					const serviceWorker = document.getElementById("serviceWorker");
 					if (registrations.length > 1) {
-						new DataBaseHelper().start.then(db => db.setAppError(new Error(JSON.stringify(registrations))));
 						this.#liteMode();
 						DELETE_CACHE();
+						throw new ArchitectureError(JSON.stringify(registrations));
 					}
 					// @ts-ignore
 					else if (!registrations[0]?.sync) {
@@ -158,7 +166,7 @@ export class Settings {
 			this.#checkboxButton(transaction, "debugEnable", "debug");
 		});
 		document.getElementById("deleteCache").addEventListener("click", () => {
-			if(!navigator.onLine) {
+			if (!navigator.onLine) {
 				if (confirm("🚫 Vous êtes hors ligne et vous voulez effacez le cache 🚫 \n 🚫 Continuez et l'application ne sera plus disponible 🚫")) {
 					DELETE_CACHE();
 				}
@@ -166,9 +174,24 @@ export class Settings {
 			else DELETE_CACHE();
 		});
 
-		document.getElementById("resetConfig").addEventListener("click", SET_DEFAULT_CONFIG);
-	}
+		new DataBaseHelper().start.then(transaction =>
+			transaction.getAppConfig("locale").then(locale => {
+				const selectedLanguage = document.getElementById(String(locale));
+				selectedLanguage.classList.add("selected");
+				selectedLanguage.classList.remove("button");
+			}),
+		);
 
+		const languages = document.getElementById("languages");
+		for (const flag of languages.children) {
+			flag.addEventListener("click", () => {
+				if (!flag.classList.contains("selected")) new DataBaseHelper().start.then(transaction =>
+					// @ts-ignore
+					transaction.setAppConfig("locale", flag.id).then(() => globalThis.mvc.controller.reload()),
+				);
+			});
+		}
+	}
 
 	/**
 	 * @param {boolean} enable
@@ -178,17 +201,23 @@ export class Settings {
 			manifest = document.getElementById("manifest"),
 			errors = document.getElementById("errors")
 		;
-		config.textContent = ""; manifest.textContent = ""; errors.textContent = ""; // Removing childrens
+		// Removing childrens
+		config.textContent = "";
+		manifest.textContent = "";
+		errors.textContent = "";
 
 		new DataBaseHelper().start.then(transaction => {
 			transaction.getAllAppConfig().then(appConfig => {
 				for (const [key, value] of Object.entries(appConfig)) {
 					let valueHtml = "";
 					if (value instanceof Date) {
-						valueHtml = `<input type="datetime-local" value="${toDatetimeLocal(value)}" disabled />`;
+						valueHtml = `<input type="datetime-local" value="${toDatetimeLocal(value)}" readonly />`;
 					}
 					else if (typeof value === "boolean") {
 						valueHtml = `<input type="checkbox" ${value ? "checked" : ""} disabled />`;
+					}
+					else if (typeof value === "number") {
+						valueHtml = `<input type="number" value="${value}" readonly />`;
 					}
 					else valueHtml = value;
 
@@ -205,14 +234,14 @@ export class Settings {
 					errors.insertAdjacentHTML("beforeend", `
 						<tr>
 							<td>${appError.error.stack}</td>
-							<td><input type="datetime-local" value="${toDatetimeLocal(appError.date)}" disabled /></td>
+							<td><input type="datetime-local" value="${toDatetimeLocal(appError.date)}" readonly /></td>
 						</tr>
 					`);
 				}
 			});
 		});
-		
-		fetch(MANIFEST_NAME).then(response => 
+
+		fetch(MANIFEST_NAME).then(response =>
 			response.json().then(json => {
 				for (const key in json) {
 					if (Object.hasOwnProperty.call(json, key)) {
@@ -226,7 +255,7 @@ export class Settings {
 						}
 					}
 				}
-			})
+			}),
 		);
 
 		document.getElementById("debug").style.display = enable ? "flex" : "none";

@@ -2,16 +2,25 @@
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Paramètres de Curriculum vitæ</title>
+		<title locale="title">Paramètres de Curriculum vitæ</title>
 		<link rel="stylesheet" type="text/css" href="./src/css/settings.css">
 	</head>
 	<body>
-		<main>
+		<main>			
+			<h1 id="languages">
+				<span locale="language">Langue :</span>
+				<span class="button" id="auto">🇺🇳</span>
+				<span class="button" id="fr">🇫🇷</span>
+				<span class="button" id="en">🇬🇧</span>
+			</h1>
+
+			<div class="separator vertical"></div>
+
 			<h2 class="center flex">
-				<div>Version de l'application dans le cache 📲 (local) : <span id="local">
+				<div><span locale="local">Version de l'application local 📲 : </span><span id="local">
 					<progress></progress>
 				</span></div>
-				<div>Version de l'application sur le serveur 🌐 (distant) : <span id="online">
+				<div><span locale="online">Version de l'application distante 🌐 : </span><span id="online">
 					<progress></progress>
 				</span></div>
 			</h2>
@@ -20,34 +29,34 @@
 			</h2>
 			<h3 class="flex-center" id="changelogs">
 				<ul>
-					<li class="title">La nouvelle version apporte :</li>
+					<li class="title" locale="new">La nouvelle version apporte :</li>
 				</ul>
 			</h3>
 			<h3 class="center flex">
 				<div>
 					<input type="checkbox" id="notificationEnable" name="notificationEnable">
-					<label for="notificationEnable">M'avertir par notification lors d'une mise à jour</label>
+					<label for="notificationEnable" locale="update">M'avertir par notification lors d'une mise à jour</label>
 				</div>
 				<div>
 					<input type="checkbox" id="autoUpdateEnable" name="autoUpdateEnable">
-					<label for="autoUpdateEnable">Automatiquement mettre à jour l'application</label>
+					<label for="autoUpdateEnable" locale="autoUpdate">Automatiquement mettre à jour l'application</label>
 				</div>
 			</h3>
 
 			<div class="separator vertical"></div>
 
-			<h4 class="center">La version actuelle a apportée : <span id="currentChangeslogs">
+			<h4 class="center"><span locale="changelogs">La version actuelle a apportée : </span><span id="currentChangeslogs">
 				<progress></progress>
 			</span></h4>
 
 			<div class="separator vertical"></div>
 
 			<h4 class="center flex">
-				<div>⚠️ Si vous effacez le cache, pendant que vous êtes hors ligne ✈️ alors l'application ne sera plus disponible</div>
-				<div>⚠️ Si vous effacez le cache, le Service Worker (ce qui permet l'accès hors ligne) sera inatteignable 📦 tant que vous ne retournez pas à l'accueil</div>
+				<div locale="offline">⚠️ Si vous effacez le cache, pendant que vous êtes hors ligne ✈️ alors l'application locale ne sera plus disponible</div>
+				<div locale="cache">⚠️ Si vous effacez le cache, le Service Worker (ce qui permet l'accès hors ligne) sera inatteignable 📦 tant que vous ne retournez pas à l'accueil</div>
 			</h4>
 			<h1 class="flex-center">
-				<span class="button" id="deleteCache" title="Et désinstaller le Service Worker">Effacer le cache</span>
+				<span class="button" id="deleteCache" title="Et désinstaller le Service Worker" locale="delete">Effacer le cache</span>
 			</h1>
 
 			<div class="separator vertical"></div>
@@ -55,7 +64,7 @@
 			<h2 class="flex-center">
 				<span>
 					<input type="checkbox" id="debugEnable" name="debugEnable">
-					<label for="debugEnable">Activer le mode debug</label>
+					<label for="debugEnable" locale="debug">Activer le mode debug</label>
 				</span>
 			</h2>
 			<section id="debug">
@@ -85,7 +94,7 @@
 					<caption>Manifeste PWA :</caption>
 					<thead>
 						<tr>
-							<th>Pzroperty</th>
+							<th>Property</th>
 							<th>Value</th>
 						</tr>
 					</thead>

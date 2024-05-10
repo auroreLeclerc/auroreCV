@@ -3,7 +3,7 @@ import { ArchitectureError, HttpError, NotFoundError } from "./src/js/Errors.js"
 import { CACHE_NAME, MANIFEST_NAME, sendNotification } from "./src/js/variables.mjs";
 import { Version } from "./src/js/Version.js";
 
-self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) {
+self.addEventListener("install", function (/** @type {ExtendableEvent} */ event) {
 	console.info("📮", "ServiceWorker installing...");
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(cache => {
@@ -19,7 +19,7 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 							}
 							cache.add(new Request(
 								url, {
-									headers: {"Cache-Control": "no-store"}
+									headers: { "Cache-Control": "no-store" },
 								},
 							)).then(() => {
 								console.info("📥", url);
@@ -27,27 +27,27 @@ self.addEventListener("install", function(/** @type {ExtendableEvent} */ event) 
 									request: "installing",
 									state: "success",
 									total: urls.length - 1,
-									done: done++
-								});	  
-							}).catch(error =>{
+									done: done++,
+								});
+							}).catch(error => {
 								console.error("📪", error.message, url);
 								channel.postMessage({
 									request: "installing",
 									state: "failed",
 									total: urls.length - 1,
-									done: done++
+									done: done++,
 								});
 							});
 						}
 					});
 				}
-				else throw new ArchitectureError(JSON.stringify(new HttpError(response.status, response.statusText, response.url)));
+				else throw new ArchitectureError((new HttpError(response.status, response.statusText, response.url)).toString());
 			});
-		})
+		}),
 	);
 });
 
-self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
+self.addEventListener("fetch", function (/** @type {FetchEvent} */ event) {
 	event.respondWith((() => {
 		if (event.request.url.endsWith("maintenance.html") || event.request.url.endsWith("maintenance.js") || event.request.url.endsWith("maintenance.css")) {
 			return fetch(event.request);
@@ -78,20 +78,20 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 							// Failsafe in case the service worker didn't cache the url in the install event
 							if (!online) caches.open(CACHE_NAME).then(cache =>
 								cache.add(url).then(() =>
-									console.info("⛑️", url)
-								)
+									console.info("⛑️", url),
+								),
 							);
 						}
 						else if (fetched?.type === "opaque") console.info("🛃", "Cross-Origin Resource Sharing", url);
 						else throw new HttpError(fetched?.status, fetched?.statusText, url);
 					}
-					catch(error) {
+					catch (error) {
 						console.error("📯‍📭", error);
 
 						// If HTTP Error, the browser handle it like usual
 						return fetched;
 					}
-							
+
 					return fetched;
 				}).catch(error => {
 					console.warn("✈️‍📭", error.message, url);
@@ -99,8 +99,8 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 						status: 444, // 444 No Response
 						statusText: "Offline",
 						headers: {
-							"Error-Details": "You are offline and the content has not been found in the cache."
-						}
+							"Error-Details": "You are offline and the content has not been found in the cache.",
+						},
 					});
 				});
 			}
@@ -108,14 +108,17 @@ self.addEventListener("fetch", function(/** @type {FetchEvent} */ event) {
 	})());
 });
 
+/**
+ * @returns {void}
+ */
 function _checkUpdate() {
 	caches.open(CACHE_NAME).then(cache =>
-		cache.match(MANIFEST_NAME)
+		cache.match(MANIFEST_NAME),
 	).then(stream =>
-		stream.json()
+		stream.json(),
 	).then(local =>
 		fetch(MANIFEST_NAME).then(response =>
-			response.json()
+			response.json(),
 		).then(online => {
 			new DataBaseHelper().start.then(transaction => {
 				const onlineVsLocal = new Version(online.version, local.version);
@@ -135,13 +138,12 @@ function _checkUpdate() {
 					});
 				}
 			});
-		})
+		}),
 	);
 }
 
 // @ts-ignore
-self.addEventListener("periodicsync", (event) => {
-	// @ts-ignore
+self.addEventListener("periodicsync", function (/** @type {PeriodicSyncEvent} */ event) {
 	if (event.tag === "update") {
 		new DataBaseHelper().start.then(transaction => {
 			transaction.getAppConfig("debug").then(debug => {
@@ -153,22 +155,22 @@ self.addEventListener("periodicsync", (event) => {
 	}
 });
 
-self.addEventListener("message", function(/** @type {MessageEvent} */ event) {
+self.addEventListener("message", function (/** @type {MessageEvent} */ event) {
 	// if (event.origin !== "localhost:8000/") { // localhost development
 	if (event.origin !== "https://auroreleclerc.github.io/auroreCV/") { // production
 		console.info("📦‍✉️", event.data?.request);
 		switch (event.data?.request) {
-		case "update":
-			_checkUpdate();
-			break;
+			case "update":
+				_checkUpdate();
+				break;
 
-		case "notification":
-			sendNotification(event.data.data, event.data?.action);
-			navigator.setAppBadge(1);
-			break;
-			
-		default:
-			throw new NotFoundError(`ServiceWorker message : ${event.data?.request}`);
+			case "notification":
+				sendNotification(event.data.data, event.data?.action);
+				navigator.setAppBadge(1);
+				break;
+
+			default:
+				throw new NotFoundError(`ServiceWorker message : ${event.data?.request}`);
 		}
 	}
 	else {
@@ -176,32 +178,31 @@ self.addEventListener("message", function(/** @type {MessageEvent} */ event) {
 	}
 });
 
-self.addEventListener("notificationclick", function(/** @type {NotificationEvent} */ event) {
+self.addEventListener("notificationclick", function (/** @type {NotificationEvent} */ event) {
 	console.info("📦‍🔔", "notification", event.notification.tag, "wants to", event.action === "" ? "default" : event.action);
 	event.notification.close();
 
 	switch (event.action) {
-	case "":
-		event.waitUntil(self.clients.matchAll({
-			type: "window"
-		}).then((clientList) => {
-			for (const client of clientList) {
-				client.navigate("./");
-				return client.focus();
-			}
-			// eslint-disable-next-line no-undef
-			return clients.openWindow("./");
-		}));
-		break;
+		case "":
+			event.waitUntil(self.clients.matchAll({
+				type: "window",
+			}).then(clientList => {
+				for (const client of clientList) {
+					client.navigate("./");
+					return client.focus();
+				}
+				return clients.openWindow("./");
+			}));
+			break;
 
-	case "silent":
-		break;
+		case "silent":
+			break;
 
-	case "update":
-		_checkUpdate();
-		break;
-	
-	default:
-		throw new NotFoundError(`ServiceWorker notification : ${event.action}`);
+		case "update":
+			_checkUpdate();
+			break;
+
+		default:
+			throw new NotFoundError(`ServiceWorker notification : ${event.action}`);
 	}
 });

@@ -1,6 +1,3 @@
-/* stylelint-disable declaration-empty-line-before */
-
-
 /* It targets only the app used within the browser */
 @media (display-mode: browser) {
 	section#debug span#display-mode::after {

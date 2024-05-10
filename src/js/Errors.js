@@ -15,7 +15,7 @@ export class HttpError extends Error {
 		this.name = `HTTP Error ${code}`;
 		this.message = `${url} is ${response}.`;
 		const main = `${this.name}: ${this.message}`;
-		
+
 		for (const msg of msgs) {
 			this.message += ` ${msg}.`;
 		}
@@ -25,7 +25,7 @@ export class HttpError extends Error {
 			status: code,
 			statusText: response,
 			url: url,
-			addMsgs: msgs
+			addMsgs: msgs,
 		};
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
@@ -33,42 +33,42 @@ export class HttpError extends Error {
 
 	get emoji() {
 		switch (this.parameters.status.toString()[0]) {
-		case "1":
-			return getEmojiPeople("&#128295;", true);
-		case "2":
-			return getEmojiPeople("&#1F646;");
-		case "3":
-			return getEmojiPeople("&#127939;");
-		case "4":
-			switch (this.parameters.status) {
-			case 404:
-				return getEmojiPeople("&#128373;");
-	
-			case 403:
-				return getEmojiPeople("&#128110;");
-	
-			case 406:
-				return getEmojiPeople("&#9878;&#65039;", true);
-	
-			case 444:
-				return "&#9992;&#65039;";
-	
+			case "1":
+				return getEmojiPeople(0x1F527, true);
+			case "2":
+				return getEmojiPeople(0x1F646);
+			case "3":
+				return getEmojiPeople(0x1F3C3);
+			case "4":
+				switch (this.parameters.status) {
+					case 404:
+						return getEmojiPeople(0x1F575);
+
+					case 403:
+						return getEmojiPeople(0x1F46E);
+
+					case 406:
+						return getEmojiPeople(0x2696, true);
+
+					case 444:
+						return String.fromCodePoint(0x2708);
+
+					default:
+						return getEmojiPeople(0x1F645);
+				}
+			case "5":
+				switch (this.parameters.status) {
+					case 508:
+						return String.fromCodePoint(0x267E);
+
+					case 521:
+						return getEmojiPeople(0x1F3EB, true);
+
+					default:
+						return getEmojiPeople(0x1F4BB, true);
+				}
 			default:
-				return getEmojiPeople("&#128581;");
-			}
-		case "5":
-			switch (this.parameters.status) {
-			case 508:
-				return "&#9854;&#65039;";
-	
-			case 521:
-				return getEmojiPeople("&#127979;", true);
-	
-			default:
-				return getEmojiPeople("&#128187;", true);
-			}
-		default:
-			return "❌";
+				return "❌";
 		}
 	}
 }
@@ -85,12 +85,12 @@ export class NotFoundError extends Error {
 		this.name = "Not Found Error";
 		this.message = "";
 
-		this.message += `${element} not found.`;	
-		if(msg) this.message +=` ${msg}.`;
+		this.message += `${element} not found.`;
+		if (msg) this.message += ` ${msg}.`;
 
 		this.parameters = {
 			element: element,
-			msg: msg
+			msg: msg,
 		};
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
@@ -106,6 +106,21 @@ export class ArchitectureError extends Error {
 		super();
 
 		this.name = "Architecture Error";
+		this.message = message;
+
+		new DataBaseHelper().start.then(db => db.setAppError(this));
+	}
+}
+
+export class UnknownError extends Error {
+	/**
+	 * @description Unknown error to be thrown on edge case
+	 * @param {string} message
+	 */
+	constructor(message) {
+		super();
+
+		this.name = "Unknown Error";
 		this.message = message;
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));

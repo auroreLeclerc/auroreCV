@@ -1,0 +1,14 @@
+{
+	"title": "Settings of Curriculum vitæ",
+	"local": "Local application version 📲 :",
+	"online": "Remote application version 🌐 : ",
+	"new": "The new version adds :",
+	"update": "Notify me when an update is available",
+	"autoUpdate": "Automatic update",
+	"changelogs": "The local version added : ",
+	"offline": "⚠️ If you clear cache, while you are offline ✈️ then the local app will no longer be available",
+	"cache": "⚠️ If you clear the cache, the Service Worker (which allows offline access) will be unreachable 📦 until you return to the home page",
+	"delete": "Delete cache",
+	"debug": "Enable debug mode",
+	"language": "Language : "
+}

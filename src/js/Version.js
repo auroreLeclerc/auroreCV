@@ -25,25 +25,25 @@ export class Version {
 		const versionInt = Number.parseInt(version.replace(/\./g, ""), 10);
 
 		if (Number.isNaN(versionInt)) {
-			throw new TypeError(`${who}=${version} :${typeof version}`);
+			throw new TypeError(`${who}="${version}" : ${typeof version}`);
 		}
 
 		return versionInt;
 	}
 
 	/**
-    * @param {string} self "Number.Number.Number"
-    * @throws {TypeError} Wrongly formated string
-    */
+	 * @param {string} self "Number.Number.Number"
+	 * @throws {TypeError} Wrongly formated string
+	 */
 	set self(self) {
 		this.#self = self;
 		this.#selfInt = this.#versionInt(self, "self");
 	}
 
 	/**
-    * @param {string} compare "Number.Number.Number"
-    * @throws {TypeError} Wrongly formated string
-    */
+	 * @param {string} compare "Number.Number.Number"
+	 * @throws {TypeError} Wrongly formated string
+	 */
 	set compare(compare) {
 		this.#compare = compare;
 		this.#compareInt = this.#versionInt(compare, "compare");

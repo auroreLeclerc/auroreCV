@@ -1,3 +1,7 @@
+import { DataBaseHelper } from "./DataBaseHelper.js";
+import { ArchitectureError } from "./Errors.js";
+import { LOCALES } from "./variables.mjs";
+
 const header = document.querySelector("body header");
 header.insertAdjacentHTML("afterbegin", "<div id=\"airplane\">✈️</div>");
 const airplane = document.getElementById("airplane");
@@ -21,13 +25,13 @@ if ("share" in navigator) {
 		`<h1 id="share">
 			<a href="javascript:void(null);" class="landscape-orientation">Partager !</a>
 			<a href="javascript:void(null);" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/share.svg" alt="Partager !"></a>
-		</h1>`
+		</h1>`,
 	);
 	document.getElementById("share").addEventListener("click", () => {
 		navigator.share({
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
 			text: "Je t'ai montré le CV d'Aurore Leclerc ?\nRegarde il peut même être installé sur ton appareil (en PWA) !",
-			url: "https://auroreleclerc.github.io/auroreCV/"
+			url: "https://auroreleclerc.github.io/auroreCV/",
 		}).then(() => {
 			console.info("Shared !");
 		}).catch(error => {
@@ -51,13 +55,13 @@ if ("print" in window) {
 		`<h1 id="print">
 			<a href="javascript:void(null);" class="landscape-orientation">Imprimer</a>
 			<a href="javascript:void(null);" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/printer.svg" alt="Imprimer"></a>
-		</h1>`
+		</h1>`,
 	);
 	const print = document.getElementById("print");
 	print.style.display = "none";
 
 	checkIfPrintAvaible(window.location, print);
-	addEventListener("hashchange", (event) => {		
+	addEventListener("hashchange", event => {
 		checkIfPrintAvaible(new URL(event.newURL), print);
 	});
 	print.addEventListener("click", () => {
@@ -70,7 +74,7 @@ if ("BeforeInstallPromptEvent" in window) {
 		`<h1 id="install">
 			<a href="javascript:void(null);" class="landscape-orientation">Installer</a>
 			<a href="javascript:void(null);" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/install.svg" alt="Installer"></a>
-		</h1>`
+		</h1>`,
 	);
 	const install = document.getElementById("install");
 	install.style.display = "none";
@@ -88,7 +92,7 @@ if ("BeforeInstallPromptEvent" in window) {
 		});
 	});
 
-	window.addEventListener("beforeinstallprompt", (event) => {
+	window.addEventListener("beforeinstallprompt", event => {
 		event.preventDefault();
 		// @ts-ignore
 		deferredPrompt = event;
@@ -99,7 +103,7 @@ if ("BeforeInstallPromptEvent" in window) {
 fetch("./src/apple.html").then(response => {
 	response.text().then(text => {
 		const apple = new DOMParser().parseFromString(text, "text/html");
-		while(apple.head.children.length) {
+		while (apple.head.children.length) {
 			document.head.appendChild(apple.head.firstChild);
 		}
 	});

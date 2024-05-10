@@ -19,7 +19,7 @@ export class ServiceWorkerLoader {
 	hold = false;
 
 	constructor() {
-		this.#channel.onmessage = (event) => {
+		this.#channel.onmessage = event => {
 			if (!this.#initialised) {
 				this.#total += event.data.total;
 				this.#initialised = true;
@@ -48,30 +48,30 @@ export class ServiceWorkerLoader {
 						navigator.serviceWorker.register(
 							"./service-worker.js", {
 								type: "module", // https://bugzilla.mozilla.org/show_bug.cgi?id=1247687
-								scope: "./"
-							}
-						).then(registration => {	
+								scope: "./",
+							},
+						).then(registration => {
 							console.info("📮", "ServiceWorker installing on", registration.scope);
 							transaction.getAppConfig("autoUpdate").then(autoUpdate => {
-								if(autoUpdate) {
+								if (autoUpdate) {
 									// @ts-ignore
 									if (registration.sync) {
 										navigator.serviceWorker.ready.then(registrationReady =>
 											// @ts-ignore
 											registrationReady.periodicSync.register("updater", {
 												// minInterval: 24 * 60 * 60 * 1000
-												minInterval: 30 * 1000
-											}).then(() =>{
+												minInterval: 30 * 1000,
+											}).then(() => {
 												console.info("📮", "periodicSync updater registered");
-											}).catch((/** @type {Error} */ error) =>{
+											}).catch((/** @type {Error} */ error) => {
 												console.warn("PWA not installed ;", error);
-											})
+											}),
 										);
 									}
 									else {
 										console.error("🧓", "No support for backgound jobs");
 										registration.installing.postMessage({
-											request: "update"
+											request: "update",
 										});
 									}
 								}
@@ -98,13 +98,13 @@ export class ServiceWorkerLoader {
 	 * @param {string} body
 	 * @param {{ action: string; title: string; icon?: string; }[]} actions
 	 */
-	serviceWorkerMessage(body, actions)  {
+	serviceWorkerMessage(body, actions) {
 		navigator.serviceWorker.getRegistration().then(registration => {
 			if (registration) {
 				registration.active.postMessage({
 					request: "notification",
 					data: body,
-					action: actions
+					action: actions,
 				});
 			}
 		});

@@ -6,10 +6,11 @@
 	"configurations": [
 		{
 			"name": "Launch Firefox",
-			"request": "launch",
 			"type": "firefox",
+			"request": "launch",
 			"url": "http://localhost:8080",
-			"webRoot": "${workspaceFolder}"
+			"reAttach": true,
+			"webRoot": "${workspaceFolder}",
 		}, {
 			"name": "Launch Edge",
 			"request": "launch",

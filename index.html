@@ -29,11 +29,11 @@
 	<body>
 		<header>
 			<h1 id="home">
-				<a href="./#home" class="landscape-orientation">Accueil</a>
+				<a href="./#home" class="landscape-orientation" locale="index.home">Accueil</a>
 				<a href="./#home" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/home.svg" alt="Accueil"></a>
 			</h1>
 			<h1 id="settings" >
-				<a href="./#settings" class="landscape-orientation">Paramètres</a>
+				<a href="./#settings" class="landscape-orientation" locale="index.settings">Paramètres</a>
 				<a href="./#settings" class="portrait-orientation"><img class="force-theme" src="./src/img/homeMade/settings.svg" alt="Paramètres"></a>
 			</h1>
 		</header>
@@ -47,16 +47,16 @@
 			
 		</main>
 		<footer>
-			<h4><a href="./#rights">Mentions Légales</a></h4>
-			<h4>© 2022-2023 Aurore Leclerc</h4>
+			<h4><a href="./#rights" locale="index.license">Mentions Légales</a></h4>
+			<h4>© 2022-2024 Aurore Leclerc</h4>
 			<h4>
-				Mis à disposition selon les termes de la
+				<span locale="index.under">Mis à disposition selon les termes de la</span>
 				<a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPLv3</a>
-				et de la
+				<span locale="index.and"> et de la </span>
 				<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
 			</h4>
 		</footer>
-		<script src="./src/js/header.js"></script>
+		<script type="module" src="./src/js/header.js"></script>
 		<script type="module" src="./src/js/controller/Controller.js"></script>
 	</body>
 </html>

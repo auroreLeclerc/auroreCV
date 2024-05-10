@@ -1,21 +1,33 @@
-/* eslint-disable no-unused-vars */
+const language = new Intl.Locale(navigator.language).language === "fr" ? "fr" : "en";
+for (const element of document.getElementsByClassName(language === "fr" ? "english" : "french")) { // reverse
+	if (element instanceof HTMLElement) element.style.display = "none";
+}
+
+/**
+ * @param {string} fr
+ * @param {string} en
+ */
+function checkLanguage(fr, en) {
+	return language === "fr" ? fr : en;
+}
 
 /**
  * @param {HTMLButtonElement} button
  */
 function clearCacheButton(button) {
-	button.textContent = "";
-	caches.keys().then((keyList) => {
-		for (const key of keyList) {	
+	caches.keys().then(keyList => {
+		button.textContent = "";
+		for (const key of keyList) {
 			caches.delete(key).then(success => {
 				if (success) {
-					button.textContent += `Cache "${key}" effacé !\n`;
+					button.textContent += checkLanguage(`Cache "${key}" effacé !\n`, `Cache "${key}" Deleted !\n`);
 				}
 				else {
 					button.textContent += `"${key}" NotFound\n`;
 				}
 			});
 		}
+		if (!keyList.length) button.textContent = checkLanguage("Aucun cache", "No cache available");
 	});
 }
 
@@ -23,10 +35,13 @@ function clearCacheButton(button) {
  * @param {HTMLButtonElement} button
  */
 function clearCookies(button) {
-	window.indexedDB.databases().then((databasesInfo) => {
-		for (const databaseInfo of databasesInfo) window.indexedDB.deleteDatabase(databaseInfo.name);
-	}).then(() => {
-		button.textContent = "Configurations effacées !";
+	window.indexedDB.databases(
+	).then(databasesInfo => {
+		for (const databaseInfo of databasesInfo) {
+			window.indexedDB.deleteDatabase(databaseInfo.name);
+			button.textContent = checkLanguage(`Configuration ${databaseInfo.name} effacée !`, `${databaseInfo.name} configuration  deleted !`);
+		}
+		if (!databasesInfo.length) button.textContent = checkLanguage("Aucune configuration", "No configuration available");
 	}).catch(error => button.textContent = error);
 }
 
@@ -34,17 +49,15 @@ function clearCookies(button) {
  * @param {HTMLButtonElement} button
  */
 function clearServiceWorker(button) {
-	button.textContent = "";
 	navigator.serviceWorker.getRegistrations().then(registrations => {
-		if (registrations.length) {
-			for(const registration of registrations) {
-				registration.unregister().then(sucsess => {
-					button.textContent += `${registration.active.scriptURL} ${sucsess ? "effacé" : "échoué"} !`;
-				});
-			}
+		button.textContent = "";
+		for (const registration of registrations) {
+			registration.unregister().then(sucsess => {
+				button.textContent += `${registration.active.scriptURL} ${checkLanguage(sucsess ? "effacé" : "échoué", sucsess ? "deleted" : "failed")} !\n`;
+			});
 		}
-		else {
-			button.textContent = "Aucun Service Worker présent !";
+		if (!registrations.length) {
+			button.textContent = checkLanguage("Aucun Service Worker", "No Service Worker Available");
 		}
-	});	
+	});
 }

@@ -3,40 +3,43 @@ import { ArchitectureError } from "../Errors.js";
 export class Prettify {
 	#accordions = document.getElementsByClassName("accordion prettify-js");
 	/**
-	 * @readonly
-	 * @enum {string}
-	 * @note space are mandatory even for no-space phrase
-	 * @note the first letter of the first word can be lowercase, the algo doesn't mind
+	 * @type {Map<string, string>}
+	 * @description space are mandatory even for no-space phrase
+	 * @description the first letter of the first word can be lowercase, the algo doesn't mind
 	 */
-	#fullTexts = { // import assert {type: json} https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#browser_compatibility
-		"MBTI": "Myers Briggs Type Indicator",
-		"INTP": "Introverted i- Ntuitive Thinking Prospecting",
-		"MIAGE": "Méthodes Informatiques Appliquées à la Gestion des Entreprises",
-		"DUT": "Diplôme Universitaire de Technologie en",
-		"MIG": "Maths Informatique et Gestion",
-		"SVT": "Sciences de la Vie et de la Terre",
-		"ISN": "Informatique et Sciences du Numérique",
-		"BPI": "Business Process Intelligence",
-		"BTP": "Business Technology Platform",
-		"RPA": "Robotic Process Automation",
-		"iRPA": "intelligent Robotic Process Automation",
-		"SBPA": "SAP Business Process Automation",
-		"SDK": "Software Development Kit",
-		"JS": "Java Script",
-		"HTML": "Hyper Text Markup Language",
-		"CSS": "Cascading Style Sheets",
-		"PWA": "Progressive Web App",
-		"MVC": "Model View Controller",
-		"SQL": "Structured Query Languages",
-		"DOM": "Document Object Model",
-		"AJAX": "Asynchronous JavaScript And XML",
-		"UML": "Unified Modeling Language",
-		"VBA": "Visual Basic for Applications"
-	};
+	#fullTexts = new Map();
+
+	#initMap() {
+		this.#fullTexts.set("MBTI", "Myers Briggs Type Indicator");
+		this.#fullTexts.set("INTP", "Introverted i- Ntuitive Thinking Prospecting");
+		this.#fullTexts.set("MIAGE", "Méthodes Informatiques Appliquées à la Gestion des Entreprises");
+		this.#fullTexts.set("DUT", "Diplôme Universitaire de Technologie en");
+		this.#fullTexts.set("MIG", "Maths Informatique et Gestion");
+		this.#fullTexts.set("SVT", "Sciences de la Vie et de la Terre");
+		this.#fullTexts.set("ISN", "Informatique et Sciences du Numérique");
+		this.#fullTexts.set("BPI", "Business Process Intelligence");
+		this.#fullTexts.set("BTP", "Business Technology Platform");
+		this.#fullTexts.set("RPA", "Robotic Process Automation");
+		this.#fullTexts.set("iRPA", "intelligent Robotic Process Automation");
+		this.#fullTexts.set("SBPA", "SAP Business Process Automation");
+		this.#fullTexts.set("SDK", "Software Development Kit");
+		this.#fullTexts.set("JS", "Java Script");
+		this.#fullTexts.set("HTML", "Hyper Text Markup Language");
+		this.#fullTexts.set("CSS", "Cascading Style Sheets");
+		this.#fullTexts.set("PWA", "Progressive Web App");
+		this.#fullTexts.set("MVC", "Model View Controller");
+		this.#fullTexts.set("SQL", "Structured Query Languages");
+		this.#fullTexts.set("DOM", "Document Object Model");
+		this.#fullTexts.set("AJAX", "Asynchronous JavaScript And XML");
+		this.#fullTexts.set("UML", "Unified Modeling Language");
+		this.#fullTexts.set("VBA", "Visual Basic for Applications");
+		this.#fullTexts.set("UPJV", "Université de Picardie Jules-Verne");
+	}
 
 	constructor() {
+		this.#initMap();
 		while (this.#accordions.length > 0) {
-			const accordion = this.#accordions[0]; // original array is dynamically slice with Element.replaceWith() 
+			const accordion = this.#accordions[0]; // original array is dynamically slice with Element.replaceWith()
 			accordion.textContent = accordion.textContent.trim();
 
 			const accordionised = document.createElement("div");
@@ -46,42 +49,45 @@ export class Prettify {
 					accordionised.classList.add(className);
 				}
 			}
-			const fullText = this.#fullTexts[accordion.textContent];
-			let nextInitial = 0;
-			/**
-			 * @type {{ container: HTMLElement; initial: HTMLElement; lowercase: HTMLElement; }[]}
-			 */
-			let containers = [];
+			if (this.#fullTexts.has(accordion.textContent)) {
+				const fullText = this.#fullTexts.get(accordion.textContent);
+				let nextInitial = 0;
+				/**
+				 * @type {{ container: HTMLElement; initial: HTMLElement; lowercase: HTMLElement; }[]}
+				 */
+				let containers = [];
 
-			for (let i = 0; i < accordion.textContent.length; i++) {
-				const container = document.createElement("div");
-				container.setAttribute("class", "container");
-		
-				const initial = document.createElement("span");
-				initial.setAttribute("class", "initial");
-				initial.textContent = accordion.textContent[i];
-				container.appendChild(initial);
+				for (let i = 0; i < accordion.textContent.length; i++) {
+					const container = document.createElement("div");
+					container.setAttribute("class", "container");
 
-				const firstInitial = nextInitial || fullText.indexOf(accordion.textContent[i]);
-				nextInitial = fullText.indexOf(accordion.textContent[i + 1], firstInitial + 1);
-				if (nextInitial === -1) nextInitial = fullText.length + 1;
-				const textBetweenThoseTwoInitials = fullText.substring(firstInitial + 1, nextInitial - 1); // spaces are css handled
+					const initial = document.createElement("span");
+					initial.setAttribute("class", "initial");
+					initial.textContent = accordion.textContent[i];
+					container.appendChild(initial);
 
-				const lowercase = document.createElement("span");
-				lowercase.setAttribute("class", "lowercase");
-				lowercase.textContent = textBetweenThoseTwoInitials;
-				container.appendChild(lowercase);
+					const firstInitial = nextInitial || fullText.indexOf(accordion.textContent[i]);
+					nextInitial = fullText.indexOf(accordion.textContent[i + 1], firstInitial + 1);
+					if (nextInitial === -1) nextInitial = fullText.length + 1;
+					const textBetweenThoseTwoInitials = fullText.substring(firstInitial + 1, nextInitial - 1); // spaces are css handled
 
-				containers.push({
-					container: container,
-					initial: initial,
-					lowercase: lowercase
-				});
+					const lowercase = document.createElement("span");
+					lowercase.setAttribute("class", "lowercase");
+					lowercase.textContent = textBetweenThoseTwoInitials;
+					container.appendChild(lowercase);
 
-				accordionised.appendChild(container);
+					containers.push({
+						container: container,
+						initial: initial,
+						lowercase: lowercase,
+					});
+
+					accordionised.appendChild(container);
+				}
+
+				this.#addEvents(accordionised, containers, accordion);
 			}
-
-			this.#addEvents(accordionised, containers, accordion);
+			else throw new ArchitectureError(accordion.textContent);
 		}
 	}
 
@@ -90,12 +96,12 @@ export class Prettify {
 	 * @param {{ container: HTMLElement; initial: HTMLElement; lowercase: HTMLElement; }[]} containers
 	 * @param {Element} accordion
 	 */
-	#addEvents(accordionised, containers, accordion) {		
+	#addEvents(accordionised, containers, accordion) {
 		accordionised.addEventListener("mouseover", () => {
 			for (const container of containers) {
 				const initial = container.initial.clientWidth;
 				const lowercase = container.lowercase.clientWidth;
-	
+
 				container.container.style.width = `${initial + lowercase}px`;
 			}
 		});
@@ -104,8 +110,8 @@ export class Prettify {
 		});
 		document.body.addEventListener("click", event => {
 			let notOutclick = 0;
-			if (!(event.target instanceof HTMLElement || event.target instanceof SVGElement)) {
-				throw new ArchitectureError(`You clicked on a "${JSON.stringify(event.target)}", wich is not a HTMLElement/SVGElement for some unknown reasons...`);
+			if (!(event.target instanceof Element)) {
+				throw new ArchitectureError(JSON.stringify(event.target));
 			}
 			for (const className of ["accordionised", "container", "initial", "lowercase"]) {
 				notOutclick += Number(event.target.classList.contains(className));

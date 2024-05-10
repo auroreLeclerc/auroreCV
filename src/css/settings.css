@@ -42,3 +42,20 @@ section#debug {
 section#debug table {
     margin: 0.5em;
 }
+
+h1#languages {
+    display: flex;
+    flex: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+h1#languages > span.selected {
+    position: relative;
+}
+h1#languages > span.selected::before {
+	position: absolute;
+	content: "\2B9D";
+	left: 50%;
+	bottom: -2.25em;
+	transform: translate(-50%, -50%);
+}

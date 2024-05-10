@@ -1,5 +1,3 @@
-/* stylelint-disable declaration-empty-line-before */
-/* stylelint-disable rule-empty-line-before */
 @import url("./liberation.css");
 @import url("./pwa.css");
 
@@ -64,6 +62,10 @@ div.separator.vertical {
 	flex-flow: row nowrap;
 	justify-content: space-around;
 	align-items: center;
+}
+
+.first {
+	order: -1;
 }
 
 button.button {
