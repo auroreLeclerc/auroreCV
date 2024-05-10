@@ -54,8 +54,8 @@ h1#languages > span.selected {
 }
 h1#languages > span.selected::before {
 	position: absolute;
-	content: "\2B9D";
+	content: "\27A4";
 	left: 50%;
-	bottom: -2.25em;
-	transform: translate(-50%, -50%);
+	bottom: -150%;
+	transform: translate(-50%, -50%) rotate(0.75turn);
 }
