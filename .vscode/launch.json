@@ -3,27 +3,33 @@
 	// Hover to view descriptions of existing attributes.
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
+	"compounds": [
+		{
+			"name": "Electron Main & Renderer",
+			"configurations": ["Electron Main Remote", "Electron Renderer"],
+			"stopAll": true
+		}
+	],
 	"configurations": [
 		{
-			"name": "Launch Firefox",
-			"type": "firefox",
-			"request": "launch",
-			"url": "http://localhost:8080",
-			"reAttach": true,
-			"webRoot": "${workspaceFolder}",
-		}, {
-			"name": "Launch Edge",
-			"request": "launch",
-			"type": "msedge",
-			"version": "stable",
-			"url": "http://localhost:8080",
-			"webRoot": "${workspaceFolder}"
-		}, {
+			"name": "Electron Renderer",
+			"port": 9222,
+			"request": "attach",
 			"type": "chrome",
-			"request": "launch",
-			"name": "Launch Chrome",
-			"url": "http://localhost:8080",
 			"webRoot": "${workspaceFolder}"
+		}, {
+			"name": "Electron Main Remote",
+			"type": "node",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+			"windows": {
+				"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+			},
+			"args": [".", "--remote-debugging-port=9222"],
+			"outputCapture": "std",
+			"console": "integratedTerminal",
+			"preLaunchTask": "tsc: build - electron/tsconfig.json",
 		}
 	]
 }

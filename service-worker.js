@@ -42,6 +42,8 @@ self.addEventListener("install", function (/** @type {ExtendableEvent} */ event)
 					});
 				}
 				else throw new ArchitectureError((new HttpError(response.status, response.statusText, response.url)).toString());
+			}).catch(error => {
+				console.warn(error);
 			});
 		}),
 	);
@@ -142,7 +144,6 @@ function _checkUpdate() {
 	);
 }
 
-// @ts-ignore
 self.addEventListener("periodicsync", function (/** @type {PeriodicSyncEvent} */ event) {
 	if (event.tag === "update") {
 		new DataBaseHelper().start.then(transaction => {

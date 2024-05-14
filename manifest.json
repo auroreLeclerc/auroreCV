@@ -8,12 +8,8 @@
 	"background_color": "#9932CC",
 	"start_url": "./",
 	"id": "🏳️‍⚧️",
-	"version": "2.3.0",
-	"changelogs": [
-		"Traduction en anglais",
-		"Correction de bugs",
-		"Implémentation d'outils de qualité"
-	],
+	"version": "2.4.0",
+	"changelogs": ["Changement de la congiguration de mise à jour"],
 	"display": "standalone",
 	"orientation": "any",
 	"edge_side_panel": {

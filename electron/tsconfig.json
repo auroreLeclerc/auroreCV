@@ -1,0 +1,12 @@
+{
+	"extends": "@tsconfig/node-lts/tsconfig.json",
+	"compilerOptions": {
+		"module": "NodeNext",
+		"resolveJsonModule": true,
+		"outDir": "./out/ts/",
+		"sourceMap": true,
+		"useUnknownInCatchVariables": false,
+		"strictNullChecks": false,
+	},
+	"exclude": ["node_modules", "out", "commonjs"],
+}

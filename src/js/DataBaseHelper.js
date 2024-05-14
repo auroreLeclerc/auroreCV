@@ -1,4 +1,4 @@
-import { ArchitectureError, HttpError, NotFoundError, UnknownError } from "./Errors.js";
+import { HttpRecoveryError, NotFoundError, UnknownError } from "./Errors.js";
 import { CACHE_NAME } from "./variables.mjs";
 
 /**
@@ -56,16 +56,17 @@ export class DataBaseHelper {
 
 	/**
 	 * @returns {Promise.<DataBaseHelperTransaction>}
+	 * @throws {DOMException}
 	 */
 	get start() {
 		return new Promise((resolve, reject) => {
 			this.#openRequest.onsuccess = () => {
 				this.#openRequest.result.onversionchange = event => {
-					console.warn(JSON.stringify(event));
+					console.warn(new Date().getTime(), JSON.stringify(event));
 				};
 				if (this.started) {
 					this.#openRequest.result.close();
-					throw new ArchitectureError("Database connection already started.");
+					throw new HttpRecoveryError(423, "Database connection already started.", window.location.toString());
 				}
 				const transactionHelper = new DataBaseHelperTransaction(this.#openRequest.result);
 				this.#started = true;
@@ -99,10 +100,10 @@ export class DataBaseHelper {
 				resolve(transactionHelper);
 			};
 			this.#openRequest.onerror = event => {
-				reject(new UnknownError(JSON.stringify(event)));
+				reject(this.#openRequest.error);
 			};
 			this.#openRequest.onblocked = event => {
-				reject(new UnknownError(JSON.stringify(event)));
+				reject(this.#openRequest.error);
 			};
 		});
 	}
@@ -120,6 +121,10 @@ class DataBaseHelperTransaction {
 	 */
 	constructor(database) {
 		this.#database = database;
+	}
+
+	get close() {
+		return this.#database.close();
 	}
 
 	/**
@@ -221,9 +226,14 @@ class DataBaseHelperTransaction {
 		this.#database.close();
 		const request = indexedDB.deleteDatabase(CACHE_NAME);
 		request.onerror = event => {
-			globalThis.mvc.controller._renderError(new HttpError(424, event.toString(), window.location.toString()));
+			globalThis.mvc.controller._recovery(new HttpRecoveryError(424, JSON.stringify(event), window.location.toString()));
 		};
-		request.onsuccess = () => {
+		request.onblocked = event => {
+			console.error(new HttpRecoveryError(423, JSON.stringify(event), window.location.toString()));
+			window.location.reload();
+		};
+		request.onsuccess = event => {
+			console.info(JSON.stringify(event));
 			window.location.reload();
 		};
 	}

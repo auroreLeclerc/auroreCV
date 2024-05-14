@@ -2,12 +2,12 @@
 	"extends": "@tsconfig/recommended/tsconfig.json",
 	"compilerOptions": {
 		"resolveJsonModule": false,
-		"module": "NodeNext",
 		"lib": ["WebWorker", "DOM"],
-		"outDir": "./src/ts/",
+		"outDir": "./out/ts/",
 		"checkJs": true,
 		"strictNullChecks": false,
-		"moduleResolution": "NodeNext"
+		"moduleResolution": "Node16",
+		"module": "Node16"
 	},
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "electron"],
 }

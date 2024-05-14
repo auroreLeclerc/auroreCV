@@ -1,7 +1,3 @@
-import { DataBaseHelper } from "./DataBaseHelper.js";
-import { ArchitectureError } from "./Errors.js";
-import { LOCALES } from "./variables.mjs";
-
 const header = document.querySelector("body header");
 header.insertAdjacentHTML("afterbegin", "<div id=\"airplane\">✈️</div>");
 const airplane = document.getElementById("airplane");
@@ -85,7 +81,6 @@ if ("BeforeInstallPromptEvent" in window) {
 
 	install.addEventListener("click", () => {
 		install.style.display = "none";
-		// @ts-ignore
 		deferredPrompt.prompt().then((/** @type {{ platform: string; outcome: string; }} */ choice) => {
 			console.info(`${choice.platform} user ${choice.outcome} the A2HS prompt`);
 			deferredPrompt = null;
@@ -94,7 +89,6 @@ if ("BeforeInstallPromptEvent" in window) {
 
 	window.addEventListener("beforeinstallprompt", event => {
 		event.preventDefault();
-		// @ts-ignore
 		deferredPrompt = event;
 		install.style.display = null;
 	});

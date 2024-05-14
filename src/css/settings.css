@@ -5,14 +5,7 @@ main {
     justify-content: space-around;
 }
 
-.flex {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    word-break: break-word;
-}
-
-.flex > * {
+.flex-center > * {
     max-width: 40%;
 }
 

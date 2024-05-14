@@ -4,7 +4,6 @@ main article {
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    height: 40vh;
 }
 
 main article div#emote {
@@ -14,6 +13,10 @@ main article div#emote {
 	animation-timing-function: linear;
 	animation-duration: 0.25s;
 	animation-iteration-count: 3;
+}
+
+main article h1 {
+    font-size: 2em;
 }
 
 @keyframes hey {
@@ -36,8 +39,4 @@ main article div#emote {
     100% {
         margin: 0 8vw;
     }
-}
-
-main article section h2 {
-    word-break: break-all;
 }

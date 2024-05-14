@@ -54,10 +54,8 @@ export class ServiceWorkerLoader {
 							console.info("📮", "ServiceWorker installing on", registration.scope);
 							transaction.getAppConfig("autoUpdate").then(autoUpdate => {
 								if (autoUpdate) {
-									// @ts-ignore
 									if (registration.sync) {
 										navigator.serviceWorker.ready.then(registrationReady =>
-											// @ts-ignore
 											registrationReady.periodicSync.register("updater", {
 												// minInterval: 24 * 60 * 60 * 1000
 												minInterval: 30 * 1000,

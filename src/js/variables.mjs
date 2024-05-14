@@ -1,4 +1,7 @@
 import { DataBaseHelper } from "./DataBaseHelper.js";
+/**
+ * @typedef {import("electron").Notification} ElectronNotification
+ */
 
 /**
  * @typedef {object} Locales
@@ -84,7 +87,12 @@ export function sendNotification(body, actions = []) {
 		actions: actions,
 	};
 
-	if (Notification.permission !== "granted") {
+	if (globalThis.mvc.electron) globalThis.mvc.electron.sendNotification({
+		title: title,
+		body: body,
+		icon: "./src/img/homeMade/icons/384.png",
+	});
+	else if (Notification.permission !== "granted") {
 		Notification.requestPermission().then(response => {
 			if (response === "granted") {
 				return sendNotification(body, actions);

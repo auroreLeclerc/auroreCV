@@ -31,7 +31,6 @@ describe("Locales", function () {
 
 		it("Controller is up to date", async function () {
 			for (const locale of locales) {
-				// @ts-ignore
 				assert.ok(LOCALES.has(locale));
 			}
 		});

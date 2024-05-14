@@ -1,38 +1,42 @@
 import { DataBaseHelper } from "./DataBaseHelper.js";
 import { getEmojiPeople } from "./variables.mjs";
 
-export class HttpError extends Error {
+export class HttpRecoveryError extends Error {
+	#status;
+	statusText;
 	/**
-	 * @description HTTP Error
+	 * @type {string[]}
+	 */
+	errors = [];
+
+	/**
+	 * @description HTTP Error with no Database
 	 * @param {number} code status
 	 * @param {string} response statusText
 	 * @param {string} url URL
-	 * @param {string[]} msgs
+	 * @param {Error[]} errors
 	 */
-	constructor(code, response, url, ...msgs) {
+	constructor(code, response, url, ...errors) {
 		super();
+		this.#status = code;
+		this.statusText = response;
 
-		this.name = `HTTP Error ${code}`;
+		this.name = `Recovery Error ${code}`;
 		this.message = `${url} is ${response}.`;
-		const main = `${this.name}: ${this.message}`;
 
-		for (const msg of msgs) {
-			this.message += ` ${msg}.`;
+		for (const error of errors) {
+			if (error === null) {
+				throw new ArchitectureError(`Error is null`); // Will crash if DataBase is stuck
+			}
+			this.errors.push(`${new Date().getTime()}: ${error.constructor.name}: ${error.name}: ${error.message}`);
+			if (error instanceof HttpError) {
+				this.errors.concat(error.errors);
+			}
 		}
-
-		this.parameters = {
-			main: main,
-			status: code,
-			statusText: response,
-			url: url,
-			addMsgs: msgs,
-		};
-
-		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
 
 	get emoji() {
-		switch (this.parameters.status.toString()[0]) {
+		switch (this.#status.toString()[0]) {
 			case "1":
 				return getEmojiPeople(0x1F527, true);
 			case "2":
@@ -40,7 +44,7 @@ export class HttpError extends Error {
 			case "3":
 				return getEmojiPeople(0x1F3C3);
 			case "4":
-				switch (this.parameters.status) {
+				switch (this.#status) {
 					case 404:
 						return getEmojiPeople(0x1F575);
 
@@ -57,7 +61,7 @@ export class HttpError extends Error {
 						return getEmojiPeople(0x1F645);
 				}
 			case "5":
-				switch (this.parameters.status) {
+				switch (this.#status) {
 					case 508:
 						return String.fromCodePoint(0x267E);
 
@@ -73,25 +77,33 @@ export class HttpError extends Error {
 	}
 }
 
+export class HttpError extends HttpRecoveryError {
+	/**
+	 * @description HTTP Error
+	 * @param {number} code status
+	 * @param {string} response statusText
+	 * @param {string} url URL
+	 * @param {Error[]} errors
+	 */
+	constructor(code, response, url, ...errors) {
+		super(code, response, url, ...errors);
+
+		this.name = `HTTP Error ${code}`;
+
+		new DataBaseHelper().start.then(db => db.setAppError(this));
+	}
+}
+
 export class NotFoundError extends Error {
 	/**
 	 * @description Not Found
 	 * @param {string} element element
-	 * @param {string} [msg] Additional message
 	 */
-	constructor(element, msg = "") {
+	constructor(element) {
 		super();
 
-		this.name = "Not Found Error";
-		this.message = "";
-
-		this.message += `${element} not found.`;
-		if (msg) this.message += ` ${msg}.`;
-
-		this.parameters = {
-			element: element,
-			msg: msg,
-		};
+		this.name = "Error Not Found";
+		this.message = element;
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}

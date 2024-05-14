@@ -1,6 +1,10 @@
 import { DataBaseHelper } from "../DataBaseHelper.js";
-import { ArchitectureError, HttpError } from "../Errors.js";
-import { LOCALES } from "../variables.mjs";
+import { HttpError, HttpRecoveryError, NotFoundError } from "../Errors.js";
+import { LOCALES, getEmojiPeople } from "../variables.mjs";
+
+/**
+ * @typedef {import("../../../electron/commonjs/preload.cjs").ElectronExposed} ElectronExposed
+ */
 
 export class Controller {
 	/**
@@ -51,7 +55,7 @@ export class Controller {
 	/**
 	 * @param {string} id
 	 * @returns {Promise.<void>}
-	 * @throws {HttpError}
+	 * @throws {HttpError | DOMException | NotFoundError}
 	 */
 	#translate(id) {
 		return new Promise((resolve, reject) => {
@@ -62,7 +66,6 @@ export class Controller {
 			new DataBaseHelper().start.then(transaction => {
 				transaction.getAppConfig("locale").then(locale => {
 					if (locale === "auto") {
-					// @ts-ignore
 						if (LOCALES.has(this.#browserLanguage)) {
 							language = this.#browserLanguage;
 						}
@@ -80,8 +83,8 @@ export class Controller {
 						fetch(`./src/locales/${language}/${id}.json`),
 						fetch(`./src/locales/${language}/index.json`),
 					]).then(responses => {
-						if (!responses[0].ok) reject(new HttpError(responses[0].status, responses[0].statusText, responses[0].url, responses[0].headers.get("Error-Details")));
-						else if (!responses[1].ok) reject(new HttpError(responses[1].status, responses[1].statusText, responses[1].url, responses[1].headers.get("Error-Details")));
+						if (!responses[0].ok) reject(new HttpError(responses[0].status, responses[0].statusText, responses[0].url, new Error(responses[0].headers.get("Error-Details"))));
+						else if (!responses[1].ok) reject(new HttpError(responses[1].status, responses[1].statusText, responses[1].url, new Error(responses[0].headers.get("Error-Details"))));
 						else Promise.all([
 							responses[0].json(),
 							responses[1].json(),
@@ -100,8 +103,8 @@ export class Controller {
 							resolve();
 						});
 					});
-				});
-			});
+				}).catch((/** @type {NotFoundError} */ error) => reject(error));
+			}).catch((/** @type {DOMException} */ error) => reject(error));
 		});
 	}
 
@@ -161,7 +164,7 @@ export class Controller {
 				console.info("🧑‍✈️", `Model ${names[0]} loaded`);
 				globalThis.mvc.models.push(new module[names[0]]());
 				this.#doneExecuting();
-			}).catch(error => this._renderError(new HttpError(500, "Internal Import Model Failure", script.src, error.toString())));
+			}).catch((/** @type {TypeError} */ error) => this._renderError(new HttpError(500, "Internal Import Model Failure", script.src, error)));
 		}
 	}
 
@@ -179,7 +182,7 @@ export class Controller {
 
 	/**
 	 * @param {string} [id]
-	 * @param {HttpError} [errorToRender]
+	 * @param {HttpError | DOMException | null} [errorToRender]
 	 */
 	_render(id = "home", errorToRender = null) {
 		this.#elementsToBeLoaded++;
@@ -192,13 +195,23 @@ export class Controller {
 
 					if (errorToRender) {
 						try {
-							view.getElementById("emote").textContent = errorToRender.emoji;
-							view.getElementById("error").textContent = errorToRender.parameters.main;
-							view.getElementById("additional").textContent = errorToRender.parameters.addMsgs.toString();
+							if (errorToRender instanceof HttpError) {
+								view.getElementById("emote").textContent = errorToRender.emoji;
+								const errorElement = view.getElementById("error");
+								errorElement.textContent = errorToRender.toString();
+								for (const error of errorToRender.errors) {
+									errorElement.insertAdjacentHTML("afterend", `<p>Caused by</p><h2>${error}</h2>`);
+								}
+							}
+							else {
+								view.getElementById("emote").textContent = getEmojiPeople(0x1F4BB, true);
+								view.getElementById("error").textContent = errorToRender.toString();
+							}
 						}
 						catch (error) {
 							console.error("🧑‍✈️", error);
-							this._recovery(new HttpError(521, "Internal Architecture Failure", response.url, (new ArchitectureError(error.toString())).toString()));
+							if (error instanceof Error) this._recovery(new HttpRecoveryError(521, "Internal Architecture Failure", response.url, error));
+							else this._recovery(new HttpRecoveryError(521, typeof error, response.url));
 						}
 					}
 
@@ -217,24 +230,27 @@ export class Controller {
 					this.#translate(id).then(() => {
 						this.#modelsLoading(view);
 						this.#doneExecuting();
-					}).catch(error => {
-						if (errorToRender) this._recovery(new HttpError(508, "Loop Detected", response.url, errorToRender.toString(), error));
+					}).catch((/** @type {HttpError | DOMException} */ error) => {
+						if (errorToRender) this._recovery(new HttpRecoveryError(508, "Loop Detected", response.url, error, errorToRender));
 						else this._renderError(error);
 					});
-				}).catch(error => this._recovery(new HttpError(500, "Parsing error", response.url, error.toString())));
+				}).catch((/** @type {TypeError} */ error) => {
+					if (errorToRender) this._recovery(new HttpRecoveryError(508, "Parsing Loop Error", response.url, error, errorToRender));
+					else this._renderError(new HttpError(500, "Parsing Error", response.url, error));
+				});
 			}
-			else if (errorToRender) this._recovery(new HttpError(508, "Loop Detected", response.url, errorToRender.toString()));
-			else this._renderError(new HttpError(response.status, response.statusText, response.url, response.headers.get("Error-Details")));
-		}).catch(error => {
+			else if (errorToRender) this._recovery(new HttpRecoveryError(508, "Loop Detected", response.url, errorToRender));
+			else this._renderError(new HttpError(response.status, response.statusText, response.url, new Error(response.headers.get("Error-Details"))));
+		}).catch((/** @type {Error} */ error) => {
 			console.error("🧑‍✈️", error);
-			if (errorToRender) this._recovery(new HttpError(503, "Service Unavailable", window.location.toString(), error.toString(), errorToRender.toString()));
-			else this._renderError(new HttpError(500, "Internal Service Error", window.location.toString(), error.toString()));
+			if (errorToRender) this._recovery(new HttpRecoveryError(503, "Service Unavailable", window.location.toString(), error, errorToRender));
+			else this._renderError(new HttpError(500, "Internal Service Error", window.location.toString(), error));
 		});
 	}
 
 	/**
 	 * @description Does not break execution
-	 * @param {HttpError} error
+	 * @param {DOMException | HttpError} error
 	 */
 	_renderError(error) {
 		this.#doneExecuting(true);
@@ -243,7 +259,7 @@ export class Controller {
 
 	/**
 	 * @description Breaks execution (throws error)
-	 * @param {HttpError} error
+	 * @param {HttpRecoveryError} error
 	 */
 	_recovery(error) {
 		this.#preRender();
@@ -252,24 +268,22 @@ export class Controller {
 		let main = `
 			<style>
 				main#view {
-					align-self: center;
-					text-align: center;
 					display: flex;
 					flex-flow: column nowrap;
-					justify-content: center;
+					justify-content: space-around;
 					align-items: center;
-					width: 90%;
+					text-align: center;
 				}
 			</style>
-			<h2>${error.parameters.main}</h2>
+			<h2>${error.toString()}</h2>
 		`;
-		for (const msg of error.parameters.addMsgs) {
+		for (const additionalError of error.errors) {
 			main += `
-				<h2>Caused by</h2>
-				<h2>${msg}</h2>
+				<p>Caused by</p>
+				<h2>${additionalError}</h2>
 			`;
 		}
-		main += "<h3><a href='./maintenance.html'>Maintenance</a></h3>";
+		main += "<h1><a href='./maintenance.html'>Maintenance</a></h1>";
 		this.#view.insertAdjacentHTML("afterbegin", main);
 		this.#doneExecuting();
 		throw error;
@@ -279,4 +293,9 @@ export class Controller {
 globalThis.mvc = {
 	models: [],
 	controller: new Controller(),
+	/**
+	 * @type {ElectronExposed | null}
+	 */
+	// @ts-ignore
+	electron: "electron" in window ? window.electron : null,
 };

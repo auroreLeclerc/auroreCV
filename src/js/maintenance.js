@@ -37,9 +37,10 @@ function clearCacheButton(button) {
 function clearCookies(button) {
 	window.indexedDB.databases(
 	).then(databasesInfo => {
+		button.textContent = "";
 		for (const databaseInfo of databasesInfo) {
 			window.indexedDB.deleteDatabase(databaseInfo.name);
-			button.textContent = checkLanguage(`Configuration ${databaseInfo.name} effacée !`, `${databaseInfo.name} configuration  deleted !`);
+			button.textContent += checkLanguage(`Configuration ${databaseInfo.name} effacée !\n`, `${databaseInfo.name} configuration  deleted !\n`);
 		}
 		if (!databasesInfo.length) button.textContent = checkLanguage("Aucune configuration", "No configuration available");
 	}).catch(error => button.textContent = error);

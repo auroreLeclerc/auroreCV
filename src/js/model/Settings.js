@@ -1,6 +1,6 @@
 import { DataBaseHelper } from "../DataBaseHelper.js";
 import { ArchitectureError, HttpError } from "../Errors.js";
-import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, toDatetimeLocal, getEmojiPeople, LOCALES } from "../variables.mjs";
+import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, toDatetimeLocal, getEmojiPeople } from "../variables.mjs";
 import { Version } from "../Version.js";
 /**
  * @typedef {import("../DataBaseHelper.js").DataBaseHelperTransactionType} DataBaseHelperTransactionType
@@ -61,118 +61,40 @@ export class Settings {
 	 * @param {Function} [action]
 	 */
 	#checkboxButton(transaction, id, config, action) {
-		/**
-		 * @type {HTMLInputElement}
-		 */
-		// @ts-ignore
 		let checkbox = document.getElementById(id);
-		transaction.getAppConfig(config).then(configValue => {
-			checkbox.checked = !!configValue;
-			if (id === "debugEnable") {
-				this.#debugEnable(!!configValue);
-			}
-		});
-		checkbox.addEventListener("click", () => {
+		if (checkbox instanceof HTMLInputElement) {
 			transaction.getAppConfig(config).then(configValue => {
-				let newConfig = !configValue;
-				transaction.setAppConfig(config, newConfig);
-
-				switch (id) {
-					case "notificationEnable":
-						sendNotification(`Les notifications ont bien été ${newConfig ? "activées" : "désactivées"}`);
-						break;
-
-					case "debugEnable":
-						this.#debugEnable(newConfig);
-						break;
-
-					default:
-						action();
-						break;
+				checkbox.checked = !!configValue;
+				if (id === "debugEnable") {
+					this.#debugEnable(!!configValue);
 				}
 			});
-		});
+			checkbox.addEventListener("click", () => {
+				transaction.getAppConfig(config).then(configValue => {
+					let newConfig = !configValue;
+					transaction.setAppConfig(config, newConfig);
+
+					switch (id) {
+						case "notificationEnable":
+							sendNotification(`Les notifications ont bien été ${newConfig ? "activées" : "désactivées"}`);
+							break;
+
+						case "debugEnable":
+							this.#debugEnable(newConfig);
+							break;
+
+						default:
+							action();
+							break;
+					}
+				});
+			});
+		}
+		else throw new ArchitectureError(JSON.stringify(checkbox));
 	}
 
 	constructor() {
-		new DataBaseHelper().start.then(transaction => {
-			document.getElementById("resetConfig").addEventListener("click", () => transaction.hardReset());
-			if (!("serviceWorker" in navigator)) this.#liteMode(getEmojiPeople(0x1F9D3));
-			else navigator.serviceWorker.getRegistrations().then(registrations => {
-				if (registrations.length === 0) {
-					transaction.getAppConfig("serviceWorker").then(isServiceWorker => {
-						const unreachable = isServiceWorker ? "📦 Service Worker inatteignable" : "📦 Service Worker n'est pas enregistrable";
-						this.#online.textContent = unreachable;
-						this.#local.textContent = unreachable;
-						this.#currentChangeslogs.textContent = unreachable;
-						this.#update.textContent = isServiceWorker ? "Retourner à l'accueil pour réinstaller le Service Worker" : "https://bugzilla.mozilla.org/show_bug.cgi?id=1247687";
-
-						this.#liteMode();
-					});
-				}
-				else {
-					caches.open(CACHE_NAME).then(cache =>
-						cache.match(MANIFEST_NAME),
-					).then(stream =>
-						stream.json(),
-					).then(json => {
-						this.#currentChangeslogs.textContent = json.changelogs.join(", ");
-						this.#local.textContent = json.version;
-						this.#checkFetchUpdate(transaction);
-					}).catch(error => {
-						this.#local.textContent = "❌ Erreur Fatale";
-						this.#update.textContent = "Problème pour récupérer le cache...";
-						console.error("⚙️", error);
-					});
-
-					fetch(`${MANIFEST_NAME}!online`).then(response => {
-						if (!response?.ok) throw new HttpError(response.status, response.statusText, response.url);
-						return response.json();
-					}).then(json => {
-						this.#online.textContent = json.version;
-						this.#checkFetchUpdate(transaction);
-
-						let changelogs = document.querySelector("#changelogs ul");
-						for (const change of json.changelogs) {
-							changelogs.insertAdjacentHTML("beforeend", `<li>${change}</li>`);
-						}
-					}).catch(error => {
-						if (error instanceof HttpError && error.parameters.statusText === "Offline") {
-							this.#online.textContent = "✈️ Hors ligne";
-						}
-						else this.#online.textContent = "❌ Erreur Fatale";
-						this.#update.textContent = "Problème pour récupérer la version en ligne...";
-						console.error("⚙️", error);
-					});
-
-					const serviceWorker = document.getElementById("serviceWorker");
-					if (registrations.length > 1) {
-						this.#liteMode();
-						DELETE_CACHE();
-						throw new ArchitectureError(JSON.stringify(registrations));
-					}
-					// @ts-ignore
-					else if (!registrations[0]?.sync) {
-						serviceWorker.textContent = `${registrations[0].active.scriptURL} without sync`;
-						transaction.setAppConfig("autoUpdate", false);
-						this.#liteMode();
-					}
-					else serviceWorker.textContent = registrations[0].active.scriptURL;
-				}
-			});
-
-			this.#checkboxButton(transaction, "notificationEnable", "notification");
-			this.#checkboxButton(transaction, "autoUpdateEnable", "autoUpdate", DELETE_CACHE);
-			this.#checkboxButton(transaction, "debugEnable", "debug");
-		});
-		document.getElementById("deleteCache").addEventListener("click", () => {
-			if (!navigator.onLine) {
-				if (confirm("🚫 Vous êtes hors ligne et vous voulez effacez le cache 🚫 \n 🚫 Continuez et l'application ne sera plus disponible 🚫")) {
-					DELETE_CACHE();
-				}
-			}
-			else DELETE_CACHE();
-		});
+		this.#serviceWorkerInit();
 
 		new DataBaseHelper().start.then(transaction =>
 			transaction.getAppConfig("locale").then(locale => {
@@ -186,11 +108,94 @@ export class Settings {
 		for (const flag of languages.children) {
 			flag.addEventListener("click", () => {
 				if (!flag.classList.contains("selected")) new DataBaseHelper().start.then(transaction =>
-					// @ts-ignore
 					transaction.setAppConfig("locale", flag.id).then(() => globalThis.mvc.controller.reload()),
 				);
 			});
 		}
+	}
+
+	#serviceWorkerInit() {
+		new DataBaseHelper().start.then(transaction => {
+			this.#checkboxButton(transaction, "notificationEnable", "notification");
+			this.#checkboxButton(transaction, "autoUpdateEnable", "autoUpdate", DELETE_CACHE);
+			this.#checkboxButton(transaction, "debugEnable", "debug");
+			transaction.getAppConfig("serviceWorker").then(isServiceWorker => {
+				if (isServiceWorker) {
+					navigator.serviceWorker.getRegistrations().then(registrations => {
+						if (registrations.length === 0) {
+							transaction.getAppConfig("serviceWorker").then(isServiceWorker => {
+								const unreachable = "📦 Service Worker inatteignable";
+								this.#online.textContent = unreachable;
+								this.#local.textContent = unreachable;
+								this.#currentChangeslogs.textContent = unreachable;
+								this.#update.textContent = "Retourner à l'accueil pour réinstaller le Service Worker";
+
+								this.#liteMode();
+							});
+						}
+						else {
+							caches.open(CACHE_NAME).then(cache =>
+								cache.match(MANIFEST_NAME),
+							).then(stream =>
+								stream.json(),
+							).then(json => {
+								this.#currentChangeslogs.textContent = json.changelogs.join(", ");
+								this.#local.textContent = json.version;
+								this.#checkFetchUpdate(transaction);
+							}).catch(error => {
+								this.#local.textContent = "❌ Erreur Fatale";
+								this.#update.textContent = "Problème pour récupérer le cache...";
+								console.error("⚙️", error);
+							});
+
+							fetch(`${MANIFEST_NAME}!online`).then(response => {
+								if (!response?.ok) throw new HttpError(response.status, response.statusText, response.url);
+								return response.json();
+							}).then(json => {
+								this.#online.textContent = json.version;
+								this.#checkFetchUpdate(transaction);
+
+								let changelogs = document.querySelector("#changelogs ul");
+								for (const change of json.changelogs) {
+									changelogs.insertAdjacentHTML("beforeend", `<li>${change}</li>`);
+								}
+							}).catch(error => {
+								if (error instanceof HttpError && error.statusText === "Offline") {
+									this.#online.textContent = "✈️ Hors ligne";
+								}
+								else this.#online.textContent = "❌ Erreur Fatale";
+								this.#update.textContent = "Problème pour récupérer la version en ligne...";
+								console.error("⚙️", error);
+							});
+
+							const serviceWorker = document.getElementById("serviceWorker");
+							if (registrations.length > 1) DELETE_CACHE();
+							else if (!registrations[0]?.sync) {
+								serviceWorker.textContent = `${registrations[0].active.scriptURL} without sync`;
+								transaction.setAppConfig("autoUpdate", false);
+								this.#liteMode();
+							}
+							else serviceWorker.textContent = registrations[0].active.scriptURL;
+						}
+					});
+
+					document.getElementById("deleteCache").addEventListener("click", () => {
+						if (!navigator.onLine) {
+							if (confirm("🚫 Vous êtes hors ligne et vous voulez effacez le cache 🚫 \n 🚫 Continuez et l'application ne sera plus disponible 🚫")) {
+								DELETE_CACHE();
+							}
+						}
+						else DELETE_CACHE();
+					});
+				}
+				else {
+					for (const sw of document.getElementsByClassName("service-worker")) {
+						if (sw instanceof HTMLElement) sw.style.display = "none";
+						else throw new ArchitectureError(sw.constructor.name);
+					}
+				}
+			});
+		});
 	}
 
 	/**
@@ -257,6 +262,15 @@ export class Settings {
 				}
 			}),
 		);
+
+		document.getElementById("resetConfig").addEventListener("click", () => new DataBaseHelper().start.then(transaction => transaction.hardReset()));
+
+		if (globalThis.mvc.electron) {
+			document.getElementById("electron").textContent = globalThis.mvc.electron.version.electron;
+			document.getElementById("chrome").textContent = globalThis.mvc.electron.version.chrome;
+			document.getElementById("node").textContent = globalThis.mvc.electron.version.node;
+			document.getElementById("electron-info").style.display = "block";
+		}
 
 		document.getElementById("debug").style.display = enable ? "flex" : "none";
 	}
