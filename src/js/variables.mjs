@@ -91,6 +91,7 @@ export function sendNotification(body, actions = []) {
 		title: title,
 		body: body,
 		icon: "./src/img/homeMade/icons/384.png",
+		urgency: "normal",
 	});
 	else if (Notification.permission !== "granted") {
 		Notification.requestPermission().then(response => {

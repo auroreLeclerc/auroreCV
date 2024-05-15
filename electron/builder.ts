@@ -5,7 +5,7 @@ import packageJson from "../package.json" assert { type: "json" };
 const options: builder.Configuration = {
 	"appId": `gay.auroreLeclerc.${packageJson.name}`,
 	"productName": manifest.name,
-	"artifactName": "${name}_${arch}_${version}.${ext}",
+	"artifactName": "${name}_${version}.${ext}",
 
 	"directories": {
 		"output": "./electron/out/build/",
@@ -24,8 +24,6 @@ const options: builder.Configuration = {
 		}
 	},
 	"nsis": {
-		"allowToChangeInstallationDirectory": true,
-		"oneClick": false,
 		"shortcutName": manifest.short_name,
 		"license": "./LICENCE"
 	},

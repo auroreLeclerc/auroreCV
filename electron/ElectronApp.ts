@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, Menu, nativeImage, Notification, NotificationConstructorOptions, systemPreferences, Tray} from "electron";
+import {app, BrowserWindow, ipcMain, Menu, nativeImage, Notification, NotificationConstructorOptions, Tray} from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import v8 from "node:v8";
@@ -10,9 +10,13 @@ export class ElectronApp {
 	private tray: Tray;
 
 	constructor () {
+		this.configApp();
+	}
+
+	public start () {
 		app.whenReady().then(() => {
-			this.configInit();
 			this.createTray();
+			this.checkUpdate();
 			app.on("activate", () => {
 				if (BrowserWindow.getAllWindows().length === 0) {
 					this.createWindow();
@@ -25,7 +29,7 @@ export class ElectronApp {
 		});
 	}
 
-	createWindow (file = "index.html") {
+	private createWindow (file = "index.html") {
 		this.window = new BrowserWindow({
 			"backgroundColor": manifest.background_color,
 			"icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
@@ -42,7 +46,19 @@ export class ElectronApp {
 		this.window.loadFile(path.join(process.cwd(), file));
 	}
 
-	configInit () {
+	private configApp () {
+		app.setName(manifest.short_name);
+		app.setAboutPanelOptions({
+			"applicationName": manifest.name,
+			"applicationVersion": packageJson.version,
+			"authors": [packageJson.author],
+			"copyright": packageJson.license,
+			"credits": packageJson.author,
+			"iconPath": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
+			"version": packageJson.version,
+			"website": "https://auroreleclerc.github.io/auroreCV/"
+		});
+
 		Menu.setApplicationMenu(Menu.buildFromTemplate([
 			{"label": "Naviguer", "submenu": [
 				{"label": "⬅️", "click": () => this.window.webContents.goBack()},
@@ -58,30 +74,20 @@ export class ElectronApp {
 				]}
 			]
 		]));
-		app.setAboutPanelOptions({
-			"applicationName": manifest.name,
-			"applicationVersion": packageJson.version,
-			"authors": [packageJson.author],
-			"copyright": packageJson.license,
-			"credits": packageJson.author,
-			"iconPath": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
-			"version": packageJson.version,
-			"website": "https://auroreleclerc.github.io/auroreCV/"
-		}); 
+
 		ipcMain.on("sendNotification", (event, param: NotificationConstructorOptions) => new Notification(param).show());
 		ipcMain.on("dump", (event, content: unknown) => fs.writeFileSync(path.join(process.cwd(), "dump.txt"), v8.serialize(content)));
 	}
 
-	loadUrl (file = "index.html") {
+	private loadUrl (file = "index.html") {
 		if (this.window) {
 			this.window.loadFile(path.join(process.cwd(), file));
 		}
 		else this.createWindow(file);
 	}
 
-	createTray () {
-		const icon = nativeImage.createFromPath(path.join(process.cwd(), "src/img/homeMade/icons/192.png"));
-		this.tray = new Tray(icon);
+	private createTray () {
+		this.tray = new Tray(nativeImage.createFromPath(path.join(process.cwd(), "src/img/homeMade/icons/192.png")));
 		const contextMenu = Menu.buildFromTemplate([
 			{"label": "Accueil", "click": () => this.loadUrl(), "icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png")},
 			{"label": "Maintenance", "click": () => this.loadUrl("maintenance.html"), "icon": path.join(process.cwd(), "src/img/homeMade/icons/colorfullSettings.png")},
@@ -90,6 +96,15 @@ export class ElectronApp {
 		]);
 		this.tray.setContextMenu(contextMenu);
 		this.tray.setTitle(manifest.name);
+	}
+
+	private checkUpdate () {
+		const notification = new Notification({
+			"title": "Pas de mise à jour disponible",
+			"icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
+			"urgency": "low"
+		});
+		notification.show();
 	}
 }
 
