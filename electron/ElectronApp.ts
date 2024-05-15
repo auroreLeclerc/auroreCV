@@ -32,18 +32,18 @@ export class ElectronApp {
 	private createWindow (file = "index.html") {
 		this.window = new BrowserWindow({
 			"backgroundColor": manifest.background_color,
-			"icon": "src/img/homeMade/icons/192.png",
+			"icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
 			"title": manifest.name,
 			"width": 1280,
 			"height": 720,
 			"minWidth": 480,
 			"minHeight": 720,
 			"webPreferences": {
-				"preload": "electron/commonjs/preload.cjs",
+				"preload": path.join(process.cwd(), "electron/commonjs/preload.cjs"),
 				"devTools": !app.isPackaged
 			}
 		});
-		this.window.loadFile(file);
+		this.window.loadFile(path.join(process.cwd(), file));
 	}
 
 	private configApp () {
@@ -54,7 +54,7 @@ export class ElectronApp {
 			"authors": [packageJson.author],
 			"copyright": packageJson.license,
 			"credits": packageJson.author,
-			"iconPath": "src/img/homeMade/icons/192.png",
+			"iconPath": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
 			"version": packageJson.version,
 			"website": "https://auroreleclerc.github.io/auroreCV/"
 		});
@@ -76,21 +76,21 @@ export class ElectronApp {
 		]));
 
 		ipcMain.on("sendNotification", (event, param: NotificationConstructorOptions) => new Notification(param).show());
-		ipcMain.on("dump", (event, content: unknown) => fs.writeFileSync("dump.txt", v8.serialize(content)));
+		ipcMain.on("dump", (event, content: unknown) => fs.writeFileSync(path.join(process.cwd(), "dump.txt"), v8.serialize(content)));
 	}
 
 	private loadUrl (file = "index.html") {
 		if (this.window) {
-			this.window.loadFile(file);
+			this.window.loadFile(path.join(process.cwd(), file));
 		}
 		else this.createWindow(file);
 	}
 
 	private createTray () {
-		this.tray = new Tray(nativeImage.createFromPath("src/img/homeMade/icons/192.png"));
+		this.tray = new Tray(nativeImage.createFromPath(path.join(process.cwd(), "src/img/homeMade/icons/192.png")));
 		const contextMenu = Menu.buildFromTemplate([
-			{"label": "Accueil", "click": () => this.loadUrl(), "icon": "src/img/homeMade/icons/192.png"},
-			{"label": "Maintenance", "click": () => this.loadUrl("maintenance.html"), "icon": "src/img/homeMade/icons/colorfullSettings.png"},
+			{"label": "Accueil", "click": () => this.loadUrl(), "icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png")},
+			{"label": "Maintenance", "click": () => this.loadUrl("maintenance.html"), "icon": path.join(process.cwd(), "src/img/homeMade/icons/colorfullSettings.png")},
 			{"type": "separator"},
 			{"label": "Fermer l'application", "role": "quit"}
 		]);
@@ -101,7 +101,7 @@ export class ElectronApp {
 	private checkUpdate () {
 		const notification = new Notification({
 			"title": "Pas de mise à jour disponible",
-			"icon": "src/img/homeMade/icons/192.png",
+			"icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
 			"urgency": "low"
 		});
 		notification.show();
