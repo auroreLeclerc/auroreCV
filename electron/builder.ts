@@ -25,7 +25,7 @@ const options: builder.Configuration = {
 	},
 	"nsis": {
 		"shortcutName": manifest.short_name,
-		"license": "./LICENCE"
+		"license": "./LICENSE"
 	},
 	"linux": {
 		"synopsis": manifest.short_name,
