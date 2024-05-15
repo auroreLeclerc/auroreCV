@@ -10,7 +10,7 @@
 		"populate": "npm run populate-apple; npm run populate-cache",
 		"test": "mocha; eslint; stylelint '**/*.css'",
 		"ts": "rm -r ./electron/out; npx tsc -b electron/tsconfig.json",
-		"build": "npm run ts; rm -r build; node electron/out/ts/electron/builder.js"
+		"build": "npm run ts; node electron/out/ts/electron/builder.js"
 	},
 	"author": "Aurore Leclerc",
 	"version": "2.4.0",
@@ -20,7 +20,6 @@
 	"license": "GPL-3.0",
 	"type": "module",
 	"devDependencies": {
-		"@electron/fuses": "^1.8.0",
 		"@eslint/eslintrc": "^3.0.2",
 		"@eslint/js": "^9.2.0",
 		"@stylistic/eslint-plugin": "^2.1.0",
@@ -31,9 +30,9 @@
 		"@types/mocha": "^10.0.6",
 		"@types/serviceworker": "^0.0.86",
 		"@types/web": "^0.0.144",
-		"@typescript-eslint/eslint-plugin": "^7.8.0",
-		"@typescript-eslint/parser": "^7.8.0",
-		"electron": "^30.0.3",
+		"@typescript-eslint/eslint-plugin": "^7.9.0",
+		"@typescript-eslint/parser": "^7.9.0",
+		"electron": "^30.0.4",
 		"electron-builder": "^24.13.3",
 		"eslint": "^9.2.0",
 		"eslint-plugin-eslint-plugin": "^6.1.0",
@@ -48,5 +47,8 @@
 		"stylelint": "^16.5.0",
 		"stylelint-config-standard": "^36.0.0",
 		"typescript": "^5.4.5"
+	},
+	"optionalDependencies": {
+		"dmg-license": "^1.0.11"
 	}
 }
