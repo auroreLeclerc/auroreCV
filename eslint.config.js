@@ -15,29 +15,32 @@ export default [
 			semi: true,
 			jsx: true,
 		}),
-		files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
-		ignores: ["**/out/ts/**/*.js", "**/out/ts/**/*.mjs", "**/out/ts/**/*.cjs"],
+		files: ["*.js", "*.mjs", "*.cjs"],
+		ignores: ["out/", "android/"],
 	}, {
 		...stylisticTs.configs["all-flat"],
-		files: ["**/*.ts", "**/*.mts"],
+		files: ["*.ts", "*.mts"],
+		ignores: ["out/", "android/"],
 	}, {
 		...jsdoc.configs["flat/recommended-typescript-flavor"],
-		files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
-		ignores: ["**/out/ts/**/*.js", "**/out/ts/**/*.mjs", "**/out/ts/**/*.cjs"],
+		files: ["*.js", "*.mjs", "*.cjs"],
+		ignores: ["out/", "android/"],
 	}, {
 		...jsdoc.configs["flat/recommended-typescript"],
-		files: ["**/*.ts", "**/*.mts"],
+		files: ["*.ts", "*.mts"],
+		ignores: ["out/", "android/"],
 	}, {
 		...plugin.configs["flat/recommended"],
-		files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
-		ignores: ["**/out/ts/**/*.js", "**/out/ts/**/*.mjs", "**/out/ts/**/*.cjs"],
+		files: ["*.js", "*.mjs", "*.cjs"],
+		ignores: ["out/", "android/"],
 	}, {
 		...pluginTs.configs["flat/recommended"],
-		files: ["**/*.ts", "**/*.mts"],
+		files: ["*.ts", "*.mts"],
+		ignores: ["out/", "android/"],
 	}, {
 		...mocha.configs.flat.recommended,
-		files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
-		ignores: ["**/out/ts/**/*.js", "**/out/ts/**/*.mjs", "**/out/ts/**/*.cjs"],
+		files: ["*.js", "*.mjs", "*.cjs"],
+		ignores: ["out/", "android/"],
 	}, {
 		languageOptions: {
 			globals: {
@@ -60,8 +63,8 @@ export default [
 			"jsdoc/require-returns": 0,
 			"jsdoc/require-property-description": 0,
 		},
-		files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
-		ignores: ["**/out/ts/**/*.js", "**/out/ts/**/*.mjs", "**/out/ts/**/*.cjs"],
+		files: ["*.js", "*.mjs", "*.cjs"],
+		ignores: ["out/", "android/"],
 	}, {
 		languageOptions: {
 			globals: {
@@ -83,6 +86,7 @@ export default [
 			}, { exceptAfterSingleLine: true }],
 			"jsdoc/require-jsdoc": 0,
 		},
-		files: ["**/*.ts", "**/*.mts"],
+		files: ["*.ts", "*.mts"],
+		ignores: ["out/", "android/"],
 	},
 ];

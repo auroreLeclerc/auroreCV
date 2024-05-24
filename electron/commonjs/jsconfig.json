@@ -3,9 +3,7 @@
 	"compilerOptions": {
 		"module": "CommonJS",
 		"lib": ["DOM"],
-		"outDir": "../out/ts/",
 		"strictNullChecks": false,
 		"checkJs": true
 	},
-	"exclude": ["node_modules"],
 }

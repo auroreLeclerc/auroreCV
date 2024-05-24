@@ -3,7 +3,9 @@ import { HttpError, HttpRecoveryError, NotFoundError } from "../Errors.js";
 import { LOCALES, getEmojiPeople } from "../variables.mjs";
 
 /**
- * @typedef {import("../../../electron/commonjs/preload.cjs").ElectronExposed} ElectronExposed
+ * @typedef {import("../../../../electron/commonjs/preload.cjs").ElectronExposed} ElectronExposed
+ * @typedef {import("@awesome-cordova-plugins/device").DeviceOriginal} CordovaDevice
+ * @typedef {import("@awesome-cordova-plugins/dialogs").DialogsOriginal} CordovaDialog
  */
 
 export class Controller {
@@ -298,4 +300,16 @@ globalThis.mvc = {
 	 */
 	// @ts-ignore
 	electron: "electron" in window ? window.electron : null,
+	cordova: "device" in window && "notification" in navigator ? {
+		/**
+		 * @type {CordovaDevice}
+		 */
+		// @ts-ignore
+		device: window.device,
+		/**
+		 * @type {CordovaDialog}
+		 */
+		// @ts-ignore
+		notification: navigator.notification
+	} : null
 };

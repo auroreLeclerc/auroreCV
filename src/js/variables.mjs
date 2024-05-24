@@ -93,6 +93,9 @@ export function sendNotification(body, actions = []) {
 		icon: "./src/img/homeMade/icons/384.png",
 		urgency: "normal",
 	});
+	else if (globalThis.mvc.cordova) {
+		globalThis.mvc.cordova.notification.alert(body, title);
+	}
 	else if (Notification.permission !== "granted") {
 		Notification.requestPermission().then(response => {
 			if (response === "granted") {

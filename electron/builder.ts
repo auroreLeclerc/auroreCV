@@ -1,19 +1,19 @@
 import * as builder from "electron-builder";
-import manifest from "../manifest.json" assert { type: "json" };
+import manifest from "../www/manifest.json" assert { type: "json" };
 import packageJson from "../package.json" assert { type: "json" };
 
 const options: builder.Configuration = {
-	"appId": `gay.auroreLeclerc.${packageJson.name}`,
+	"appId": "gay.aurore.cv",
 	"productName": manifest.name,
 	"artifactName": "${name}_${version}.${ext}",
 
 	"directories": {
-		"output": "./electron/out/build/",
-		"buildResources": "./electron/out/build/ressources/"
+		"output": "./out/build/",
+		"buildResources": "./resources/",
 	},
 
 	"win": {
-		"icon": "./src/img/homeMade/icons/384.png",
+		"icon": "./resources/icon.ico",
 		"releaseInfo": {
 			"releaseDate": new Date().toDateString(),
 			"releaseName": "${version}",
@@ -31,9 +31,12 @@ const options: builder.Configuration = {
 		"synopsis": manifest.short_name,
 		"description": manifest.description,
 		"category": manifest.categories[0],
-		"icon": "./src/img/homeMade/icons/512.png",
+		"icon": "./resources/icon.icns",
 		"maintainer": packageJson.author,
 		"vendor": manifest.id
+	},
+	"mac": {
+		"icon": "./resources/icon.icns"
 	},
 	"flatpak": {
 		"baseVersion": "23.08",

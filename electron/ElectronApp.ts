@@ -1,19 +1,36 @@
-import {app, BrowserWindow, ipcMain, Menu, nativeImage, Notification, NotificationConstructorOptions, Tray} from "electron";
+import {app, BrowserWindow, ipcMain, Menu, nativeImage, Notification, NotificationConstructorOptions, Tray, shell, dialog} from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import v8 from "node:v8";
-import manifest from "../manifest.json" with { type: "json" };
+import manifest from "../www/manifest.json" with { type: "json" };
 import packageJson from "../package.json" with { type: "json" };
 
 export class ElectronApp {
 	private window: BrowserWindow;
 	private tray: Tray;
-
-	constructor () {
-		this.configApp();
+	private get icon () {
+		switch (process.platform) {
+			case "win32":
+				return nativeImage.createFromPath(path.join(process.cwd(), "resources/icon.ico"));
+			case "darwin":
+				return nativeImage.createFromPath(path.join(process.cwd(), "resources/icon.icns"));
+			default:
+				return nativeImage.createFromPath(path.join(process.cwd(), "www/src/img/homeMade/icons/192.png"));
+		}
+	}
+	private get settings () {
+		switch (process.platform) {
+			case "win32":
+				return nativeImage.createFromPath(path.join(process.cwd(), "resources/settings.ico"));
+			case "darwin":
+				return nativeImage.createFromPath(path.join(process.cwd(), "resources/settings.icns"));
+			default:
+				return nativeImage.createFromPath(path.join(process.cwd(), "www/src/img/homeMade/icons/colorfullSettings.png"));
+		}
 	}
 
 	public start () {
+		this.configApp();
 		app.whenReady().then(() => {
 			this.createTray();
 			this.checkUpdate();
@@ -29,10 +46,10 @@ export class ElectronApp {
 		});
 	}
 
-	private createWindow (file = "index.html") {
+	private createWindow (file = "www/index.html") {
 		this.window = new BrowserWindow({
 			"backgroundColor": manifest.background_color,
-			"icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
+			"icon": this.icon,
 			"title": manifest.name,
 			"width": 1280,
 			"height": 720,
@@ -54,7 +71,7 @@ export class ElectronApp {
 			"authors": [packageJson.author],
 			"copyright": packageJson.license,
 			"credits": packageJson.author,
-			"iconPath": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
+			"iconPath": path.join(process.cwd(), "www/src/img/homeMade/icons/192.png"),
 			"version": packageJson.version,
 			"website": "https://auroreleclerc.github.io/auroreCV/"
 		});
@@ -79,7 +96,7 @@ export class ElectronApp {
 		ipcMain.on("dump", (event, content: unknown) => fs.writeFileSync(path.join(process.cwd(), "dump.txt"), v8.serialize(content)));
 	}
 
-	private loadUrl (file = "index.html") {
+	private loadUrl (file = "www/index.html") {
 		if (this.window) {
 			this.window.loadFile(path.join(process.cwd(), file));
 		}
@@ -87,10 +104,10 @@ export class ElectronApp {
 	}
 
 	private createTray () {
-		this.tray = new Tray(nativeImage.createFromPath(path.join(process.cwd(), "src/img/homeMade/icons/192.png")));
+		this.tray = new Tray(this.icon);
 		const contextMenu = Menu.buildFromTemplate([
-			{"label": "Accueil", "click": () => this.loadUrl(), "icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png")},
-			{"label": "Maintenance", "click": () => this.loadUrl("maintenance.html"), "icon": path.join(process.cwd(), "src/img/homeMade/icons/colorfullSettings.png")},
+			{"label": "Accueil", "click": () => this.loadUrl(), "icon": this.icon},
+			{"label": "Maintenance", "click": () => this.loadUrl("www/maintenance.html"), "icon": this.settings},
 			{"type": "separator"},
 			{"label": "Fermer l'application", "role": "quit"}
 		]);
@@ -99,12 +116,27 @@ export class ElectronApp {
 	}
 
 	private checkUpdate () {
-		const notification = new Notification({
-			"title": "Pas de mise à jour disponible",
-			"icon": path.join(process.cwd(), "src/img/homeMade/icons/192.png"),
-			"urgency": "low"
-		});
-		notification.show();
+		fetch("https://auroreleclerc.github.io/auroreCV/package.json").then(response =>
+			response.json().then(json => {
+				if (Number.parseInt(packageJson.version.replaceAll(".", ""), 10) > Number.parseInt(json.version.replaceAll(".", ""), 10)) {
+					const notification = new Notification({
+						"title": "Une nouvelle mise à jour est disponible !",
+						"icon": this.icon,
+						"urgency": "critical"
+					});
+					notification.addListener("click", () => {
+						shell.openExternal("https://github.com/auroreLeclerc/auroreCV/releases");
+					});
+					notification.show();
+				}
+				else console.info(`Remote is ${json.version}`);
+			}).catch(error => 
+				dialog.showMessageBox(this.window, {
+					"message": `${error.toString()}\nlocale=${typeof packageJson}\nonline=${response.ok}`,
+					"type": "error"
+				})
+			)
+		);
 	}
 }
 

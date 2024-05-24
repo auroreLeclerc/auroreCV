@@ -1,3 +1,3 @@
-import { ElectronApp } from "./electron/out/ts/electron/ElectronApp.js";
+import { ElectronApp } from "./out/ts/electron/ElectronApp.js";
 
 new ElectronApp().start();

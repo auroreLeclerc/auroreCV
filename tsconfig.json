@@ -1,13 +1,13 @@
 {
-	"extends": "@tsconfig/recommended/tsconfig.json",
+	"extends": "@tsconfig/node-lts/tsconfig.json",
 	"compilerOptions": {
-		"resolveJsonModule": false,
-		"lib": ["WebWorker", "DOM"],
+		"module": "NodeNext",
+		"resolveJsonModule": true,
 		"outDir": "./out/ts/",
-		"checkJs": true,
+		"allowJs": false,
+		"sourceMap": true,
+		"useUnknownInCatchVariables": false,
 		"strictNullChecks": false,
-		"moduleResolution": "Node16",
-		"module": "Node16"
 	},
-	"exclude": ["node_modules", "electron"],
+	"exclude": ["node_modules", "out", "electron/commonjs/", "android", "www"],
 }

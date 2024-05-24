@@ -201,9 +201,11 @@ main section#skills article div ul li.flag::before {
 	background-image: url("../img/homeMade/greenflag.svg");
 }
 main section#skills article div ul li.english::before {
+	background-image: none;
 	content: "🇬🇧";
 }
 main section#skills article div ul li.french::before {
+	background-image: none;
 	content: "🇫🇷";
 }
 main section#skills article div ul li.progress::before {

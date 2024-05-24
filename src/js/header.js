@@ -41,7 +41,7 @@ if ("share" in navigator) {
  * @param {HTMLElement} print
  */
 function checkIfPrintAvaible(url, print) {
-	if (url.hash.endsWith("#home") || url.hash === "") {
+	if ((url.hash.endsWith("#home") || url.hash === "") && !globalThis?.mvc?.cordova) {
 		print.style.display = null;
 	}
 	else print.style.display = "none";

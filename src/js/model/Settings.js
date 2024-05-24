@@ -1,6 +1,6 @@
 import { DataBaseHelper } from "../DataBaseHelper.js";
 import { ArchitectureError, HttpError } from "../Errors.js";
-import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, toDatetimeLocal, getEmojiPeople } from "../variables.mjs";
+import { CACHE_NAME, MANIFEST_NAME, DELETE_CACHE, sendNotification, toDatetimeLocal } from "../variables.mjs";
 import { Version } from "../Version.js";
 /**
  * @typedef {import("../DataBaseHelper.js").DataBaseHelperTransactionType} DataBaseHelperTransactionType
@@ -135,7 +135,7 @@ export class Settings {
 						}
 						else {
 							caches.open(CACHE_NAME).then(cache =>
-								cache.match(MANIFEST_NAME),
+								cache.match("package.json"),
 							).then(stream =>
 								stream.json(),
 							).then(json => {
@@ -148,7 +148,7 @@ export class Settings {
 								console.error("⚙️", error);
 							});
 
-							fetch(`${MANIFEST_NAME}!online`).then(response => {
+							fetch(`package.json!online`).then(response => {
 								if (!response?.ok) throw new HttpError(response.status, response.statusText, response.url);
 								return response.json();
 							}).then(json => {
@@ -270,6 +270,11 @@ export class Settings {
 			document.getElementById("chrome").textContent = globalThis.mvc.electron.version.chrome;
 			document.getElementById("node").textContent = globalThis.mvc.electron.version.node;
 			document.getElementById("electron-info").style.display = "block";
+		}
+		else if (globalThis.mvc.cordova) {
+			document.getElementById("os").textContent = `${globalThis.mvc.cordova.device.platform} ${globalThis.mvc.cordova.device.version}`;
+			document.getElementById("phone").textContent = `${globalThis.mvc.cordova.device.model} by ${globalThis.mvc.cordova.device.manufacturer}`;
+			document.getElementById("capacitor-info").style.display = "block";
 		}
 
 		document.getElementById("debug").style.display = enable ? "flex" : "none";

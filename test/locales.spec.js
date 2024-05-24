@@ -1,12 +1,12 @@
 import expect from "expect.js";
 import * as fs from "node:fs";
-import { LOCALES } from "../src/js/variables.mjs";
+import { LOCALES } from "../www/src/js/variables.mjs";
 import assert from "node:assert";
 
 describe("Locales", function () {
 	context("Index", function () {
 		it("locales", function () {
-			const html = fs.readFileSync(`./index.html`, "utf8");
+			const html = fs.readFileSync(`./www/index.html`, "utf8");
 			const balises = html.match(/locale="\S*"/g);
 			for (const balise of balises) {
 				expect(balise).to.contain("index.");
@@ -15,7 +15,7 @@ describe("Locales", function () {
 	});
 	context("Settings", function () {
 		it("Language switch", function () {
-			const html = fs.readFileSync(`./src/view/settings.html`, "utf8");
+			const html = fs.readFileSync(`./www/src/view/settings.html`, "utf8");
 			for (const locale of LOCALES) {
 				expect(html).to.contain(`id="${locale}"`);
 			}
@@ -26,7 +26,7 @@ describe("Locales", function () {
 		let locales = [""];
 
 		before(function () {
-			locales = fs.readdirSync("./src/locales/");
+			locales = fs.readdirSync("./www/src/locales/");
 		});
 
 		it("Controller is up to date", async function () {
@@ -43,13 +43,13 @@ describe("Locales", function () {
 
 			before(function () {
 				for (const locale of locales) {
-					localeDirDict[locale] = fs.readdirSync(`./src/locales/${locale}/`);
+					localeDirDict[locale] = fs.readdirSync(`./www/src/locales/${locale}/`);
 				}
 			});
 
 			it("View locales are completete", function () {
 				for (const [locale, translations] of Object.entries(localeDirDict)) {
-					const htmls = fs.readdirSync(`./src/view/`, "utf8");
+					const htmls = fs.readdirSync(`./www/src/view/`, "utf8");
 					expect(translations.length).to.be.equal(htmls.length + 1);
 				}
 			});
@@ -58,14 +58,14 @@ describe("Locales", function () {
 				for (const [locale, translations] of Object.entries(localeDirDict)) {
 					for (const translation of translations) {
 						const fileName = translation.split(".")[0];
-						const json = JSON.parse(fs.readFileSync(`./src/locales/${locale}/${fileName}.json`, "utf8"));
+						const json = JSON.parse(fs.readFileSync(`./www/src/locales/${locale}/${fileName}.json`, "utf8"));
 						let html;
 
 						if (fileName === "index") {
-							html = fs.readFileSync(`./index.html`, "utf8");
+							html = fs.readFileSync(`./www/index.html`, "utf8");
 						}
 						else {
-							html = fs.readFileSync(`./src/view/${fileName}.html`, "utf8");
+							html = fs.readFileSync(`./www/src/view/${fileName}.html`, "utf8");
 						}
 
 						for (const [key, value] of Object.entries(json)) {
@@ -79,13 +79,13 @@ describe("Locales", function () {
 				for (const [locale, translations] of Object.entries(localeDirDict)) {
 					for (const translation of translations) {
 						const fileName = translation.split(".")[0];
-						const json = JSON.parse(fs.readFileSync(`./src/locales/${locale}/${fileName}.json`, "utf8"));
+						const json = JSON.parse(fs.readFileSync(`./www/src/locales/${locale}/${fileName}.json`, "utf8"));
 						let html;
 						if (fileName === "index") {
-							html = fs.readFileSync(`./index.html`, "utf8");
+							html = fs.readFileSync(`./www/index.html`, "utf8");
 						}
 						else {
-							html = fs.readFileSync(`./src/view/${fileName}.html`, "utf8");
+							html = fs.readFileSync(`./www/src/view/${fileName}.html`, "utf8");
 						}
 
 						const balises = html.match(/locale="\S*"/g);

@@ -26,7 +26,7 @@ export class Home {
 		}
 
 		new DataBaseHelper().start.then(transaction => {
-			if (globalThis.mvc.electron) {
+			if (globalThis.mvc.electron || globalThis.mvc.cordova) {
 				transaction.setAppConfig("serviceWorker", false);
 				transaction.setAppConfig("autoUpdate", false);
 			}
