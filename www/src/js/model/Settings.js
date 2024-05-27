@@ -271,10 +271,12 @@ export class Settings {
 			document.getElementById("node").textContent = globalThis.mvc.electron.version.node;
 			document.getElementById("electron-info").style.display = "block";
 		}
-		else if (globalThis.mvc.cordova) {
-			document.getElementById("os").textContent = `${globalThis.mvc.cordova.device.platform} ${globalThis.mvc.cordova.device.version}`;
-			document.getElementById("phone").textContent = `${globalThis.mvc.cordova.device.model} by ${globalThis.mvc.cordova.device.manufacturer}`;
-			document.getElementById("capacitor-info").style.display = "block";
+		else if (globalThis.mvc.capacitor) {
+			globalThis.mvc.capacitor.device.getInfo().then(info => {
+				document.getElementById("os").textContent = `${info.platform} ${info.osVersion}`;
+				document.getElementById("phone").textContent = `${info.model} by ${info.manufacturer}`;
+				document.getElementById("capacitor-info").style.display = "block";
+			});
 		}
 
 		document.getElementById("debug").style.display = enable ? "flex" : "none";

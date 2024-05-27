@@ -9,7 +9,7 @@ const options: builder.Configuration = {
 
 	"directories": {
 		"output": "./out/build/",
-		"buildResources": "./resources/",
+		"buildResources": "./resources/"
 	},
 
 	"win": {

@@ -6,10 +6,9 @@ const config: CapacitorConfig = {
 	"appName": manifest.short_name,
 	"webDir": "www",
 	"backgroundColor": manifest.background_color,
-	"cordova": {
-		"preferences": {
-			"BackgroundColor": manifest.background_color,
-			"StatusBarBackgroundColor": manifest.background_color
+	"plugins": {
+		"LocalNotifications": {
+		  "smallIcon": "./www/src/img/homeMade/icons/initials.png"
 		}
 	}
 };

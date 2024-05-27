@@ -35,6 +35,7 @@
 		"@types/mocha": "^10.0.6",
 		"@types/serviceworker": "^0.0.86",
 		"@types/web": "^0.0.147",
+		"@types/webpack": "^5.28.5",
 		"@typescript-eslint/eslint-plugin": "^7.10.0",
 		"@typescript-eslint/parser": "^7.10.0",
 		"electron": "^30.0.8",
@@ -51,20 +52,17 @@
 		"pwa-asset-generator": "^6.3.1",
 		"stylelint": "^16.6.0",
 		"stylelint-config-standard": "^36.0.0",
-		"typescript": "^5.4.5"
+		"typescript": "^5.4.5",
+		"webpack": "^5.91.0",
+		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
-		"@awesome-cordova-plugins/core": "^6.7.0",
-		"@awesome-cordova-plugins/device": "^6.7.0",
-		"@awesome-cordova-plugins/dialogs": "^6.7.0",
-		"@awesome-cordova-plugins/social-sharing": "^6.7.0",
-		"@awesome-cordova-plugins/status-bar": "^6.7.0",
 		"@capacitor/android": "^6.0.0",
 		"@capacitor/core": "^6.0.0",
-		"cordova-plugin-device": "^2.1.0",
-		"cordova-plugin-dialogs": "^2.0.2",
-		"cordova-plugin-statusbar": "^4.0.0",
-		"cordova-plugin-x-socialsharing": "^6.0.4",
-		"es6-promise-plugin": "^4.2.2"
+		"@capacitor/device": "^6.0.0",
+		"@capacitor/local-notifications": "^6.0.0",
+		"@capacitor/share": "^6.0.0",
+		"@capacitor/status-bar": "^6.0.0",
+		"capacitor-android-shortcuts": "^5.0.5"
 	}
 }

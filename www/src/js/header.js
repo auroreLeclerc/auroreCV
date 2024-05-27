@@ -16,7 +16,7 @@ navigator.onLine ? ONLINE() : OFFLINE();
 addEventListener("offline", OFFLINE);
 addEventListener("online", ONLINE);
 
-if ("share" in navigator) {
+if ("share" in navigator || globalThis.mvc.capacitor) {
 	header.insertAdjacentHTML("beforeend",
 		`<h1 id="share">
 			<a href="javascript:void(null);" class="landscape-orientation">Partager !</a>
@@ -24,15 +24,14 @@ if ("share" in navigator) {
 		</h1>`,
 	);
 	document.getElementById("share").addEventListener("click", () => {
-		navigator.share({
+		const shareOptions = {
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
 			text: "Je t'ai montré le CV d'Aurore Leclerc ?\nRegarde il peut même être installé sur ton appareil (en PWA) !",
 			url: "https://auroreleclerc.github.io/auroreCV/",
-		}).then(() => {
-			console.info("Shared !");
-		}).catch(error => {
-			console.info(error);
-		});
+		};
+
+		if (globalThis.mvc.capacitor) globalThis.mvc.capacitor.share.share(shareOptions);
+		else navigator.share(shareOptions);
 	});
 }
 
@@ -41,7 +40,7 @@ if ("share" in navigator) {
  * @param {HTMLElement} print
  */
 function checkIfPrintAvaible(url, print) {
-	if ((url.hash.endsWith("#home") || url.hash === "") && !globalThis?.mvc?.cordova) {
+	if ((url.hash.endsWith("#home") || url.hash === "") && !globalThis?.mvc?.capacitor) {
 		print.style.display = null;
 	}
 	else print.style.display = "none";

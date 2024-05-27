@@ -9,5 +9,5 @@
 		"useUnknownInCatchVariables": false,
 		"strictNullChecks": false,
 	},
-	"exclude": ["node_modules", "out", "electron/commonjs/", "android", "www"],
+	"exclude": ["node_modules", "out", "electron/commonjs/", "android", "www", "capacitor"],
 }

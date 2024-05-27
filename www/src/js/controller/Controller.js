@@ -4,8 +4,7 @@ import { LOCALES, getEmojiPeople } from "../variables.mjs";
 
 /**
  * @typedef {import("../../../../electron/commonjs/preload.cjs").ElectronExposed} ElectronExposed
- * @typedef {import("@awesome-cordova-plugins/device").DeviceOriginal} CordovaDevice
- * @typedef {import("@awesome-cordova-plugins/dialogs").DialogsOriginal} CordovaDialog
+ * @typedef {import("../../../../capacitor/CapacitorHelper.js").CapacitorHelper} CapacitorHelper
  */
 
 export class Controller {
@@ -40,6 +39,7 @@ export class Controller {
 	};
 
 	constructor() {
+		import("../header.js");
 		for (const localeElement of document.querySelectorAll("body > header [locale], body > footer [locale]")) {
 			const localeId = localeElement.getAttribute("locale");
 			this.#indexFrenchTranslation[localeId] = localeElement.textContent;
@@ -197,6 +197,7 @@ export class Controller {
 
 					if (errorToRender) {
 						try {
+							if (globalThis.mvc.capacitor) globalThis.mvc.capacitor.statusBarBackgroundColor = "#B22222";
 							if (errorToRender instanceof HttpError) {
 								view.getElementById("emote").textContent = errorToRender.emoji;
 								const errorElement = view.getElementById("error");
@@ -216,6 +217,7 @@ export class Controller {
 							else this._recovery(new HttpRecoveryError(521, typeof error, response.url));
 						}
 					}
+					else if (globalThis.mvc.capacitor) globalThis.mvc.capacitor.statusBarBackgroundColor = "#9932CC";
 
 					while (view.body.firstElementChild.children.length) {
 						this.#view.appendChild(view.body.firstElementChild.firstChild);
@@ -293,23 +295,25 @@ export class Controller {
 }
 
 globalThis.mvc = {
-	models: [],
-	controller: new Controller(),
 	/**
 	 * @type {ElectronExposed | null}
 	 */
 	// @ts-ignore
 	electron: "electron" in window ? window.electron : null,
-	cordova: "device" in window && "notification" in navigator ? {
-		/**
-		 * @type {CordovaDevice}
-		 */
-		// @ts-ignore
-		device: window.device,
-		/**
-		 * @type {CordovaDialog}
-		 */
-		// @ts-ignore
-		notification: navigator.notification
-	} : null
+	/**
+	 * @type {CapacitorHelper | null}
+	 */
+	capacitor: await import("../out/capacitor.bundle.js").then(module => {
+		const helper = new module.CapacitorHelper();
+		if (!helper.core.isNativePlatform()) {
+			console.error(helper.core.getPlatform());
+			return null;
+		}
+		return helper;
+	}).catch(error => {
+		console.warn(error);
+		return null;
+	}),
+	models: [],
+	controller: new Controller(),
 };

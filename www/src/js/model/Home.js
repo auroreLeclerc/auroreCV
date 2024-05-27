@@ -26,7 +26,7 @@ export class Home {
 		}
 
 		new DataBaseHelper().start.then(transaction => {
-			if (globalThis.mvc.electron || globalThis.mvc.cordova) {
+			if (globalThis.mvc.electron || globalThis.mvc.capacitor || !("BroadcastChannel" in window)) {
 				transaction.setAppConfig("serviceWorker", false);
 				transaction.setAppConfig("autoUpdate", false);
 			}
