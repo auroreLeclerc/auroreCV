@@ -1,8 +1,8 @@
 [
-  "index.js",
-  "package.json",
   "index.html",
+  "index.js",
   "manifest.json",
+  "package.json",
   "service-worker.js",
   "src/apple.html",
   "src/css/error.css",
