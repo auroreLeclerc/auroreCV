@@ -2,12 +2,11 @@
 @import url("./pwa.css");
 
 :root {
-	/* stylelint-disable-next-line value-keyword-case */
-	accent-color: DarkOrchid;
+	accent-color: darkorchid;
 	font-family: LiberationSans, sans-serif;
 
-	/* font-family: LiberationSerif;
-	   font-family: LiberationMono; */
+	/* font-family: LiberationSerif, sans-serif;
+	font-family: LiberationMono, sans-serif; */
 }
 
 html, body {

@@ -3,11 +3,11 @@
 	"compilerOptions": {
 		"module": "NodeNext",
 		"resolveJsonModule": true,
-		"outDir": "./out/ts/",
+		"outDir": "./www/src/js/ts/",
 		"allowJs": false,
 		"sourceMap": true,
 		"useUnknownInCatchVariables": false,
 		"strictNullChecks": false,
 	},
-	"exclude": ["node_modules", "out", "electron/commonjs/", "android", "www", "capacitor"],
+	"exclude": ["node_modules", "build", "electron/commonjs/", "android", "www", "capacitor"],
 }

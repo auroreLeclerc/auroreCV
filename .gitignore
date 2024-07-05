@@ -1,5 +1,7 @@
 android/
-out/
+build/
+www/src/js/ts/
+www/src/js/bundle/
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,yarn,visualstudiocode
 

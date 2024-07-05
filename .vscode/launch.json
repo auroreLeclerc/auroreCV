@@ -16,12 +16,12 @@
 			"port": 9222,
 			"request": "attach",
 			"type": "chrome",
-			"webRoot": "${workspaceFolder}"
+			"webRoot": "${workspaceFolder}/"
 		}, {
 			"name": "Electron Main Remote",
 			"type": "node",
 			"request": "launch",
-			"cwd": "${workspaceFolder}",
+			"cwd": "${workspaceFolder}/www/",
 			"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
 			"windows": {
 				"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"

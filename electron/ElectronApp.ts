@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, Menu, nativeImage, Notification, NotificationConstructorOptions, Tray, shell, dialog} from "electron";
+import {app, BrowserWindow, ipcMain, Menu, nativeImage, Notification, NotificationConstructorOptions, Tray, shell} from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import v8 from "node:v8";
@@ -8,32 +8,16 @@ import packageJson from "../package.json" with { type: "json" };
 export class ElectronApp {
 	private window: BrowserWindow;
 	private tray: Tray;
-	private get icon () {
-		switch (process.platform) {
-			case "win32":
-				return nativeImage.createFromPath(path.join(process.cwd(), "resources/icon.ico"));
-			case "darwin":
-				return nativeImage.createFromPath(path.join(process.cwd(), "resources/icon.icns"));
-			default:
-				return nativeImage.createFromPath(path.join(process.cwd(), "www/src/img/homeMade/icons/192.png"));
-		}
-	}
-	private get settings () {
-		switch (process.platform) {
-			case "win32":
-				return nativeImage.createFromPath(path.join(process.cwd(), "resources/settings.ico"));
-			case "darwin":
-				return nativeImage.createFromPath(path.join(process.cwd(), "resources/settings.icns"));
-			default:
-				return nativeImage.createFromPath(path.join(process.cwd(), "www/src/img/homeMade/icons/colorfullSettings.png"));
-		}
-	}
+	private readonly resourceFolder = path.join(app.isPackaged ? process.resourcesPath : path.join(app.getAppPath(), "../resources/electron/"));
 
 	public start () {
+		app.requestSingleInstanceLock();
+		if (!app.hasSingleInstanceLock()) app.quit();
+
 		this.configApp();
 		app.whenReady().then(() => {
 			this.createTray();
-			this.checkUpdate();
+			// this.checkUpdate();
 			app.on("activate", () => {
 				if (BrowserWindow.getAllWindows().length === 0) {
 					this.createWindow();
@@ -44,23 +28,27 @@ export class ElectronApp {
 		app.on("window-all-closed", () => {
 			this.window = null;
 		});
+
+		app.on("second-instance", (event) => {
+			this.loadUrl();
+		});
 	}
 
-	private createWindow (file = "www/index.html") {
+	private createWindow (file = "/index.html") {
 		this.window = new BrowserWindow({
 			"backgroundColor": manifest.background_color,
-			"icon": this.icon,
+			"icon": nativeImage.createFromPath(path.join(app.getAppPath(), "/src/img/homeMade/icons/192.png")),
 			"title": manifest.name,
 			"width": 1280,
 			"height": 720,
 			"minWidth": 480,
 			"minHeight": 720,
 			"webPreferences": {
-				"preload": path.join(process.cwd(), "electron/commonjs/preload.cjs"),
+				"preload": path.join(app.isPackaged ? process.resourcesPath : path.join(app.getAppPath(), "../electron/commonjs/"), "preload.cjs"),
 				"devTools": !app.isPackaged
 			}
 		});
-		this.window.loadFile(path.join(process.cwd(), file));
+		this.window.loadFile(path.join(app.getAppPath(), file));
 	}
 
 	private configApp () {
@@ -71,9 +59,9 @@ export class ElectronApp {
 			"authors": [packageJson.author],
 			"copyright": packageJson.license,
 			"credits": packageJson.author,
-			"iconPath": path.join(process.cwd(), "www/src/img/homeMade/icons/192.png"),
+			"iconPath": path.join(app.getAppPath(), "/src/img/homeMade/icons/192.png"),
 			"version": packageJson.version,
-			"website": "https://auroreleclerc.github.io/auroreCV/"
+			"website": "https://auroreleclerc.github.io/auroreCV/www/index.html"
 		});
 
 		Menu.setApplicationMenu(Menu.buildFromTemplate([
@@ -93,26 +81,30 @@ export class ElectronApp {
 		]));
 
 		ipcMain.on("sendNotification", (event, param: NotificationConstructorOptions) => new Notification(param).show());
-		ipcMain.on("dump", (event, content: unknown) => fs.writeFileSync(path.join(process.cwd(), "dump.txt"), v8.serialize(content)));
+		ipcMain.on("dump", (event, content: unknown) => fs.writeFileSync(path.join(app.getAppPath(), "dump.txt"), v8.serialize(content)));
 	}
 
-	private loadUrl (file = "www/index.html") {
+	private loadUrl (file = "/index.html") {
 		if (this.window) {
-			this.window.loadFile(path.join(process.cwd(), file));
+			this.window.loadFile(path.join(app.getAppPath(), file));
 		}
 		else this.createWindow(file);
+
+		this.window.show();
+		this.window.focus();
 	}
 
 	private createTray () {
-		this.tray = new Tray(this.icon);
+		this.tray = new Tray(nativeImage.createFromPath(path.join(this.resourceFolder, "icon.png")));
 		const contextMenu = Menu.buildFromTemplate([
-			{"label": "Accueil", "click": () => this.loadUrl(), "icon": this.icon},
-			{"label": "Maintenance", "click": () => this.loadUrl("www/maintenance.html"), "icon": this.settings},
+			{"label": "Accueil", "click": () => this.loadUrl(), "icon": nativeImage.createFromPath(path.join(this.resourceFolder, "icon.png"))},
+			{"label": "Maintenance", "click": () => this.loadUrl("/maintenance.html"), "icon": nativeImage.createFromPath(path.join(this.resourceFolder, "settings.png"))},
 			{"type": "separator"},
 			{"label": "Fermer l'application", "role": "quit"}
 		]);
 		this.tray.setContextMenu(contextMenu);
 		this.tray.setTitle(manifest.name);
+		this.tray.on("click", () => this.loadUrl());
 	}
 
 	private checkUpdate () {
@@ -121,8 +113,8 @@ export class ElectronApp {
 				if (Number.parseInt(packageJson.version.replaceAll(".", ""), 10) > Number.parseInt(json.version.replaceAll(".", ""), 10)) {
 					const notification = new Notification({
 						"title": "Une nouvelle mise à jour est disponible !",
-						"icon": this.icon,
-						"urgency": "critical"
+						"icon": nativeImage.createFromPath(path.join(app.getAppPath(), "/src/img/homeMade/icons/192.png")),
+						"urgency": "normal"
 					});
 					notification.addListener("click", () => {
 						shell.openExternal("https://github.com/auroreLeclerc/auroreCV/releases");
@@ -131,10 +123,11 @@ export class ElectronApp {
 				}
 				else console.info(`Remote is ${json.version}`);
 			}).catch(error => 
-				dialog.showMessageBox(this.window, {
-					"message": `${error.toString()}\nlocale=${typeof packageJson}\nonline=${response.ok}`,
-					"type": "error"
-				})
+				new Notification({
+					"title": `${error.toString()}\nlocale=${typeof packageJson}\nonline=${response.ok}`,
+					"icon": nativeImage.createFromPath(path.join(app.getAppPath(), "/src/img/homeMade/icons/192.png")),
+					"urgency": "critical"
+				}).show()
 			)
 		);
 	}

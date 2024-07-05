@@ -8,8 +8,6 @@
 	"background_color": "#9932CC",
 	"start_url": "/www/index.html",
 	"id": "🏳️‍⚧️",
-	"version": "2.4.0",
-	"changelogs": ["Changement de la congiguration de mise à jour"],
 	"display": "standalone",
 	"orientation": "any",
 	"edge_side_panel": {

@@ -17,12 +17,11 @@ export class HttpRecoveryError extends Error {
 	 * @param {Error[]} errors
 	 */
 	constructor(code, response, url, ...errors) {
-		super();
+		super(`${url} is ${response}.`);
+		this.name = `Recovery Error ${code}`;
+
 		this.#status = code;
 		this.statusText = response;
-
-		this.name = `Recovery Error ${code}`;
-		this.message = `${url} is ${response}.`;
 
 		for (const error of errors) {
 			if (error === null) {
@@ -87,8 +86,7 @@ export class HttpError extends HttpRecoveryError {
 	 */
 	constructor(code, response, url, ...errors) {
 		super(code, response, url, ...errors);
-
-		this.name = `HTTP Error ${code}`;
+		this.name = `HTTP Error ${code}.`;
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
@@ -100,10 +98,8 @@ export class NotFoundError extends Error {
 	 * @param {string} element element
 	 */
 	constructor(element) {
-		super();
-
+		super(element);
 		this.name = "Error Not Found";
-		this.message = element;
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
@@ -115,10 +111,8 @@ export class ArchitectureError extends Error {
 	 * @param {string} message
 	 */
 	constructor(message) {
-		super();
-
+		super(message);
 		this.name = "Architecture Error";
-		this.message = message;
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}
@@ -130,10 +124,8 @@ export class UnknownError extends Error {
 	 * @param {string} message
 	 */
 	constructor(message) {
-		super();
-
+		super(message);
 		this.name = "Unknown Error";
-		this.message = message;
 
 		new DataBaseHelper().start.then(db => db.setAppError(this));
 	}

@@ -27,7 +27,7 @@ if ("share" in navigator || globalThis.mvc.capacitor) {
 		const shareOptions = {
 			title: "Partager le Curriculum vitæ d'Aurore Leclerc",
 			text: "Je t'ai montré le CV d'Aurore Leclerc ?\nRegarde il peut même être installé sur ton appareil (en PWA) !",
-			url: "https://auroreleclerc.github.io/auroreCV/",
+			url: "https://auroreleclerc.github.io/auroreCV/www/index.html",
 		};
 
 		if (globalThis.mvc.capacitor) globalThis.mvc.capacitor.share.share(shareOptions);

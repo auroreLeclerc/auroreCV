@@ -6,14 +6,25 @@ const options: builder.Configuration = {
 	"appId": "gay.aurore.cv",
 	"productName": manifest.name,
 	"artifactName": "${name}_${version}.${ext}",
+	"electronLanguages": ["en", "fr"],
 
 	"directories": {
-		"output": "./out/build/",
-		"buildResources": "./resources/"
+		"output": "./build/",
+		"buildResources": "./resources/electron/",
+		"app": "./www/"
 	},
+	"extraResources": [{
+		"from": "./electron/commonjs/",
+		"to": "./",
+		"filter": "**/*.cjs"
+	}, {
+		"from": "./resources/electron/",
+		"to": "./",
+		"filter": "**/*.png"
+	}],
 
 	"win": {
-		"icon": "./resources/icon.ico",
+		"icon": "./resources/electron/icon.ico",
 		"releaseInfo": {
 			"releaseDate": new Date().toDateString(),
 			"releaseName": "${version}",
@@ -31,12 +42,12 @@ const options: builder.Configuration = {
 		"synopsis": manifest.short_name,
 		"description": manifest.description,
 		"category": manifest.categories[0],
-		"icon": "./resources/icon.icns",
+		"icon": "./resources/electron/icon.icns",
 		"maintainer": packageJson.author,
 		"vendor": manifest.id
 	},
 	"mac": {
-		"icon": "./resources/icon.icns"
+		"icon": "./resources/electron/icon.icns"
 	},
 	"flatpak": {
 		"baseVersion": "23.08",

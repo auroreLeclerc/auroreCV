@@ -14,9 +14,6 @@ self.addEventListener("install", function (/** @type {ExtendableEvent} */ event)
 					response.json().then((/** @type {string[]} */ urls) => {
 						urls.push("./");
 						for (const url of urls) {
-							if (url.endsWith("maintenance.html") || url.endsWith("maintenance.js") || url.endsWith("maintenance.css")) {
-								throw new ArchitectureError("No maintenance file must be saved !");
-							}
 							cache.add(new Request(
 								url, {
 									headers: { "Cache-Control": "no-store" },
@@ -53,6 +50,15 @@ self.addEventListener("fetch", function (/** @type {FetchEvent} */ event) {
 	event.respondWith((() => {
 		if (event.request.url.endsWith("maintenance.html") || event.request.url.endsWith("maintenance.js") || event.request.url.endsWith("maintenance.css")) {
 			return fetch(event.request);
+		}
+		else if (event.request.url.endsWith("capacitor.bundle.js")) {
+			return new Response(JSON.stringify({}), {
+				status: 206,
+				statusText: "Service Worker is installed",
+				headers: {
+					"Content-Type": "text/javascript",
+				},
+			});
 		}
 		let url = event.request.url,
 			request = event.request,

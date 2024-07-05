@@ -6,18 +6,20 @@ import { AndroidShortcuts } from "capacitor-android-shortcuts";
 
 export class CapacitorHelper {
 	constructor() {
-		AndroidShortcuts.setDynamic({
-			items: [{
-				id: "maintenance",
-				shortLabel: "Maintenance",
-				longLabel: "Maintenance",
-				icon: null,
-				data: "maintenance",
-			}],
-		});
-		AndroidShortcuts.addListener("shortcut", response => {
-			window.location.replace("/maintenance.html");
-		});
+		if (Capacitor.getPlatform() === "android") {
+			AndroidShortcuts.setDynamic({
+				items: [{
+					id: "maintenance",
+					shortLabel: "Maintenance",
+					longLabel: "Maintenance",
+					icon: null,
+					data: "maintenance",
+				}],
+			});
+			AndroidShortcuts.addListener("shortcut", response => {
+				window.location.replace("/maintenance.html");
+			});
+		}
 	}
 
 	get device() {

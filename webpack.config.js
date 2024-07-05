@@ -1,4 +1,5 @@
 import path from "node:path";
+import process from "node:process";
 
 /**
  * @type {import("webpack").Configuration}
@@ -10,7 +11,7 @@ export default {
 		outputModule: true,
 	},
 	output: {
-		path: path.resolve(process.cwd(), "www/src/js/out"),
+		path: path.join(process.cwd(), "/www/src/js/bundle/"),
 		filename: "capacitor.bundle.js",
 		library: {
 			type: "module",

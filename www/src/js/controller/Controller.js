@@ -1,5 +1,5 @@
 import { DataBaseHelper } from "../DataBaseHelper.js";
-import { HttpError, HttpRecoveryError, NotFoundError } from "../Errors.js";
+import { ArchitectureError, HttpError, HttpRecoveryError, NotFoundError } from "../Errors.js";
 import { LOCALES, getEmojiPeople } from "../variables.mjs";
 
 /**
@@ -303,15 +303,15 @@ globalThis.mvc = {
 	/**
 	 * @type {CapacitorHelper | null}
 	 */
-	capacitor: await import("../out/capacitor.bundle.js").then(module => {
+	capacitor: await import("../bundle/capacitor.bundle.js").then(module => {
+		if (Object.keys(module).length === 0) return null;
 		const helper = new module.CapacitorHelper();
 		if (!helper.core.isNativePlatform()) {
-			console.error(helper.core.getPlatform());
-			return null;
+			throw new ArchitectureError(helper.core.getPlatform());
 		}
 		return helper;
 	}).catch(error => {
-		console.warn(error);
+		console.error(error);
 		return null;
 	}),
 	models: [],
