@@ -8,7 +8,7 @@ const config: CapacitorConfig = {
 	"backgroundColor": manifest.background_color,
 	"plugins": {
 		"LocalNotifications": {
-		  "smallIcon": "./www/src/img/homeMade/icons/initials.png"
+			"smallIcon": "./www/src/img/homeMade/icons/initials.png"
 		}
 	}
 };

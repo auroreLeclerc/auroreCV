@@ -8,6 +8,12 @@ export class Prettify {
 	 * @description the first letter of the first word can be lowercase, the algo doesn't mind
 	 */
 	#fullTexts = new Map();
+	/**
+	 * @see {Mocha}
+	 */
+	get _fullTexts() {
+		return this.#fullTexts;
+	}
 
 	#initMap() {
 		this.#fullTexts.set("MBTI", "Myers Briggs Type Indicator");
@@ -21,6 +27,7 @@ export class Prettify {
 		this.#fullTexts.set("BTP", "Business Technology Platform");
 		this.#fullTexts.set("RPA", "Robotic Process Automation");
 		this.#fullTexts.set("iRPA", "intelligent Robotic Process Automation");
+		this.#fullTexts.set("RPA", "Robotic Process Automation");
 		this.#fullTexts.set("SBPA", "SAP Business Process Automation");
 		this.#fullTexts.set("SDK", "Software Development Kit");
 		this.#fullTexts.set("JS", "Java Script");
@@ -34,6 +41,7 @@ export class Prettify {
 		this.#fullTexts.set("UML", "Unified Modeling Language");
 		this.#fullTexts.set("VBA", "Visual Basic for Applications");
 		this.#fullTexts.set("UPJV", "Université de Picardie Jules-Verne");
+		this.#fullTexts.set("UTT", "Université de Technologie de Troyes");
 	}
 
 	constructor() {

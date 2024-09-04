@@ -64,7 +64,7 @@ main ul {
 	padding-left: 0;
 }
 
-main section#skills article div ul li {
+main section#skills article div ul li, main section#experience article div ul li {
 	list-style: none;
 	display: block;
 }
@@ -162,6 +162,11 @@ main section#experience h1::after {
 
 main section#experience article div img {
     max-height: 4em;
+}
+
+main section#experience article div ul li::before{
+	content: "\2794";
+	margin-right: 0.25em;
 }
 
 /* section#skills */

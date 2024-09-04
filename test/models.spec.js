@@ -1,5 +1,7 @@
 import * as fs from "node:fs";
+import expect from "expect.js";
 import assert from "node:assert";
+import { Prettify } from "../www/src/js/model/Prettify.js";
 
 describe("MVC", function () {
 	context("Model", function () {
@@ -13,6 +15,18 @@ describe("MVC", function () {
 				const module = await import(`../www/src/js/model/${model}`);
 				const names = Object.keys(module);
 				assert.deepStrictEqual(names.length, 1);
+			}
+		});
+	});
+	context("Prettify", function () {
+		it.skip("Are accordions bloated ?", function () {
+			global.document = {
+				getElementsByClassName: () => [],
+			};
+			const accordions = (new Prettify())._fullTexts;
+			const html = fs.readFileSync(`./www/src/view/home.html`, "utf8");
+			for (const acronym of accordions.keys()) {
+				expect(html).to.contain(`<span class="accordion prettify-js">${acronym}</span>`);
 			}
 		});
 	});

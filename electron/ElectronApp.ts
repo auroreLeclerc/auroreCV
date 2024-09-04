@@ -66,9 +66,9 @@ export class ElectronApp {
 
 		Menu.setApplicationMenu(Menu.buildFromTemplate([
 			{"label": "Naviguer", "submenu": [
-				{"label": "⬅️", "click": () => this.window.webContents.goBack()},
+				{"label": "⬅️", "click": () => this.window.webContents.navigationHistory.goBack()},
 				{"label": "🔄", "role": "reload"},
-				{"label": "➡️", "click": () => this.window.webContents.goForward()}
+				{"label": "➡️", "click": () => this.window.webContents.navigationHistory.goForward()}
 			]},
 			{"type": "separator"},
 			{"label": "À propos", "role": "about"},

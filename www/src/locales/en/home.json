@@ -1,9 +1,9 @@
 {
 	"years": "years old",
 	"town1": "Saint-Leu-la-Forêt (95320) (FR)",
-	"town2": "Amiens (80000) (FR)",
 	"degrees": "DEGREES",
 	"apprenticeship": "Apprenticeship",
+	"mastère": "<h4>Advanced Master's Degree in Cyber Security</h4>, at the <span class='accordion prettify-js'>UTT</span> university in Troyes (10000) (France).",
 	"master": "<h4>Master’s Degree in Computer Science with Digital Health course</h4>, at the <span class='accordion prettify-js'>UPJV</span> university in Amiens (80000) (France) at the Saint-Leu campus of Science.",
 	"bachelor": "<h4>Bachelor’s Degree in Computer Methods Applied to Business Management</h4>, at the Paris V university in Paris (75016) (France) at the Banks of the Seine campus.",
 	"technical": "<h4>Technical Degree in Computer Science (Two year)</h4>, at the Paris XIII university in Villetaneuse (93430) (France).",
