@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import manifest from "./www/manifest.json" with { type: "json" };
 import assert from "node:assert";
 
