@@ -1,0 +1,11 @@
+{
+	"extends": "@tsconfig/node-lts/tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./mocha",
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"sourceMap": true,
+		"module": "NodeNext"
+	},
+	"exclude": ["node_modules", "www", "mocha"]
+}

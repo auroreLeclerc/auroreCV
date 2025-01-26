@@ -1,0 +1,13 @@
+{
+	"name": "@aurore-cv/electron",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"build:electron": "npm run clean; npx tsc -b tsconfig.json; node ./www/src/js/ts/electron/builder.js",
+		"clean": "rm -r ./build/; rm -r ./android/; rm -r ./www/src/js/bundle/; rm -r ./www/src/js/ts/"
+	},"devDependencies": {
+		"electron": "^33.2.1",
+		"electron-builder": "^25.1.8"
+	}
+}

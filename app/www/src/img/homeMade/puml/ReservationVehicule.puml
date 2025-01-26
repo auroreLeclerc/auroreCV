@@ -1,0 +1,80 @@
+@startuml ReservationVehicule
+!theme amiga
+package	reservation.udp {
+	abstract Udp {
+		#socket: DatagramSocket
+		#data: DatagramPacket
+		#size: int
+		#input: String
+	}
+	class Sender extends Udp {
+		+run(): DatagramPacket
+	}
+	class Request extends Udp {
+		+run(): String
+	}
+	class Receiver extends Udp {
+		+run(): DatagramPacket
+	}
+}
+package reservation.client {
+	class Client {
+		-socket: DatagramSocket
+		-size: int
+		-input: String
+		-ip: String
+		-port: int
+		+run()
+	}
+	Client *-- reservation.udp.Sender
+	Client *-- reservation.udp.Receiver
+	class Launcher {
+		-{static}PORT = 8532
+		-{static}IP = "127.0.0.1"
+		-{static}SIZE = 1024
+		+{static}main(argv[]: String)
+	}
+	Launcher *-- reservation.udp.Request
+	Launcher o-- Client
+}
+package reservation.server.usine {
+	class Ouvrier {
+		-{static}voiture: Voiture
+		-index: int
+		+preparer(): String
+		+sortir(): String
+		+rentrer(): String
+		+vendre(): String
+	}
+	class Voiture {
+		-index: int
+		-disponible: boolean
+		-prepare: boolean
+		-sorti: boolean
+		-vendu: boolean
+		-tempsPreparation: Integer
+	}
+	Ouvrier -- "0..1" Voiture
+}
+package reservation.server {
+	class Server <? extends java.lang.Thread> {
+		-socket: DatagramSocket
+		-data: DatagramPacket
+		-{static}voitures: ArrayList<Voiture>
+		+{@Override}run()
+		-requestedData(received: String): String
+	}
+	Server o-- "0..15" Ouvrier
+	Server o-- "15" Voiture
+	Server *-- reservation.udp.Sender
+	Server *-- reservation.udp.Receiver
+	class Launcher {
+		-{static}PORT = 8532
+		-{static}IP = "127.0.0.1"
+		-{static}TAILLE = 1024
+		+{static}main(argv[]: String)
+	}
+	Launcher o-- Server
+}
+reservation.client.Launcher .. reservation.server.Launcher : "Network"
+@enduml

@@ -1,0 +1,30 @@
+@startuml CovoituragePeriurbain
+!theme amiga
+|Sans Authentification|
+start
+:Créer un compte PUT /account;
+:Se connecter POST /account;
+if (isValid?) then (yes)
+	:Bearer acquis;
+else (no)
+	stop
+endif
+|Authentification avec Bearer|
+if (rôle?) is (passenger) then
+	partition "Passenger" {
+		:Compléter son rôle PATCH /account;
+		:Trouver un trajet POST /match;
+		:S'inscrire au trajet PATCH /travel;
+		:Finir le trajet DELETE /state;
+		end
+	}
+else (driver)
+	partition "Driver" {
+		:Compléter son rôle PATCH /account;
+		:Créer un trajet PUT /travel;
+		:Commencer le trajet PATCH /state;
+		:Finir le trajet DELETE /state;
+		end
+	}
+endif
+@enduml

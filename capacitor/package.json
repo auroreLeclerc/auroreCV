@@ -1,0 +1,25 @@
+{
+	"name": "@aurore-cv/capacitor",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"open:capacitor": "export CAPACITOR_ANDROID_STUDIO_PATH=/usr/bin/android-studio; npm run clean; npx cap add android; npx webpack; npx capacitor-assets generate --android --assetPath ./resources/capacitor; npx cap sync android; npx cap open android",
+		"clean": "rm -r ./build/; rm -r ./android/; rm -r ./www/src/js/bundle/; rm -r ./www/src/js/ts/"
+	},"devDependencies": {
+		"@capacitor/assets": "^3.0.5",
+		"@capacitor/cli": "^6.2.0",
+		"@types/webpack": "^5.28.5",
+		"webpack": "^5.97.1",
+		"webpack-cli": "^5.1.4"
+	},
+	"dependencies": {
+		"@capacitor/android": "^6.2.0",
+		"@capacitor/core": "^6.2.0",
+		"@capacitor/device": "^6.0.2",
+		"@capacitor/local-notifications": "^6.1.1",
+		"@capacitor/share": "^6.0.3",
+		"@capacitor/status-bar": "^6.0.2",
+		"capacitor-android-shortcuts": "^6.0.2"
+	}
+}

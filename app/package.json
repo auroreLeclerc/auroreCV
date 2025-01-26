@@ -1,0 +1,20 @@
+{
+	"name": "@aurore-cv/app",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"localhost": "http-server ./../",
+		"populate-pwa": "pwa-asset-generator ./www/src/img/homeMade/CV.svg ./www/src/img/homeMade/icons/pwa -a '.' -i ./www/pwa.html -b 'linear-gradient(to bottom right, #e830c9, #3b3be8)' -m ./www/manifest.json -p '16% 16%' -f -w",
+		"populate-cache": "cd www; git ls-files --cached --others --exclude-standard | grep -E -v 'maintenance|jsconfig|node_modules|package-lock' | jq -R -s 'split(\"\n\") | map(select(. != \"\"))'> ./src/json/cache.json; cd ..",
+		"populate": "npm run populate-pwa; npm run populate-cache"
+	},
+	"devDependencies": {
+		"@types/serviceworker": "^0.0.108",
+		"@types/web": "^0.0.188",
+		"http-server": "^14.1.1",
+		"pwa-asset-generator": "^6.4.0",
+		"stylelint": "^16.12.0",
+		"stylelint-config-standard": "^36.0.1"
+	}
+}

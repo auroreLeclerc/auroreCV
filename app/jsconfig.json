@@ -1,0 +1,15 @@
+{
+	"extends": "@tsconfig/recommended/tsconfig.json",
+	"compilerOptions": {
+		"checkJs": true,
+		"target": "ES6",
+		"module": "es2020",
+		"strictNullChecks": false,
+		"lib": ["DOM", "WebWorker"],
+		"paths": {
+			"@capacitor/device": ["../node_modules/@capacitor/device/dist/esm/index.d.ts"],
+			"stylelint": ["../node_modules/stylelint/types/stylelint/index.d.ts"]
+		}
+	},
+	"exclude": ["www/src/js/ts/", "www/src/js/bundle/"]
+}

@@ -1,0 +1,16 @@
+{
+	"name": "@aurore-cv/test",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"mocha": "npx tsc; npx mocha ./mocha/",
+		"test": "npm run mocha; eslint ../; stylelint ./../app/www/**/*.css"
+	},
+	"devDependencies": {
+		"@types/expect.js": "^0.3.32",
+		"@types/mocha": "^10.0.10",
+		"expect.js": "^0.3.1",
+		"mocha": "^11.0.1"
+	}
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="book.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Book</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="0.6826622"
+     inkscape:cx="18.310667"
+     inkscape:cy="425.53989"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1"
+     showguides="false" />
+  <defs
+     id="defs1" />
+  <path
+     id="rect1-7-55-7-4-7"
+     style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:16.6502;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:label="book"
+     d="m 191.64397,52.528557 c 29.59654,38.150731 56.03094,92.692913 56.03092,121.823313 V 493.5057 C 237.54253,462.08948 222.30565,410.52814 192.70913,372.37741 163.11262,334.2267 145.57679,347.89213 138.05474,352.66792 V 36.195942 c 0,-29.1304665 23.99271,-21.818103 53.58923,16.332615 z M 89.293384,45.421455 C 72.649853,44.595734 62.35599,51.294652 62.35599,65.716095 V 379.06352 c 12.909544,-6.35808 41.17652,-26.79926 91.97088,4.56363 49.86598,30.78968 76.04,80.79644 93.34802,109.87855 C 237.62235,461.84186 221.37741,409.3316 192.70913,372.37741 163.11262,334.2267 145.57679,347.89213 138.05474,352.66792 V 61.661936 C 118.76272,51.577021 102.53449,46.078374 89.293384,45.421455 Z M 62.35599,87.680088 C 29.848041,88.947828 8.325105,99.778408 8.325116,118.23587 v 315.77559 c 16.701561,-10.2647 53.27179,-39.31187 118.986314,-22.88324 65.71451,16.42863 120.36346,82.37748 120.36346,82.37748 h 16.65024 c 0,0 -59.2039,-78.86469 -109.99826,-110.22759 C 103.5325,351.91522 75.265534,372.35856 62.35599,378.71664 Z M 320.35604,52.528556 C 290.7595,90.679288 264.3251,145.22147 264.32513,174.35187 V 493.5057 c 10.13236,-31.41622 25.36924,-82.97756 54.96575,-121.12829 29.59651,-38.15071 47.13234,-24.48528 54.6544,-19.70949 V 36.195941 c 0,-29.1304665 -23.99272,-21.818103 -53.58924,16.332615 z m 102.35057,-7.107102 c 16.64353,-0.825721 26.9374,5.873197 26.9374,20.29464 V 379.06352 c -12.90955,-6.35808 -41.17652,-26.79926 -91.97087,4.56363 -49.86598,30.78968 -76.04001,80.79644 -93.34803,109.87855 10.05256,-31.66384 26.29749,-84.1741 54.96577,-121.12829 29.59651,-38.15071 47.13234,-24.48528 54.6544,-19.70949 V 61.661935 C 393.2373,51.57702 409.4655,46.078373 422.70661,45.421454 Z m 26.9374,42.258634 c 32.50795,1.26774 54.03089,12.09832 54.03087,30.555782 v 315.77559 c -16.70155,-10.2647 -53.27178,-39.31187 -118.9863,-22.88324 -65.7145,16.42863 -120.36345,82.37748 -120.36345,82.37748 h -16.65024 c 0,0 59.20388,-78.86469 109.99826,-110.22759 50.79436,-31.36289 79.06131,-10.91955 91.97086,-4.56147 z"
+     sodipodi:nodetypes="sccscsssscscsccscccssssccsccscsssscscsccscccsssscc" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:date>2025</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aurore Leclerc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:title>Book</dc:title>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

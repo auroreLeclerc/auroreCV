@@ -1,0 +1,146 @@
+/* It targets only the app used within the browser */
+@media (display-mode: browser) {
+	section#debug span#display-mode::after {
+		content: "browser";
+	}
+}
+
+/* It targets only the app used with a system icon in standalone mode */
+@media (display-mode: standalone) {
+	:root {
+		overscroll-behavior-y: contain;
+	}
+
+	.ios {
+		display: none !important;
+	}
+
+	section#debug span#display-mode::after {
+		content: "standalone";
+	}
+}
+
+/* It targets only the app used with a system icon in all mode */
+@media (display-mode: fullscreen), (display-mode: minimal-ui) {
+	section#debug span#display-mode::after {
+		content: "fullscreen / minimal-ui";
+	}
+}
+
+a {
+	text-decoration: none;
+	border-bottom-width: 2px;
+	border-bottom-style: dashed;
+}
+
+p a {
+	border-bottom-width: 1px;
+}
+
+a img {
+	padding-bottom: 2px;
+}
+
+a:active, a:link, a:visited {
+	border-bottom-style: dashed;
+}
+
+a:hover {
+	border-bottom-style: solid;
+}
+
+.ios {
+	display: none;
+}
+
+.ios.prompt {
+	position: sticky;
+	bottom: 15px;
+	width: calc(100% - 1em - 30px);
+	padding: 1em;
+	border-radius: 1em;
+	border: darkorchid 2px solid;
+}
+
+.ios.prompt .grid {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 3em auto;
+}
+
+.ios.prompt .grid img {
+	max-height: 3em;
+	max-width: 2em;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root, .prompt {
+		background-color: hsl(204deg 6% 20%);
+		color: white;
+	}
+
+	a {
+		color: white;
+		border-bottom-color: hsl(204deg 6% 90%);
+	}
+
+	h1 {
+		color: hsl(204deg 6% 90%);
+	}
+
+	.button {
+		color: white;
+	}
+
+	.white-theme {
+		display: none;
+	}
+
+	.force-theme {
+		filter: invert(0%);
+	}
+
+	.white-bg {
+		background-color: white;
+	}
+
+	main header#informations article ul li.github::before {
+		background-image: url("../img/registeredTrademark/Github_white.svg") !important;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	:root, .prompt {
+		background-color: hsl(204deg 6% 90%);
+		color: black;
+	}
+
+	a {
+		color: black;
+		border-bottom-color: hsl(204deg 6% 20%);
+	}
+	
+	h1 {
+		color: hsl(204deg 6% 20%)
+	}
+
+	.button {
+		color: black;
+	}
+
+	.black-theme {
+		display: none;
+	}
+
+	.force-theme {
+		filter: invert(100%);
+	}
+
+	.black-bg {
+		background-color: black;
+	}
+
+	main header#informations article ul li.github::before {
+		background-image: url("../img/registeredTrademark/Github_black.svg") !important;
+	}
+}

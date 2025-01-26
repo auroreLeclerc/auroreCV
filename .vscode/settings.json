@@ -1,7 +1,3 @@
 {
-    "eslint.useFlatConfig": true,
-    "npm.exclude": [
-        "**/www/**",
-        "**/build/**",
-    ],
+    "eslint.useFlatConfig": true
 }

@@ -24,10 +24,10 @@ const electronExposed = {
 
 contextBridge.exposeInMainWorld("electron", electronExposed);
 
-navigation.addEventListener("navigate", event => {
-	const url = new URL(event.destination.url);
-	if ((url.pathname.endsWith("/") || url.pathname.endsWith("\\")) && url.origin === "file://") {
-		url.pathname += "index.html";
-		navigation.navigate(url.toString()).finished;
-	}
-});
+// window.navigation.addEventListener("navigate", event => {
+// 	const url = new URL(event.destination.url);
+// 	if ((url.pathname.endsWith("/") || url.pathname.endsWith("\\")) && url.origin === "file://") {
+// 		url.pathname += "index.html";
+// 		window.navigation.navigate(url.toString()).finished;
+// 	}
+// });

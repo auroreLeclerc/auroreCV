@@ -1,7 +1,8 @@
 android/
 build/
-www/src/js/ts/
-www/src/js/bundle/
+app/www/src/js/ts
+app/www/src/js/bundle
+test/mocha
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,yarn,visualstudiocode
 

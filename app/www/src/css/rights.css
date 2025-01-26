@@ -1,0 +1,23 @@
+article div.mosaic {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+article div.mosaic img {
+	max-height: 5em;
+	max-width: 10em;
+}
+
+article#licence .flex-center a img {
+	max-height: 1em;
+}
+
+main article h3 {
+	font-weight: normal;
+}
+
+main article h3 a {
+	border-bottom-width: 1px;
+}

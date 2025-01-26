@@ -5,5 +5,5 @@
 		"lib": ["DOM"],
 		"strictNullChecks": false,
 		"checkJs": true
-	},
+	}
 }

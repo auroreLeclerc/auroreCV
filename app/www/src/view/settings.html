@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<title locale="title">Paramètres de Curriculum vitæ</title>
+		<link rel="stylesheet" type="text/css" href="./src/css/settings.css">
+	</head>
+	<body>
+		<main>			
+			<!-- <h1 id="languages">
+				<span locale="language">Langue :</span>
+				<span class="button" id="auto">🇺🇳</span>
+				<span class="button" id="fr">🇫🇷</span>
+				<span class="button" id="en">🇬🇧</span>
+			</h1>
+
+			<div class="separator vertical"></div> -->
+
+			<h2 class="flex-center service-worker">
+				<div><span locale="local">Version de l'application local 📲 : </span><span id="local">
+					<progress></progress>
+				</span></div>
+				<div><span locale="online">Version de l'application distante 🌐 : </span><span id="online">
+					<progress></progress>
+				</span></div>
+			</h2>
+			<h2 class="flex-center service-worker" id="update">
+				<progress></progress>
+			</h2>
+			<h3 class="flex-center service-worker" id="changelogs">
+				<ul>
+					<li class="title" locale="new">La nouvelle version apporte :</li>
+				</ul>
+			</h3>
+			<h3 class="flex-center service-worker">
+				<div>
+					<input type="checkbox" id="notificationEnable" name="notificationEnable">
+					<label for="notificationEnable" locale="update">M'avertir par notification lors d'une mise à jour</label>
+				</div>
+				<div>
+					<input type="checkbox" id="autoUpdateEnable" name="autoUpdateEnable">
+					<label for="autoUpdateEnable" locale="autoUpdate">Automatiquement mettre à jour l'application</label>
+				</div>
+			</h3>
+
+			<div class="separator vertical service-worker"></div>
+
+			<h4 class="center service-worker"><span locale="changelogs">La version actuelle a apportée : </span><span id="currentChangeslogs">
+				<progress></progress>
+			</span></h4>
+
+			<div class="separator vertical service-worker"></div>
+
+			<h4 class="flex-center service-worker">
+				<div locale="offline">⚠️ Si vous effacez le cache, pendant que vous êtes hors ligne ✈️ alors l'application locale ne sera plus disponible</div>
+				<div locale="cache">⚠️ Si vous effacez le cache, le Service Worker (ce qui permet l'accès hors ligne) sera inatteignable 📦 tant que vous ne retournez pas à l'accueil</div>
+			</h4>
+			<h1 class="flex-center service-worker">
+				<span class="button" id="deleteCache" title="Et désinstaller le Service Worker" locale="delete">Effacer le cache</span>
+			</h1>
+
+			<div class="separator vertical service-worker"></div>
+
+			<h2 class="flex-center">
+				<span>
+					<input type="checkbox" id="debugEnable" name="debugEnable">
+					<label for="debugEnable" locale="debug">Activer le mode debug</label>
+				</span>
+			</h2>
+			<section id="debug">
+				<table>
+					<caption>Configuration :</caption>
+					<thead>
+						<tr>
+							<th>Key</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody id="config">
+					</tbody>
+				</table>
+				<table>
+					<caption>Erreurs d'éxécution :</caption>
+					<thead>
+						<tr>
+							<th>Erreur</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody id="errors">
+					</tbody>
+				</table>
+				<table>
+					<caption>Manifeste PWA :</caption>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody id="manifest">
+					</tbody>
+				</table>
+				<p>
+					<span id="display-mode">display-mode: </span>
+				</p>
+				<p>
+					Service Worker: 
+					<span id="serviceWorker">🚫</span>
+				</p>
+				<div id="electron-info" style="display: none;">
+					<p>Node.JS: <span id="node">🚫</span></p>
+					<p>Chromium: <span id="chrome">🚫</span></p>
+					<p>Electron: <span id="electron">🚫</span></p>
+				</div>
+				<div id="capacitor-info" style="display: none;">
+					<p id="os">🚫</p>
+					<p id="phone">🚫</p>
+				</div>
+				<p class="button" id="resetConfig">Réinitialiser la configuration</p>
+			</section>
+		</main>
+		<script type="module" src="./src/js/model/Settings.js"></script>
+	</body>
+</html>

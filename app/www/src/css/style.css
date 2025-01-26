@@ -1,0 +1,170 @@
+@import url("./liberation.css");
+@import url("./pwa.css");
+
+:root {
+	accent-color: darkorchid;
+	font-family: LiberationSans, sans-serif;
+
+	/* font-family: LiberationSerif, sans-serif;
+	font-family: LiberationMono, sans-serif; */
+}
+
+html, body {
+	min-height: calc(100vh - 18px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+table, td, th {
+	border: 1px solid purple;
+}
+table {
+	border-collapse: collapse;
+}
+table caption {
+	margin-bottom: 0.125em;
+	text-decoration: underline;
+}
+
+div.separator {
+	width: 0;
+	padding: 0;
+	height: auto;
+	align-self: stretch;
+	border-width: 0; /* chrome mobile workaround */
+	border-left-width: 4px; /* otherwise empty separator */
+	border-style: solid;
+	border-color: purple;
+	border-radius: 4px;
+	margin: 0 10px;
+}
+
+div.separator.vertical {
+	border-width: 0; /* chrome mobile workaround */
+	border-bottom-width: 4px; /* otherwise empty separator */
+	width: 95%;
+	height: 0;
+	margin: 10px 2.5%;
+}
+
+.center {
+	text-align: center;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.flex-center {	
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+}
+
+.first {
+	order: -1;
+}
+
+button.button {
+    border-style: none;
+}
+.button {
+	position: relative;
+	cursor:pointer;
+	background: linear-gradient(to bottom right, hsl(256deg 100% 65%), hsl(240deg 79% 57%));
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	display: inline-block;
+	border-radius: 10px;
+	z-index: 1;
+}
+.button::before {
+	position: absolute;
+	content: "";
+	border-radius: 10px;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(to bottom right, hsl(340deg 100% 63%), hsl(310deg 80% 55%));
+	z-index: -1;
+
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-out;
+}
+.button:hover::before {
+	opacity: 1;
+}
+
+/* div.pretty-triangles */
+
+main div.pretty-triangles, main div.pretty-triangles span.top, main div.pretty-triangles span.bottom {
+	position: absolute;
+}
+
+main div.pretty-triangles {
+	height: 15em;
+	width: 15em;
+	z-index: -99;
+}
+
+/* @media (orientation: portrait) {
+	main div.pretty-triangles {
+		height: 50vw;
+		width: 50vw;
+	}
+} */
+
+/* div.pretty-triangles.top */
+
+main div.pretty-triangles.top {
+	left: 0;
+	top: 5px;
+}
+
+main div.pretty-triangles.top span.top, main div.pretty-triangles.top span.bottom {
+	left: 0;
+	top: 0;
+}
+
+main div.pretty-triangles.top span.top {
+	height: 100%;
+	width: 50%;
+	background: linear-gradient(to top left, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(240deg 79% 57%) 50%, hsl(256deg 100% 65%) 100%);
+}
+
+main div.pretty-triangles.top span.bottom {
+	height: 50%;
+	width: 100%;
+	background: linear-gradient(to top left, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(310deg 80% 55%) 50%, hsl(340deg 100% 63%) 100%);
+}
+
+/* div.pretty-triangles.bottom */
+
+main div.pretty-triangles.bottom {
+	right: 0;
+	bottom: 5px;
+}
+
+main div.pretty-triangles.bottom span.top, main div.pretty-triangles.bottom span.bottom {
+	right: 0;
+	bottom: 0;
+}
+
+main div.pretty-triangles.bottom span.top {
+	height: 100%;
+	width: 50%;
+	background: linear-gradient(to bottom right, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(256deg 100% 65%) 50%, hsl(240deg 79% 57%) 100%);
+}
+
+main div.pretty-triangles.bottom span.bottom {
+	height: 50%;
+	width: 100%;
+	background: linear-gradient(to bottom right, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 0%) 50%, hsl(340deg 100% 63%) 50%, hsl(310deg 80% 55%) 100%);
+}

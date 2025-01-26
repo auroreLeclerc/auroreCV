@@ -1,0 +1,54 @@
+main {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+}
+
+.flex-center > * {
+    max-width: 40%;
+}
+
+h3#changelogs {
+    margin-top: 0;
+    border: 1px solid purple;
+    border-radius: 1em;
+    display: none;
+}
+
+h3#changelogs ul li.title {
+    list-style-type: square;
+}
+
+h3#changelogs ul li:not(li.title) {
+    margin-left: 2em;
+}
+
+section#debug {
+    /* display: flex; */
+    display: none;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+section#debug table {
+    margin: 0.5em;
+}
+
+h1#languages {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+h1#languages > span.selected {
+    position: relative;
+}
+h1#languages > span.selected::before {
+	position: absolute;
+	content: "\27A4";
+	left: 50%;
+	bottom: -150%;
+	transform: translate(-50%, -50%) rotate(0.75turn);
+}
