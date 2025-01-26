@@ -7,7 +7,7 @@
   "dir": "ltr",
   "theme_color": "#9932CC",
   "background_color": "#9932CC",
-  "start_url": "./index.html",
+  "start_url": "/auroreCV/index.html",
   "id": "🏳️‍⚧️",
   "display": "standalone",
   "orientation": "any",
