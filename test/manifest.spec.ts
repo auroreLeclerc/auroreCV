@@ -8,14 +8,11 @@ describe("manifest.json", function () {
 			assert.ok(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/.test(manifest.version));
 		});
 	});
-	context.skip("Continuity", function () {
-		let packageJson: any;
-		before(function() {
-			packageJson = readFileSync("../package.json");
-		});
+	context("Continuity", function () {
 		it("V4 upgrade bypass removed", function () {
-			assert.ok(typeof packageJson.version !== "string");
-			assert.ok(!Array.isArray(packageJson.changelogs));
+			const packageJson = JSON.parse(readFileSync("../app/package.json").toString());
+			assert.strictEqual(packageJson.version, "1.0.0");
+			assert.ok(typeof packageJson.changelogs === "undefined");
 		});
 	});
 });

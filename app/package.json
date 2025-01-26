@@ -1,7 +1,13 @@
 {
 	"name": "@aurore-cv/app",
 	"type": "module",
-	"version": "1.0.0",
+	"version": "4.0.0",
+	"changelogs": [
+	  "Réusinage de code",
+	  "Ajout de la page de portfolio",
+	  "Postpone de la traduction",
+	  "Postpone de build Electron/Capacitor"
+	],
 	"private": true,
 	"scripts": {
 		"localhost": "http-server ./../",
