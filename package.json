@@ -3,6 +3,13 @@
 	"description": "Mon curriculum vitæ, de moi même Aurore Leclerc, en version web avec une implémentation en Electron.",
 	"repository": "git@github.com:auroreLeclerc/auroreCV.git",
 	"main": "./index.js",
+	"version": "4.0.0",
+	"changelogs": [
+	  "Réusinage de code",
+	  "Ajout de la page de portfolio",
+	  "Postpone de la traduction",
+	  "Postpone de build Electron/Capacitor"
+	],
 	"workspaces": [
 		"./app/",
 		"./capacitor/",
