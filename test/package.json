@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"mocha": "npx tsc; npx mocha ./mocha/",
+		"mocha": "npx tsc; npx mocha ./mocha/; rm -r ./mocha",
 		"test": "npm run mocha; eslint ../; stylelint ./../app/www/**/*.css"
 	},
 	"devDependencies": {
