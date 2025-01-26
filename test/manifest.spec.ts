@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import manifest from "./www/manifest.json" with { type: "json" };
 import assert from "node:assert";
 
@@ -9,10 +9,8 @@ describe("manifest.json", function () {
 		});
 	});
 	context("Continuity", function () {
-		it("V4 upgrade bypass removed", function () {
-			const packageJson = JSON.parse(readFileSync("../app/package.json").toString());
-			assert.strictEqual(packageJson.version, "1.0.0");
-			assert.ok(typeof packageJson.changelogs === "undefined");
+		it("V3 to V4 bypass removed", function () {
+			assert.ok(!existsSync("../www/package.json"));
 		});
 	});
 });
