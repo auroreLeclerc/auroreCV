@@ -25,14 +25,14 @@
     {
       "src": "./src/img/homeMade/screenshots/screenshot_android_light.webp",
       "type": "image/webp",
-      "sizes": "1080x2340",
+      "sizes": "1080x2280",
       "form_factor": "narrow",
       "label": "Aperçu sur Android en portrait avec le thème clair."
     },
     {
       "src": "./src/img/homeMade/screenshots/screenshot_android_dark.webp",
       "type": "image/webp",
-      "sizes": "1080x2340",
+      "sizes": "1080x2280",
       "form_factor": "narrow",
       "label": "Aperçu sur Android en portrait avec le thème sombre."
     },
