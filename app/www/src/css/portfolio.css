@@ -34,12 +34,9 @@ article section#rtc iframe {
 	width: 40em;
 }
 
-article section#reservation img {
+article section img {
 	max-height: 30em;
-}
-
-article section#covoiturage img {
-	max-height: 30em;
+	max-width: 50em;
 }
 
 @media (orientation: portrait) {
