@@ -10,11 +10,11 @@
 		"populate": "npm run populate-pwa; npm run populate-cache"
 	},
 	"devDependencies": {
-		"@types/serviceworker": "^0.0.116",
-		"@types/web": "^0.0.198",
+		"@types/serviceworker": "^0.0.149",
+		"@types/web": "^0.0.261",
 		"http-server": "^14.1.1",
-		"pwa-asset-generator": "^6.4.0",
-		"stylelint": "^16.14.0",
-		"stylelint-config-standard": "^37.0.0"
+		"pwa-asset-generator": "^8.0.5",
+		"stylelint": "^16.23.1",
+		"stylelint-config-standard": "^39.0.0"
 	}
 }

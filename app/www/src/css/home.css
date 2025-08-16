@@ -118,7 +118,7 @@ main header#informations article#my-informations ul {
 main header#informations article#my-informations ul li {
 	margin: 0.5em 0;
 	display: block;
-    overflow-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 main header#informations article ul li.linkedin::before {
@@ -165,8 +165,12 @@ main section#experience article div img {
     max-height: 4em;
 }
 
+main section#experience article div ul li:first-child::before{
+	content: "➔";
+}
+
 main section#experience article div ul li::before{
-	content: "\2794";
+	content: "→";
 }
 
 /* section#skills */

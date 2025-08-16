@@ -16,13 +16,11 @@ export class Prettify {
 		MIG: "Maths Informatique et Gestion",
 		SVT: "Sciences de la Vie et de la Terre",
 		ISN: "Informatique et Sciences du Numérique",
-		// BPI: "Business Process Intelligence",
-		// BTP: "Business Technology Platform",
 		RPA: "Robotic Process Automation",
-		// iRPA: "intelligent Robotic Process Automation",
 		SBPA: "SAP Business Process Automation",
 		SDK: "Software Development Kit",
 		JS: "Java Script",
+		TS: "Type Script",
 		JEE: "Jakarta Enterprise Edition",
 		HTML: "Hyper Text Markup Language",
 		CSS: "Cascading Style Sheets",
@@ -35,6 +33,7 @@ export class Prettify {
 		PM: "Product Manager",
 		QA: "Quality Analyst",
 		MUI: "Material User Interface",
+		SGBD: "Système de Gestion de Base de Données",
 	};
 
 

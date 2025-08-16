@@ -7,7 +7,7 @@
 		"build:electron": "npm run clean; npx tsc -b tsconfig.json; node ./www/src/js/ts/electron/builder.js",
 		"clean": "rm -r ./build/; rm -r ./android/; rm -r ./www/src/js/bundle/; rm -r ./www/src/js/ts/"
 	},"devDependencies": {
-		"electron": "^34.0.1",
-		"electron-builder": "^25.1.8"
+		"electron": "^37.2.6",
+		"electron-builder": "^26.0.12"
 	}
 }

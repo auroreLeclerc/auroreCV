@@ -1,5 +1,5 @@
 import * as builder from "electron-builder";
-import manifest from "./www/manifest.json" assert { type: "json" };
+import manifest from "./www/manifest.json" with { type: "json" };
 
 const options: builder.Configuration = {
 	appId: "gay.aurore.cv",
