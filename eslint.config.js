@@ -36,7 +36,7 @@ const
 	 * @type {import("eslint").Linter.Config}
 	 */
 	stylisticConfig = {
-		...stylistic.configs["recommended-flat"],
+		...stylistic.configs["recommended"],
 		plugins: {
 			// @ts-ignore
 			"@stylistic": stylistic,
@@ -67,9 +67,6 @@ const
 		},
 	};
 
-/**
- * @type {import("eslint").Linter.Config[]}
- */
 export default [
 	// @ts-ignore
 	...markdown.configs.recommended,
@@ -102,12 +99,12 @@ export default [
 		rules: {
 			...tseslintConfig.rules,
 			...stylisticConfig.rules,
-			...mochaPlugin.configs.flat.recommended.rules,
+			...mochaPlugin.configs.flat,
 		},
 		plugins: {
 			...tseslintConfig.plugins,
 			...stylisticConfig.plugins,
-			...mochaPlugin.configs.flat.recommended.plugins,
+			...mochaPlugin.configs.flat,
 		},
 	}, 	{
 		files: ["**/*.js", "**/*.mjs"],

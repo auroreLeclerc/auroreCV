@@ -11,7 +11,7 @@
 	},
 	"devDependencies": {
 		"@types/serviceworker": "^0.0.149",
-		"@types/web": "^0.0.261",
+		"@types/web": "^0.0.262",
 		"http-server": "^14.1.1",
 		"pwa-asset-generator": "^8.0.5",
 		"stylelint": "^16.23.1",
